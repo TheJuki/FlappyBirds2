@@ -63,7 +63,7 @@ public class Pipe extends Scrollable {
 		// Call the reset method in the superclass (Scrollable)
 		super.reset(newX);
 		// Change the height to a random number
-		height = r.nextInt(90) + 15;
+		height = r.nextInt(30) + 15;
 		isScored = false;
 	}
 
@@ -89,12 +89,14 @@ public class Pipe extends Scrollable {
 	}
 
 	public boolean collides(Bird bird) {
+		/*
 		if (position.x < bird.getX() + bird.getWidth()) {
 			return (Intersector.overlaps(bird.getBoundingCircle(), barUp)
 					|| Intersector.overlaps(bird.getBoundingCircle(), barDown)
 					|| Intersector.overlaps(bird.getBoundingCircle(), skullUp) || Intersector
 						.overlaps(bird.getBoundingCircle(), skullDown));
 		}
+		*/
 		return false;
 	}
 

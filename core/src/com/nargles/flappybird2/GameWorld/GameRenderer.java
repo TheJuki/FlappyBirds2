@@ -34,19 +34,20 @@ public class GameRenderer {
 	private SpriteBatch batcher;
 
 	private int midPointY;
+	private int midPointX;
 
 	// Game Objects
 	private Bird bird;
 	private ScrollHandler scroller;
 	private Grass frontGrass, backGrass;
-	private Pipe pipe1, pipe2, pipe3;
+	private Pipe pipe1, pipe2, pipe3, pipe4, pipe5, pipe6;
 
 	// Game Assets
 	private TextureRegion bg, grass, birdMid, skullUp, skullDown, bar, ready,
-			zbLogo, gameOver, highScore, scoreboard, star, noStar, retry;
+			zbLogo, gameOver, highScore, scoreboard, retry;
 	private Animation birdAnimation;
 
-	// Tween stuff
+	// Tween 
 	private TweenManager manager;
 	private Value alpha = new Value();
 
@@ -54,15 +55,16 @@ public class GameRenderer {
 	private List<SimpleButton> menuButtons;
 	private Color transitionColor;
 
-	public GameRenderer(GameWorld world, int gameHeight, int midPointY) {
+	public GameRenderer(GameWorld world, int gameHeight, int midPointX , int midPointY) {
 		myWorld = world;
 
 		this.midPointY = midPointY;
+		this.midPointX = midPointX;
 		this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
 				.getMenuButtons();
 
 		cam = new OrthographicCamera();
-		cam.setToOrtho(true, 136, gameHeight);
+		cam.setToOrtho(true, 136 * 2, gameHeight * 2);
 
 		batcher = new SpriteBatch();
 		batcher.setProjectionMatrix(cam.combined);
@@ -84,6 +86,9 @@ public class GameRenderer {
 		pipe1 = scroller.getPipe1();
 		pipe2 = scroller.getPipe2();
 		pipe3 = scroller.getPipe3();
+		pipe4 = scroller.getPipe4();
+		pipe5 = scroller.getPipe5();
+		pipe6 = scroller.getPipe6();
 	}
 
 	private void initAssets() {
@@ -100,8 +105,6 @@ public class GameRenderer {
 		highScore = AssetLoader.highScore;
 		scoreboard = AssetLoader.scoreboard;
 		retry = AssetLoader.retry;
-		star = AssetLoader.star;
-		noStar = AssetLoader.noStar;
 	}
 
 	private void drawGrass() {
@@ -128,6 +131,21 @@ public class GameRenderer {
 				pipe3.getY() + pipe3.getHeight() - 14, 24, 14);
 		batcher.draw(skullDown, pipe3.getX() - 1,
 				pipe3.getY() + pipe3.getHeight() + 45, 24, 14);
+		
+		batcher.draw(skullUp, pipe4.getX() - 1,
+				pipe4.getY() + pipe4.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe4.getX() - 1,
+				pipe4.getY() + pipe4.getHeight() + 45, 24, 14);
+		
+		batcher.draw(skullUp, pipe5.getX() - 1,
+				pipe5.getY() + pipe5.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe5.getX() - 1,
+				pipe5.getY() + pipe5.getHeight() + 45, 24, 14);
+		
+		batcher.draw(skullUp, pipe6.getX() - 1,
+				pipe6.getY() + pipe6.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe6.getX() - 1,
+				pipe6.getY() + pipe6.getHeight() + 45, 24, 14);
 	}
 
 	private void drawPipes() {
@@ -145,10 +163,25 @@ public class GameRenderer {
 				pipe3.getHeight());
 		batcher.draw(bar, pipe3.getX(), pipe3.getY() + pipe3.getHeight() + 45,
 				pipe3.getWidth(), midPointY + 66 - (pipe3.getHeight() + 45));
+		
+		batcher.draw(bar, pipe4.getX(), pipe4.getY(), pipe4.getWidth(),
+				pipe4.getHeight());
+		batcher.draw(bar, pipe4.getX(), pipe4.getY() + pipe4.getHeight() + 45,
+				pipe4.getWidth(), midPointY + 66 - (pipe4.getHeight() + 45));
+		
+		batcher.draw(bar, pipe5.getX(), pipe5.getY(), pipe5.getWidth(),
+				pipe5.getHeight());
+		batcher.draw(bar, pipe5.getX(), pipe5.getY() + pipe5.getHeight() + 45,
+				pipe5.getWidth(), midPointY + 66 - (pipe5.getHeight() + 45));
+		
+		batcher.draw(bar, pipe6.getX(), pipe6.getY(), pipe6.getWidth(),
+				pipe6.getHeight());
+		batcher.draw(bar, pipe6.getX(), pipe6.getY() + pipe6.getHeight() + 45,
+				pipe6.getWidth(), midPointY + 66 - (pipe6.getHeight() + 45));
 	}
 
 	private void drawBirdCentered(float runTime) {
-		batcher.draw(birdAnimation.getKeyFrame(runTime), 59, bird.getY() - 15,
+		batcher.draw(birdAnimation.getKeyFrame(runTime), 59 * 2, (bird.getY() - 15) * 2,
 				bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
 				bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
 	}
@@ -170,7 +203,7 @@ public class GameRenderer {
 	}
 
 	private void drawMenuUI() {
-		batcher.draw(zbLogo, 136 / 2 - 56, midPointY - 50,
+		batcher.draw(zbLogo, (float) 80 , (midPointY - 20) /2 ,
 				zbLogo.getRegionWidth() / 1.2f, zbLogo.getRegionHeight() / 1.2f);
 
 		for (SimpleButton button : menuButtons) {
@@ -180,67 +213,62 @@ public class GameRenderer {
 	}
 
 	private void drawScoreboard() {
-		batcher.draw(scoreboard, 22, midPointY - 30, 97, 37);
+		batcher.draw(scoreboard, 22 * 4, midPointY - 30, 97, 37);
 
-		batcher.draw(noStar, 25, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 37, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 49, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 61, midPointY - 15, 10, 10);
-		batcher.draw(noStar, 73, midPointY - 15, 10, 10);
-
+		/*
 		if (myWorld.getScore() > 2) {
-			batcher.draw(star, 73, midPointY - 15, 10, 10);
+			batcher.draw(star, 73 * 3, midPointY - 15, 10, 10);
 		}
 
 		if (myWorld.getScore() > 17) {
-			batcher.draw(star, 61, midPointY - 15, 10, 10);
+			batcher.draw(star, 61 * 3, midPointY - 15, 10, 10);
 		}
 
 		if (myWorld.getScore() > 50) {
-			batcher.draw(star, 49, midPointY - 15, 10, 10);
+			batcher.draw(star, 49 * 3, midPointY - 15, 10, 10);
 		}
 
 		if (myWorld.getScore() > 80) {
-			batcher.draw(star, 37, midPointY - 15, 10, 10);
+			batcher.draw(star, 37 * 3, midPointY - 15, 10, 10);
 		}
 
 		if (myWorld.getScore() > 120) {
-			batcher.draw(star, 25, midPointY - 15, 10, 10);
+			batcher.draw(star, 25 * 3, midPointY - 15, 10, 10);
 		}
-
+*/
 		int length = ("" + myWorld.getScore()).length();
 
 		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getScore(),
-				104 - (2 * length), midPointY - 20);
+				(float) ((104 - (2 * length)) * 1.7), midPointY - 20);
 
 		int length2 = ("" + AssetLoader.getHighScore()).length();
 		AssetLoader.whiteFont.draw(batcher, "" + AssetLoader.getHighScore(),
-				104 - (2.5f * length2), midPointY - 3);
+				(float) ((104 - (2.5f * length2)) * 1.7), midPointY - 3);
 
 	}
 
 	private void drawRetry() {
-		batcher.draw(retry, 36, midPointY + 10, 66, 14);
+		batcher.draw(retry, 36 * 3, (midPointY) * 2, 66, 14);
 	}
 
 	private void drawReady() {
-		batcher.draw(ready, 36, midPointY - 50, 68, 14);
+		batcher.draw(ready, 36 * 3, (midPointY) * 2, 68, 14);
 	}
 
 	private void drawGameOver() {
-		batcher.draw(gameOver, 24, midPointY - 50, 92, 14);
+		batcher.draw(gameOver, 24, (midPointY - 50) * 2, 92, 14);
 	}
 
 	private void drawScore() {
 		int length = ("" + myWorld.getScore()).length();
 		AssetLoader.shadow.draw(batcher, "" + myWorld.getScore(),
-				68 - (3 * length), midPointY - 82);
+				68 - (3 * length), midPointY - 22);
 		AssetLoader.font.draw(batcher, "" + myWorld.getScore(),
-				68 - (3 * length), midPointY - 83);
+				68 - (3 * length), midPointY - 23);
 	}
 
 	private void drawHighScore() {
-		batcher.draw(highScore, 22, midPointY - 50, 96, 14);
+		batcher.draw(highScore, midPointX, (midPointY - 20) * 2, 96, 14);
 	}
 
 	public void render(float delta, float runTime) {
@@ -252,22 +280,24 @@ public class GameRenderer {
 
 		// Draw Background color
 		shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-		shapeRenderer.rect(0, 0, 136, midPointY + 66);
+		shapeRenderer.rect(0, 0, 136 * 2, (midPointY + 66) * 2);
 
+		/*
 		// Draw Grass
 		shapeRenderer.setColor(111 / 255.0f, 186 / 255.0f, 45 / 255.0f, 1);
-		shapeRenderer.rect(0, midPointY + 66, 136, 11);
+		shapeRenderer.rect(0, (midPointY + 66) / 2, 136 * 2, 11 / 2);
 
 		// Draw Dirt
 		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
-		shapeRenderer.rect(0, midPointY + 77, 136, 52);
+		shapeRenderer.rect(0, (midPointY + 77) / 2, 136 * 2, 52 / 2);
+		*/
 
 		shapeRenderer.end();
 
 		batcher.begin();
 		batcher.disableBlending();
 
-		batcher.draw(bg, 0, midPointY + 23, 136, 43);
+		batcher.draw(bg, 0,(midPointY + 23), 136 * 2, 43);
 
 		drawPipes();
 
@@ -319,7 +349,7 @@ public class GameRenderer {
 			shapeRenderer.begin(ShapeType.Filled);
 			shapeRenderer.setColor(transitionColor.r, transitionColor.g,
 					transitionColor.b, alpha.getValue());
-			shapeRenderer.rect(0, 0, 136, 300);
+			shapeRenderer.rect(0, 0, 136 * 2, 300);
 			shapeRenderer.end();
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 
