@@ -22,13 +22,13 @@ public class GameWorld {
 		MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
 	}
 
-	public GameWorld(int midPointY) {
+	public GameWorld(int midPointY, int midPointX) {
 		currentState = GameState.MENU;
 		this.midPointY = midPointY;
 		bird = new Bird(33 * 2, midPointY - 5, 17, 12);
 		// The grass should start 66 pixels below the midPointY
-		scroller = new ScrollHandler(this, (float) ((midPointY + 66) * 1));
-		ground = new Rectangle(0, (float) ((midPointY + 66) * 1), 137 * 2, 11);
+		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX);
+		ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
 	}
 
 	public void update(float delta) {

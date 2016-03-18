@@ -40,8 +40,8 @@ public class InputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		screenX = scaleX(screenX);
-		screenY = scaleY(screenY);
+		screenX = scaleX(screenX*2);
+		screenY = scaleY(screenY*2);
 
 		if (myWorld.isMenu()) {
 			playButton.isTouchDown(screenX, screenY);
@@ -61,8 +61,8 @@ public class InputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = scaleX(screenX);
-		screenY = scaleY(screenY);
+		screenX = scaleX(screenX * 2);
+		screenY = scaleY(screenY * 2);
 
 		if (myWorld.isMenu()) {
 			if (playButton.isTouchUp(screenX, screenY)) {

@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 
 	public static Texture texture, logoTexture;
-	public static TextureRegion logo, zbLogo, bg, grass, bird, birdDown,
-			birdUp, skullUp, skullDown, bar, playButtonUp, playButtonDown,
+	public static TextureRegion logo, fbLogo, bg, grass, bird, birdDown,
+			birdUp, pipeUp, pipeDown, bar, playButtonUp, playButtonDown,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
 	public static Animation birdAnimation;
 	public static Sound dead, flap, coin, fall;
@@ -56,8 +56,8 @@ public class AssetLoader {
 		highScore = new TextureRegion(texture, 59, 101, 48, 7);
 		highScore.flip(false, true);
 
-		zbLogo = new TextureRegion(texture, 0, 55, 135, 24);
-		zbLogo.flip(false, true);
+		fbLogo = new TextureRegion(texture, 0, 55, 160, 24);
+		fbLogo.flip(false, true);
 
 		bg = new TextureRegion(texture, 0, 0, 136, 43);
 		bg.flip(false, true);
@@ -78,10 +78,10 @@ public class AssetLoader {
 		birdAnimation = new Animation(0.06f, birds);
 		birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-		skullUp = new TextureRegion(texture, 192, 0, 24, 14);
+		pipeUp = new TextureRegion(texture, 192, 0, 24, 14);
 		// Create by flipping existing skullUp
-		skullDown = new TextureRegion(skullUp);
-		skullDown.flip(false, true);
+		pipeDown = new TextureRegion(pipeUp);
+		pipeDown.flip(false, true);
 
 		bar = new TextureRegion(texture, 136, 16, 22, 3);
 		bar.flip(false, true);
@@ -91,7 +91,7 @@ public class AssetLoader {
 		coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
 		fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
 
-		font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+		font = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
 		font.getData().setScale(.25f, -.25f);
 
 		whiteFont = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));

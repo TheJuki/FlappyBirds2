@@ -7,13 +7,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Pipe extends Scrollable {
 
-	private Random r;
-
 	private Rectangle skullUp, skullDown, barUp, barDown;
 
 	public static final int VERTICAL_GAP = 45;
 	public static final int SKULL_WIDTH = 24;
 	public static final int SKULL_HEIGHT = 11;
+	private static long seedQualifier = 432282912137141232L;
 	private float groundY;
 
 	private boolean isScored = false;
@@ -24,12 +23,11 @@ public class Pipe extends Scrollable {
 			float groundY) {
 		super(x, y, width, height, scrollSpeed);
 		// Initialize a Random object for Random number generation
-		r = new Random();
 		skullUp = new Rectangle();
 		skullDown = new Rectangle();
 		barUp = new Rectangle();
 		barDown = new Rectangle();
-
+		this.height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
 		this.groundY = groundY;
 	}
 
@@ -63,7 +61,7 @@ public class Pipe extends Scrollable {
 		// Call the reset method in the superclass (Scrollable)
 		super.reset(newX);
 		// Change the height to a random number
-		height = r.nextInt(30) + 15;
+		height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
 		isScored = false;
 	}
 

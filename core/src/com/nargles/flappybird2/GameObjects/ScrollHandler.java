@@ -12,7 +12,7 @@ public class ScrollHandler {
 
 	private GameWorld gameWorld;
 
-	public ScrollHandler(GameWorld gameWorld, float yPos) {
+	public ScrollHandler(GameWorld gameWorld, float yPos, float xPos) {
 		this.gameWorld = gameWorld;
 		frontGrass = new Grass(0, yPos, 143 * 2, 11, SCROLL_SPEED);
 		backGrass = new Grass(frontGrass.getTailX(), yPos, 143 * 2, 11,
