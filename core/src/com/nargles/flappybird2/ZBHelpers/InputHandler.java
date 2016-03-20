@@ -49,7 +49,10 @@ public class InputHandler implements InputProcessor {
 			myWorld.start();
 			myBird.onClick();
 		} else if (myWorld.isRunning()) {
-			myBird.onClick();
+			
+			if(screenY < myWorld.getMidPointY() * 3) {
+				myBird.onClick();
+			}
 		}
 
 		if (myWorld.isGameOver() || myWorld.isHighScore()) {
