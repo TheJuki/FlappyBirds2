@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="lib" path="/FlappyBirds2/libs/gdx-sqlite.jar" sourcepath="C:/Users/theju/Downloads/gdx-sqlite-master/gdx-sqlite-master/gdx-sqlite/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
