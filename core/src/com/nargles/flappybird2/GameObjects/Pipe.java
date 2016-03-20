@@ -7,11 +7,11 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Pipe extends Scrollable {
 
-	private Rectangle skullUp, skullDown, barUp, barDown;
+	private Rectangle pipeTopUp, pipeTopDown, barUp, barDown;
 
 	public static final int VERTICAL_GAP = 45;
-	public static final int SKULL_WIDTH = 24;
-	public static final int SKULL_HEIGHT = 11;
+	public static final int PIPE_TOP_WIDTH = 24;
+	public static final int PIPE_TOP_HEIGHT = 11;
 	private static long seedQualifier = 432282912137141232L;
 	private float groundY;
 
@@ -23,8 +23,8 @@ public class Pipe extends Scrollable {
 			float groundY) {
 		super(x, y, width, height, scrollSpeed);
 		// Initialize a Random object for Random number generation
-		skullUp = new Rectangle();
-		skullDown = new Rectangle();
+		pipeTopUp = new Rectangle();
+		pipeTopDown = new Rectangle();
 		barUp = new Rectangle();
 		barDown = new Rectangle();
 		this.height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
@@ -49,10 +49,10 @@ public class Pipe extends Scrollable {
 		// with respect to its bar).
 
 		// This shift is equivalent to: (SKULL_WIDTH - width) / 2
-		skullUp.set(position.x - (SKULL_WIDTH - width) / 2, position.y + height
-				- SKULL_HEIGHT, SKULL_WIDTH, SKULL_HEIGHT);
-		skullDown.set(position.x - (SKULL_WIDTH - width) / 2, barDown.y,
-				SKULL_WIDTH, SKULL_HEIGHT);
+		pipeTopUp.set(position.x - (PIPE_TOP_WIDTH - width) / 2, position.y + height
+				- PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+		pipeTopDown.set(position.x - (PIPE_TOP_WIDTH - width) / 2, barDown.y,
+				PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
 	}
 
@@ -70,12 +70,12 @@ public class Pipe extends Scrollable {
 		reset(x);
 	}
 
-	public Rectangle getSkullUp() {
-		return skullUp;
+	public Rectangle getPipeTopUp() {
+		return pipeTopUp;
 	}
 
-	public Rectangle getSkullDown() {
-		return skullDown;
+	public Rectangle getPipeTopDown() {
+		return pipeTopDown;
 	}
 
 	public Rectangle getBarUp() {
@@ -87,14 +87,14 @@ public class Pipe extends Scrollable {
 	}
 
 	public boolean collides(Bird bird) {
-		/*
+		
 		if (position.x < bird.getX() + bird.getWidth()) {
 			return (Intersector.overlaps(bird.getBoundingCircle(), barUp)
 					|| Intersector.overlaps(bird.getBoundingCircle(), barDown)
-					|| Intersector.overlaps(bird.getBoundingCircle(), skullUp) || Intersector
-						.overlaps(bird.getBoundingCircle(), skullDown));
+					|| Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) || Intersector
+						.overlaps(bird.getBoundingCircle(), pipeTopDown));
 		}
-		*/
+		
 		return false;
 	}
 
