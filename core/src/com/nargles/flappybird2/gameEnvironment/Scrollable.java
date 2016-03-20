@@ -10,8 +10,7 @@ public class Scrollable {
 	protected Vector2 velocity;
 	protected int width;
 	protected int height;
-	protected boolean isScrolledLeft;
-	protected boolean isScrolledRight;
+	protected boolean isScrolledBack;
 	protected boolean isRightGoing;
 
 	public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
@@ -19,8 +18,7 @@ public class Scrollable {
 		velocity = new Vector2(scrollSpeed, 0);
 		this.width = width;
 		this.height = height;
-		isScrolledLeft = false;
-		isScrolledRight = false;
+		isScrolledBack = false;
 		isRightGoing = scrollSpeed < 0;
 	}
 
@@ -28,30 +26,28 @@ public class Scrollable {
 		position.add(velocity.cpy().scl(delta));
 
 		// If the Scrollable object is no longer visible:
-		if ((position.x + width) < 0) {
-			isScrolledLeft = true;
+		if (isRightGoing && (position.x + width) < 0) {
+			isScrolledBack = true;
+		}
+		else if (!isRightGoing && (position.x + width) > 136 * 3) {
+			isScrolledBack = true;
 		}
 	}
 
 	// Reset: Should Override in subclass for more specific behavior.
 	public void reset(float newX) {
 		position.x = newX;
-		isScrolledLeft = false;
-		isScrolledRight = false;
+		isScrolledBack = false;
 	}
 
 	public void stop() {
 		velocity.x = 0;
 	}
 	
-	public boolean isScrolledLeft() {
-		return isScrolledLeft;
+	public boolean isScrolledBack() {
+		return isScrolledBack;
 	}
 	
-	public boolean isScrolledRight() {
-		return isScrolledRight;
-	}
-
 	public float getTailX() {
 		return position.x + width;
 	}
@@ -82,6 +78,11 @@ public class Scrollable {
 	{
 		isRightGoing = false;
 		velocity.x = 59;
+	}
+	
+	public boolean isRightGoing()
+	{
+		return isRightGoing;
 	}
 
 }

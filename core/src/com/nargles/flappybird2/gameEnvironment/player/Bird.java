@@ -31,7 +31,7 @@ public class Bird {
 		isAlive = true;
 	}
 
-	public void update(float delta) {
+	public void update(float delta, boolean isRightGoing) {
 
 		velocity.add(acceleration.cpy().scl(delta));
 
@@ -51,22 +51,44 @@ public class Bird {
 		// Set the circle's radius to be 6.5f;
 		boundingCircle.set(position.x + 9, position.y + 6, 6.5f);
 
-		// Rotate counterclockwise
-		if (velocity.y < 0) {
-			rotation -= 600 * delta;
-
-			if (rotation < -20) {
-				rotation = -20;
+		if(isRightGoing) {
+			// Rotate counterclockwise
+			if (velocity.y < 0) {
+				rotation -= 600 * delta;
+	
+				if (rotation < -20) {
+					rotation = -20;
+				}
+			}
+	
+			// Rotate clockwise
+			if (isFalling() || !isAlive) {
+				rotation += 480 * delta;
+				if (rotation > 90) {
+					rotation = 90;
+				}
+	
 			}
 		}
-
-		// Rotate clockwise
-		if (isFalling() || !isAlive) {
-			rotation += 480 * delta;
-			if (rotation > 90) {
-				rotation = 90;
+		else
+		{
+			// Rotate clockwise
+			if (velocity.y < 0) {
+				rotation += 600 * delta;
+	
+				if (rotation > 20) {
+					rotation = 20;
+				}
 			}
-
+	
+			// Rotate counterclockwise
+			if (isFalling() || !isAlive) {
+				rotation -= 480 * delta;
+				if (rotation < -90) {
+					rotation = -90;
+				}
+	
+			}
 		}
 
 	}

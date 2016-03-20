@@ -67,6 +67,8 @@ public class InputHandler implements InputProcessor {
 			else
 			{
 				myWorld.pause();
+				
+				myWorld.getScroller().flip();
 			}
 		} else if (myWorld.isPaused()) {
 

@@ -5,6 +5,6 @@
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry kind="lib" path="/FlappyBirds2/libs/sqlite-jdbc-3.7.2.jar"/>
-	<classpathentry kind="lib" path="/FlappyBirds2/libs/gdx-sqlite-desktop.jar"/>
+	<classpathentry kind="lib" path="/FlappyBirds2/libs/gdx-sqlite-desktop.jar" sourcepath="C:/Users/theju/Downloads/gdx-sqlite-master/gdx-sqlite-master/gdx-sqlite-desktop/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

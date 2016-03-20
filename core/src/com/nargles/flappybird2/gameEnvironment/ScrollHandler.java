@@ -13,6 +13,7 @@ public class ScrollHandler {
 	private Grass frontGrass, backGrass;
 	private List<Pipe> pipes;
 	private int scrollSpeed;
+	private boolean isRightGoing;
 	public static final int PIPE_GAP = 49;
 	public static final int NUM_PIPES = 6;
 
@@ -26,33 +27,60 @@ public class ScrollHandler {
 				scrollSpeed);
 
 		pipes = new ArrayList<Pipe>();
-		pipes.add(new Pipe(210 * 2, 0, 22, 10, scrollSpeed, yPos));
+		//210 * 2, 0 , 22, 10
+		pipes.add(new Pipe(-420, 0, 22, 10, scrollSpeed, yPos));
 		
 		for(int i = 1; i < NUM_PIPES; i++)
 		{
 			pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed,
 					yPos));
 		}
+		
+		isRightGoing = scrollSpeed < 0;
 	}
 
 	public void updateReady(float delta) {
 
+		// Update grass
 		frontGrass.update(delta);
 		backGrass.update(delta);
 
-		// Same with grass
-		if (frontGrass.isScrolledLeft()) {
+		// Reset grass
+		if (frontGrass.isScrolledBack()) {
 			frontGrass.reset(backGrass.getTailX());
 
-		} else if (backGrass.isScrolledLeft()) {
+		} else if (backGrass.isScrolledBack()) {
 			backGrass.reset(frontGrass.getTailX());
-
 		}
-
+	}
+	
+	public void flip()
+	{
+		isRightGoing = !isRightGoing;
+		
+		if(!isRightGoing)
+		{
+			frontGrass.goLeft();
+			backGrass.goLeft();
+			for(Pipe pipe: pipes)
+			{
+				pipe.goLeft();
+			}
+		}
+		else
+		{
+			frontGrass.goRight();
+			backGrass.goRight();
+			for(Pipe pipe: pipes)
+			{
+				pipe.goRight();
+			}
+		}
 	}
 
 	public void update(float delta) {
-		// Update our objects
+		
+		// Update grass
 		frontGrass.update(delta);
 		backGrass.update(delta);
 		
@@ -61,24 +89,23 @@ public class ScrollHandler {
 			pipe.update(delta);
 		}
 
-		// Check if any of the pipes are scrolled left,
-		// and reset accordingly
-		if (pipes.get(0).isScrolledLeft()) {
+		// Reset Pipes
+		if (pipes.get(0).isScrolledBack()) {
 			pipes.get(0).reset(pipes.get(NUM_PIPES - 1).getTailX() + PIPE_GAP);
 		}
 
 		for(int i = 1; i < NUM_PIPES; i++)
 		{
-			if (pipes.get(i).isScrolledLeft()) {
+			if (pipes.get(i).isScrolledBack()) {
 				pipes.get(i).reset(pipes.get(i - 1).getTailX() + PIPE_GAP);
 			}
 		}
 
-		// Same with grass
-		if (frontGrass.isScrolledLeft()) {
+		// Reset grass
+		if (frontGrass.isScrolledBack()) {
 			frontGrass.reset(backGrass.getTailX());
 
-		} else if (backGrass.isScrolledLeft()) {
+		} else if (backGrass.isScrolledBack()) {
 			backGrass.reset(frontGrass.getTailX());
 
 		}
@@ -99,9 +126,9 @@ public class ScrollHandler {
 		
 		for(Pipe pipe: pipes)
 		{
-			if (!pipe.isScored()
-					&& pipe.getX() + (pipe.getWidth() / 2) < bird.getX()
-							+ bird.getWidth()) {
+			if (!pipe.isScored() && pipe.isRightGoing()
+					&& (pipe.getX() + (pipe.getWidth() / 2)) 
+					< (bird.getX() + bird.getWidth())) {
 				addScore(1);
 				pipe.setScored(true);
 				AssetLoader.coin.play();
@@ -138,6 +165,11 @@ public class ScrollHandler {
 		{
 			pipes.get(i).onRestart(pipes.get(i - 1).getTailX() + PIPE_GAP, scrollSpeed);
 		}
+	}
+	
+	public boolean isRightGoing()
+	{
+		return isRightGoing;
 	}
 
 }

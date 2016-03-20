@@ -11,12 +11,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 
 	public static Texture texture, logoTexture;
-	public static TextureRegion logo, fbLogo, bg, grass, bird, birdDown,
-			birdUp, pipeUp, pipeDown, bar, 
+	public static TextureRegion logo, fbLogo, bg, grass, 
+	bird, birdDown, birdUp, 
+	birdFlipped, birdDownFlipped, birdUpFlipped, 
+	pipeUp, pipeDown, bar, 
 			playButtonUp, playButtonDown,
 			quitButtonUp, quitButtonDown,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
-	public static Animation birdAnimation;
+	public static Animation birdAnimation, birdAnimationFlipped;
 	public static Sound dead, flap, coin, fall;
 	public static BitmapFont font, shadow, whiteFont;
 
@@ -80,10 +82,22 @@ public class AssetLoader {
 
 		birdUp = new TextureRegion(texture, 170, 0, 17, 12);
 		birdUp.flip(false, true);
+		
+		birdDownFlipped = new TextureRegion(texture, 136, 0, 17, 12);
+		birdDownFlipped.flip(true, true);
+
+		birdFlipped = new TextureRegion(texture, 153, 0, 17, 12);
+		birdFlipped.flip(true, true);
+
+		birdUpFlipped = new TextureRegion(texture, 170, 0, 17, 12);
+		birdUpFlipped.flip(true, true);
 
 		TextureRegion[] birds = { birdDown, bird, birdUp };
+		TextureRegion[] birdsFlipped = { birdDownFlipped, birdFlipped, birdUpFlipped };
 		birdAnimation = new Animation(0.06f, birds);
 		birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+		birdAnimationFlipped = new Animation(0.06f, birdsFlipped);
+		birdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
 		pipeUp = new TextureRegion(texture, 192, 0, 24, 14);
 		// Create by flipping existing skullUp

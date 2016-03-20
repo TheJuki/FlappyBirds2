@@ -17,7 +17,6 @@ public class GameWorld {
 	private float runTime = 0;
 	private int midPointY;
 	private GameRenderer renderer;
-	private FlappyBirds2 game;
 
 	private GameState currentState;
 
@@ -26,13 +25,12 @@ public class GameWorld {
 	}
 
 	public GameWorld(FlappyBirds2 game, int midPointY, int midPointX) {
-		this.game = game;
 		db = game.getDatabase();
 		currentState = GameState.MENU;
 		this.midPointY = midPointY;
 		bird = new Bird(33 * 2, midPointY - 5, 17, 12);
 
-		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
+		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, 59);
 		ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
 	}
 
@@ -64,7 +62,7 @@ public class GameWorld {
 			delta = .15f;
 		}
 
-		bird.update(delta);
+		bird.update(delta, scroller.isRightGoing());
 		scroller.update(delta);
 
 		if (scroller.collides(bird) && bird.isAlive()) {

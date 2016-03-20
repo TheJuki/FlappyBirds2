@@ -43,9 +43,9 @@ public class GameRenderer {
 	private List<Pipe> pipes;
 
 	// Game Assets
-	private TextureRegion bg, grass, birdMid, pipeUp, pipeDown, bar, ready,
+	private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
 			fbLogo, gameOver, highScore, scoreboard, retry;
-	private Animation birdAnimation;
+	private Animation birdAnimation, birdAnimationFlipped;
 
 	// Tween 
 	private TweenManager manager;
@@ -90,7 +90,9 @@ public class GameRenderer {
 		bg = AssetLoader.bg;
 		grass = AssetLoader.grass;
 		birdAnimation = AssetLoader.birdAnimation;
+		birdAnimationFlipped = AssetLoader.birdAnimationFlipped;
 		birdMid = AssetLoader.bird;
+		birdMidFlipped = AssetLoader.birdFlipped;
 		pipeUp = AssetLoader.pipeUp;
 		pipeDown = AssetLoader.pipeDown;
 		bar = AssetLoader.bar;
@@ -140,13 +142,22 @@ public class GameRenderer {
 
 	private void drawBird(float runTime) {
 
-		if (bird.shouldntFlap()) {
+		if (bird.shouldntFlap() && myWorld.getScroller().isRightGoing()) {
 			batcher.draw(birdMid, bird.getX(), bird.getY(),
 					bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
 					bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
 
-		} else {
+		} else if(bird.shouldntFlap() && !myWorld.getScroller().isRightGoing()) {
+			batcher.draw(birdMidFlipped, bird.getX(), bird.getY(),
+					bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+					bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+		} else if(myWorld.getScroller().isRightGoing()) {
 			batcher.draw(birdAnimation.getKeyFrame(runTime), bird.getX(),
+					bird.getY(), bird.getWidth() / 2.0f,
+					bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+					1, 1, bird.getRotation());
+		} else if(!myWorld.getScroller().isRightGoing()) {
+			batcher.draw(birdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
 					bird.getY(), bird.getWidth() / 2.0f,
 					bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
 					1, 1, bird.getRotation());
@@ -289,9 +300,6 @@ public class GameRenderer {
 
 		batcher.end();
 		drawTransition(delta);
-		
-		
-
 	}
 
 	public void prepareTransition(int r, int g, int b, float duration) {
