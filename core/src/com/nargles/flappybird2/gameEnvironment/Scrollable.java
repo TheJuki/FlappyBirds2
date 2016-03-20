@@ -11,6 +11,8 @@ public class Scrollable {
 	protected int width;
 	protected int height;
 	protected boolean isScrolledLeft;
+	protected boolean isScrolledRight;
+	protected boolean isRightGoing;
 
 	public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
 		position = new Vector2(x, y);
@@ -18,6 +20,8 @@ public class Scrollable {
 		this.width = width;
 		this.height = height;
 		isScrolledLeft = false;
+		isScrolledRight = false;
+		isRightGoing = scrollSpeed < 0;
 	}
 
 	public void update(float delta) {
@@ -33,15 +37,19 @@ public class Scrollable {
 	public void reset(float newX) {
 		position.x = newX;
 		isScrolledLeft = false;
+		isScrolledRight = false;
 	}
 
 	public void stop() {
 		velocity.x = 0;
 	}
 	
-	// Getters for instance variables
 	public boolean isScrolledLeft() {
 		return isScrolledLeft;
+	}
+	
+	public boolean isScrolledRight() {
+		return isScrolledRight;
 	}
 
 	public float getTailX() {
@@ -62,6 +70,18 @@ public class Scrollable {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public void goRight()
+	{
+		isRightGoing = true;
+		velocity.x = -59;
+	}
+	
+	public void goLeft()
+	{
+		isRightGoing = false;
+		velocity.x = 59;
 	}
 
 }

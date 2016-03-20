@@ -64,6 +64,17 @@ public class InputHandler implements InputProcessor {
 			if (screenY < myWorld.getMidPointY() * 3) {
 				myBird.onClick();
 			}
+			else
+			{
+				myWorld.pause();
+			}
+		} else if (myWorld.isPaused()) {
+
+			// Screen above ground flaps bird
+			if (screenY < myWorld.getMidPointY() * 3) {
+				myWorld.start();
+				myBird.onClick();
+			}
 		}
 		return true;
 	}
