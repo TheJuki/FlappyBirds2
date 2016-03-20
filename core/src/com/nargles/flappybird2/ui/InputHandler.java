@@ -3,6 +3,7 @@ package com.nargles.flappybird2.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.nargles.flappybird2.assetManager.AssetLoader;
@@ -16,13 +17,10 @@ public class InputHandler implements InputProcessor {
 
 	private List<SimpleButton> menuButtons;
 
-	private SimpleButton playButton;
-
 	private float scaleFactorX;
 	private float scaleFactorY;
 
-	public InputHandler(GameWorld myWorld, float scaleFactorX,
-			float scaleFactorY) {
+	public InputHandler(GameWorld myWorld, float scaleFactorX, float scaleFactorY) {
 		this.myWorld = myWorld;
 		myBird = myWorld.getBird();
 
@@ -32,35 +30,41 @@ public class InputHandler implements InputProcessor {
 		this.scaleFactorY = scaleFactorY;
 
 		menuButtons = new ArrayList<SimpleButton>();
-		playButton = new SimpleButton(
-				(136) - (AssetLoader.playButtonUp.getRegionWidth() / 2),
-				midPointY + 50, 29, 16, AssetLoader.playButtonUp,
-				AssetLoader.playButtonDown);
-		menuButtons.add(playButton);
+
+		// Add play button
+		menuButtons.add(new SimpleButton("play", (136) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50, 29,
+				16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
+
+		// Add quit button
+		menuButtons.add(new SimpleButton("quit", (136 - 50) - (AssetLoader.quitButtonUp.getRegionWidth() / 2), midPointY + 50,
+				29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown));
+
+		// Add high score button
+		//menuButtons.add(new SimpleButton("highscore", (136 + 50) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50,
+			//	29, 16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
+
+
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		screenX = scaleX(screenX*2);
-		screenY = scaleY(screenY*2);
+		screenX = scaleX(screenX * 2);
+		screenY = scaleY(screenY * 2);
 
-		if (myWorld.isMenu()) {
-			playButton.isTouchDown(screenX, screenY);
+		if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
+			for(SimpleButton btn : menuButtons) {
+				btn.isTouchDown(screenX, screenY);
+			}
 		} else if (myWorld.isReady()) {
 			myWorld.start();
 			myBird.onClick();
 		} else if (myWorld.isRunning()) {
-			
-			//Screen above ground flaps bird
-			if(screenY < myWorld.getMidPointY() * 3) {
+
+			// Screen above ground flaps bird
+			if (screenY < myWorld.getMidPointY() * 3) {
 				myBird.onClick();
 			}
 		}
-
-		if (myWorld.isGameOver() || myWorld.isHighScore()) {
-			myWorld.restart();
-		}
-
 		return true;
 	}
 
@@ -69,11 +73,28 @@ public class InputHandler implements InputProcessor {
 		screenX = scaleX(screenX * 2);
 		screenY = scaleY(screenY * 2);
 
-		if (myWorld.isMenu()) {
-			if (playButton.isTouchUp(screenX, screenY)) {
-				myWorld.ready();
-				return true;
+		if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
+			for(SimpleButton btn : menuButtons) {
+				boolean btnTapped = btn.isTouchUp(screenX, screenY);
+				if(btnTapped && btn.getName().equals("play"))
+				{
+					if (myWorld.isGameOver() || myWorld.isHighScore()) {
+						myWorld.restart();
+					}
+					else {
+						myWorld.ready();
+					}
+				}
+				else if(btnTapped && btn.getName().equals("quit"))
+				{
+					Gdx.app.exit();
+				}
+				else if(btnTapped && btn.getName().equals("highscore"))
+				{
+					myWorld.highSore();
+				}
 			}
+			return true;
 		}
 
 		return false;

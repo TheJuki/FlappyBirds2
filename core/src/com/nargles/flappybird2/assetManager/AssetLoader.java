@@ -12,7 +12,9 @@ public class AssetLoader {
 
 	public static Texture texture, logoTexture;
 	public static TextureRegion logo, fbLogo, bg, grass, bird, birdDown,
-			birdUp, pipeUp, pipeDown, bar, playButtonUp, playButtonDown,
+			birdUp, pipeUp, pipeDown, bar, 
+			playButtonUp, playButtonDown,
+			quitButtonUp, quitButtonDown,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
 	public static Animation birdAnimation;
 	public static Sound dead, flap, coin, fall;
@@ -28,10 +30,17 @@ public class AssetLoader {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
 		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
+		//Play
 		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
 		playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
 		playButtonUp.flip(false, true);
 		playButtonDown.flip(false, true);
+		
+		//Quit
+		quitButtonUp = new TextureRegion(texture, 0, 101, 29, 16);
+		quitButtonDown = new TextureRegion(texture, 29, 101, 29, 16);
+		quitButtonUp.flip(false, true);
+		quitButtonDown.flip(false, true);
 
 		ready = new TextureRegion(texture, 59, 83, 34, 7);
 		ready.flip(false, true);

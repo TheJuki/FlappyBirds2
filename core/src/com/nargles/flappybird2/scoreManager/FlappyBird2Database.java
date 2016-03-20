@@ -20,7 +20,7 @@ public class FlappyBird2Database {
     private static final String DATABASE_NAME = "flappybird2.db";
     private static final int DATABASE_VERSION = 1;
 
-    // Database creation sql statement
+    // Database creation SQL statement
     private static final String DATABASE_CREATE = "create table if not exists "
             + TABLE_HIGHSCORES + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_HIGHSCORE
@@ -41,14 +41,14 @@ public class FlappyBird2Database {
 
         Gdx.app.log("FlappyBirdsDatabase", "created/opened successfully");
         
-        
+        /*       
         try {
             dbHandler
                     .execSQL("DELETE FROM highscore");
         } catch (SQLiteGdxException e) {
             e.printStackTrace();
         }
-/*
+
         try {
             dbHandler
                     .execSQL("INSERT INTO highscore ('highscore') VALUES ('12')");

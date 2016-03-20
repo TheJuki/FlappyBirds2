@@ -202,9 +202,11 @@ public class GameRenderer {
 
 	}
 
-	private void drawMenuUI() {
-		batcher.draw(fbLogo, (float) midPointX - 70 , (midPointY - 20) /2 ,
+	private void drawMenuUI(boolean showLogo) {
+		if(showLogo) {
+			batcher.draw(fbLogo, (float) midPointX - 70 , (midPointY - 20) /2 ,
 				fbLogo.getRegionWidth() / 1.2f, fbLogo.getRegionHeight() / 1.2f);
+		}
 
 		for (SimpleButton button : menuButtons) {
 			button.draw(batcher);
@@ -213,7 +215,7 @@ public class GameRenderer {
 	}
 
 	private void drawScoreboard() {
-		batcher.draw(scoreboard, 22 * 4, midPointY - 30, 97, 37);
+		batcher.draw(scoreboard, 22 * 4, midPointY - 00, 97, 37);
 
 		/*
 		if (myWorld.getScore() > 2) {
@@ -239,24 +241,24 @@ public class GameRenderer {
 		int length = ("" + myWorld.getScore()).length();
 
 		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getScore(),
-				(float) ((104 - (2 * length)) * 1.7), midPointY - 20);
+				(float) ((104 - (2 * length)) * 1.7), midPointY + 10);
 
 		int length2 = ("" + myWorld.getDatabase().getHighestHighscore()).length();
 		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getDatabase().getHighestHighscore(),
-				(float) ((104 - (2.5f * length2)) * 1.7), midPointY - 3);
+				(float) ((104 - (2.5f * length2)) * 1.7), midPointY + 27);
 
 	}
 
 	private void drawRetry() {
-		batcher.draw(retry, 36 * 3, (midPointY) * 2, 66, 14);
+		//batcher.draw(retry, bird.getWidth() / 2.0f, (midPointY) * 2, 66, 14);
 	}
 
 	private void drawReady() {
-		batcher.draw(ready, 36 * 3, (midPointY) * 2, 68, 14);
+		batcher.draw(ready, bird.getX() - 25, (midPointY) * 2, 68, 14);
 	}
 
 	private void drawGameOver() {
-		batcher.draw(gameOver, 24, (midPointY - 50) * 2, 92, 14);
+		//batcher.draw(gameOver, 24, (midPointY - 50) * 2, 92, 14);
 	}
 
 	private void drawScore() {
@@ -318,7 +320,7 @@ public class GameRenderer {
 			drawReady();
 		} else if (myWorld.isMenu()) {
 			drawBirdCentered(runTime);
-			drawMenuUI();
+			drawMenuUI(true);
 		} else if (myWorld.isGameOver()) {
 			drawScoreboard();
 			drawBird(runTime);
@@ -328,7 +330,7 @@ public class GameRenderer {
 			drawScoreboard();
 			drawBird(runTime);
 			drawHighScore();
-			drawRetry();
+			drawMenuUI(false);
 		}
 
 		drawGrass();

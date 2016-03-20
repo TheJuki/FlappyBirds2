@@ -13,7 +13,6 @@ public class GameScreen implements Screen {
 	private GameRenderer renderer;
 	private float runTime;
 
-	// This is the constructor, not the class declaration
 	public GameScreen(FlappyBirds2 game) {
 
 		float screenWidth = Gdx.graphics.getWidth();

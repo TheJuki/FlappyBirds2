@@ -8,6 +8,7 @@ import com.nargles.flappybird2.assetManager.AssetLoader;
 public class SimpleButton {
 
 	private float x, y, width, height;
+	private String name;
 
 	private TextureRegion buttonUp;
 	private TextureRegion buttonDown;
@@ -16,8 +17,9 @@ public class SimpleButton {
 
 	private boolean isPressed = false;
 
-	public SimpleButton(float x, float y, float width, float height,
+	public SimpleButton(String name, float x, float y, float width, float height,
 			TextureRegion buttonUp, TextureRegion buttonDown) {
+		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -64,5 +66,10 @@ public class SimpleButton {
 		isPressed = false;
 		return false;
 	}
+
+	public String getName() {
+		return name;
+	}
+
 
 }
