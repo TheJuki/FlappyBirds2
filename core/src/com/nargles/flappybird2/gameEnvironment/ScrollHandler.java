@@ -14,6 +14,7 @@ public class ScrollHandler {
 	private List<Pipe> pipes;
 	private int scrollSpeed;
 	private boolean isRightGoing;
+	private boolean initialLeftFlip;
 	public static final int PIPE_GAP = 49;
 	public static final int NUM_PIPES = 6;
 
@@ -23,19 +24,17 @@ public class ScrollHandler {
 		this.gameWorld = gameWorld;
 		this.scrollSpeed = scrollSpeed;
 		frontGrass = new Grass(0, yPos, 143 * 2, 11, scrollSpeed);
-		backGrass = new Grass(frontGrass.getTailX(), yPos, 143 * 2, 11,
-				scrollSpeed);
+		backGrass = new Grass(frontGrass.getTailX(), yPos, 143 * 2, 11, scrollSpeed);
 
 		pipes = new ArrayList<Pipe>();
-		//210 * 2, 0 , 22, 10
-		pipes.add(new Pipe(-420, 0, 22, 10, scrollSpeed, yPos));
-		
-		for(int i = 1; i < NUM_PIPES; i++)
-		{
-			pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed,
-					yPos));
+		// 210 * 2, 0 , 22, 10
+		pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos));
+
+		for (int i = 1; i < NUM_PIPES; i++) {
+			pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos));
 		}
-		
+
+		initialLeftFlip = false;
 		isRightGoing = scrollSpeed < 0;
 	}
 
@@ -53,51 +52,62 @@ public class ScrollHandler {
 			backGrass.reset(frontGrass.getTailX());
 		}
 	}
-	
-	public void flip()
-	{
+
+	public void flip() {
 		isRightGoing = !isRightGoing;
-		
-		if(!isRightGoing)
-		{
+
+		if (!isRightGoing) {
+			initialLeftFlip = true;
 			frontGrass.goLeft();
 			backGrass.goLeft();
-			for(Pipe pipe: pipes)
-			{
+			for (Pipe pipe : pipes) {
 				pipe.goLeft();
 			}
-		}
-		else
-		{
-			frontGrass.goRight();
-			backGrass.goRight();
-			for(Pipe pipe: pipes)
-			{
-				pipe.goRight();
-			}
+		} else {
+			initialLeftFlip = false;
+			onRestart();
 		}
 	}
 
 	public void update(float delta) {
-		
+
 		// Update grass
 		frontGrass.update(delta);
 		backGrass.update(delta);
-		
-		for(Pipe pipe: pipes)
-		{
+
+		for (Pipe pipe : pipes) {
 			pipe.update(delta);
 		}
 
 		// Reset Pipes
-		if (pipes.get(0).isScrolledBack()) {
-			pipes.get(0).reset(pipes.get(NUM_PIPES - 1).getTailX() + PIPE_GAP);
-		}
 
-		for(int i = 1; i < NUM_PIPES; i++)
-		{
-			if (pipes.get(i).isScrolledBack()) {
-				pipes.get(i).reset(pipes.get(i - 1).getTailX() + PIPE_GAP);
+		if (isRightGoing) {
+			if (pipes.get(0).isScrolledBack()) {
+				pipes.get(0).reset(pipes.get(NUM_PIPES - 1).getTailX() + PIPE_GAP);
+			}
+
+			for (int i = 1; i < NUM_PIPES; i++) {
+				if (pipes.get(i).isScrolledBack()) {
+					pipes.get(i).reset(pipes.get(i - 1).getTailX() + PIPE_GAP);
+				}
+			}
+		} else {
+			
+			if (pipes.get(0).isScrolledBack()) {
+				if(initialLeftFlip) {
+					pipes.get(0).reset(-30);
+					//initialLeftFlip = false;
+				}
+				else
+				{
+					pipes.get(NUM_PIPES-1).reset(pipes.get(0).getTailX() - PIPE_GAP);
+				}
+			}
+
+			for (int i = 1; i < NUM_PIPES; i++) {
+				if (pipes.get(i).isScrolledBack()) {
+					pipes.get(i).reset(pipes.get(i - 1).getTailX() - PIPE_GAP);
+				}
 			}
 		}
 
@@ -114,8 +124,7 @@ public class ScrollHandler {
 	public void stop() {
 		frontGrass.stop();
 		backGrass.stop();
-		for(Pipe pipe: pipes)
-		{
+		for (Pipe pipe : pipes) {
 			pipe.stop();
 		}
 	}
@@ -123,20 +132,18 @@ public class ScrollHandler {
 	public boolean collides(Bird bird) {
 
 		boolean isCollided = false;
-		
-		for(Pipe pipe: pipes)
-		{
+
+		for (Pipe pipe : pipes) {
 			if (!pipe.isScored() && pipe.isRightGoing()
-					&& (pipe.getX() + (pipe.getWidth() / 2)) 
-					< (bird.getX() + bird.getWidth())) {
+					&& (pipe.getX() + (pipe.getWidth() / 2)) < (bird.getX() + bird.getWidth())) {
 				addScore(1);
 				pipe.setScored(true);
 				AssetLoader.coin.play();
 			}
-			if(pipe.collides(bird))
+			if (pipe.collides(bird))
 				isCollided = true;
 		}
-		
+
 		return isCollided;
 	}
 
@@ -157,18 +164,18 @@ public class ScrollHandler {
 	}
 
 	public void onRestart() {
+		isRightGoing = true;
+		initialLeftFlip = false;
 		frontGrass.onRestart(0, scrollSpeed);
 		backGrass.onRestart(frontGrass.getTailX(), scrollSpeed);
-		pipes.get(0).onRestart(210 * 2, scrollSpeed);
-		
-		for(int i = 1; i < NUM_PIPES; i++)
-		{
+		pipes.get(0).onRestart(300, scrollSpeed);
+
+		for (int i = 1; i < NUM_PIPES; i++) {
 			pipes.get(i).onRestart(pipes.get(i - 1).getTailX() + PIPE_GAP, scrollSpeed);
 		}
 	}
-	
-	public boolean isRightGoing()
-	{
+
+	public boolean isRightGoing() {
 		return isRightGoing;
 	}
 

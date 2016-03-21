@@ -30,7 +30,7 @@ public class GameWorld {
 		this.midPointY = midPointY;
 		bird = new Bird(33 * 2, midPointY - 5, 17, 12);
 
-		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, 59);
+		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
 		ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
 	}
 

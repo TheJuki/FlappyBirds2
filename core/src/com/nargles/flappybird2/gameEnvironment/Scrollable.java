@@ -12,9 +12,11 @@ public class Scrollable {
 	protected int height;
 	protected boolean isScrolledBack;
 	protected boolean isRightGoing;
+	protected float scrollSpeed;
 
 	public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
 		position = new Vector2(x, y);
+		this.scrollSpeed = scrollSpeed;
 		velocity = new Vector2(scrollSpeed, 0);
 		this.width = width;
 		this.height = height;
@@ -29,7 +31,7 @@ public class Scrollable {
 		if (isRightGoing && (position.x + width) < 0) {
 			isScrolledBack = true;
 		}
-		else if (!isRightGoing && (position.x + width) > 136 * 3) {
+		else if (!isRightGoing && (position.x + width) > (136 * 4)) {
 			isScrolledBack = true;
 		}
 	}
@@ -49,7 +51,13 @@ public class Scrollable {
 	}
 	
 	public float getTailX() {
-		return position.x + width;
+		if(isRightGoing) {
+			return position.x + width;
+		}
+		else
+		{
+			return position.x - width;
+		}
 	}
 
 	public float getX() {
@@ -71,18 +79,39 @@ public class Scrollable {
 	public void goRight()
 	{
 		isRightGoing = true;
-		velocity.x = -59;
+		
+		if(scrollSpeed > 0)
+		{
+			velocity.x = -scrollSpeed;
+		}
+		else
+		{
+			velocity.x = scrollSpeed;
+		}
 	}
 	
 	public void goLeft()
 	{
 		isRightGoing = false;
-		velocity.x = 59;
+		
+		if(scrollSpeed < 0)
+		{
+			velocity.x = -scrollSpeed;
+		}
+		else
+		{
+			velocity.x = scrollSpeed;
+		}
 	}
 	
 	public boolean isRightGoing()
 	{
 		return isRightGoing;
+	}
+	
+	protected void onRestart()
+	{
+		goRight();
 	}
 
 }

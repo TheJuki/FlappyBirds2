@@ -55,6 +55,7 @@ public class Pipe extends Scrollable {
 	}
 
 	public void onRestart(float x, float scrollSpeed) {
+		super.onRestart();
 		velocity.x = scrollSpeed;
 		reset(x);
 	}
@@ -76,14 +77,14 @@ public class Pipe extends Scrollable {
 	}
 
 	public boolean collides(Bird bird) {
-		/*
+		
 		if (position.x < bird.getX() + bird.getWidth()) {
 			return (Intersector.overlaps(bird.getBoundingCircle(), barUp)
 					|| Intersector.overlaps(bird.getBoundingCircle(), barDown)
 					|| Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) || Intersector
 						.overlaps(bird.getBoundingCircle(), pipeTopDown));
 		}
-		*/
+		
 		
 		return false;
 	}
