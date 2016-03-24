@@ -1,8 +1,5 @@
 package com.nargles.flappybird2.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -10,6 +7,9 @@ import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.GameWorld;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
 import com.nargles.flappybird2.ui.Buttons.SimpleButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InputHandler implements InputProcessor {
 	private Bird myBird;
@@ -132,6 +132,12 @@ public class InputHandler implements InputProcessor {
 			}
 
 		}
+
+        if (keycode == Keys.B) {
+
+            myBird.shoot();
+
+        }
 
 		return false;
 	}

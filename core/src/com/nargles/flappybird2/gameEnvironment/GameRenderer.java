@@ -1,29 +1,29 @@
 package com.nargles.flappybird2.gameEnvironment;
 
-import java.util.List;
-
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.nargles.flappybird2.gameEnvironment.player.Bird;
+import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Grass;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Pipe;
-import com.nargles.flappybird2.gameEnvironment.ScrollHandler;
+import com.nargles.flappybird2.gameEnvironment.player.Bird;
+import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
+import com.nargles.flappybird2.ui.Buttons.SimpleButton;
+import com.nargles.flappybird2.ui.InputHandler;
 import com.nargles.flappybird2.ui.TweenAccessors.Value;
 import com.nargles.flappybird2.ui.TweenAccessors.ValueAccessor;
-import com.nargles.flappybird2.assetManager.AssetLoader;
-import com.nargles.flappybird2.ui.InputHandler;
-import com.nargles.flappybird2.ui.Buttons.SimpleButton;
+
+import java.util.List;
 
 public class GameRenderer {
 
@@ -43,6 +43,8 @@ public class GameRenderer {
 	private List<Pipe> pipes;
 
 	// Game Assets
+    private Texture bullet1, bullet2, bullet3;
+
 	private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
 			fbLogo, gameOver, highScore, scoreboard, retry;
 	private Animation birdAnimation, birdAnimationFlipped;
@@ -102,6 +104,9 @@ public class GameRenderer {
 		highScore = AssetLoader.highScore;
 		scoreboard = AssetLoader.scoreboard;
 		retry = AssetLoader.retry;
+        bullet1 = AssetLoader.bullet1;
+        bullet2 = AssetLoader.bullet2;
+        bullet3 = AssetLoader.bullet3;
 	}
 
 	private void drawGrass() {
@@ -162,6 +167,17 @@ public class GameRenderer {
 					bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
 					1, 1, bird.getRotation());
 		}
+
+        for (int i = 0; i < bird.getProjectiles().size(); i++) {
+            Projectile p = bird.getProjectiles().get(i);
+            if (p.isVisible()) {
+                p.update();
+                batcher.draw(bullet1, p.getX(), p.getY(), p.getWidth(),
+                        p.getHeight());
+            } else {
+                bird.getProjectiles().remove(i);
+            }
+        }
 
 	}
 

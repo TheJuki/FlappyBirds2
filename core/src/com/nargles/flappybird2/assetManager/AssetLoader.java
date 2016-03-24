@@ -10,10 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-	public static Texture texture, logoTexture;
+	public static Texture texture, logoTexture, bullet1, bullet2, bullet3;
 	public static TextureRegion logo, fbLogo, bg, grass, 
 	bird, birdDown, birdUp, 
-	birdFlipped, birdDownFlipped, birdUpFlipped, 
+	birdFlipped, birdDownFlipped, birdUpFlipped,
 	pipeUp, pipeDown, bar, 
 			playButtonUp, playButtonDown,
 			quitButtonUp, quitButtonDown,
@@ -32,7 +32,16 @@ public class AssetLoader {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
 		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-		//Play
+        bullet1 = new Texture(Gdx.files.internal("data/bullet1.gif"));
+        bullet1.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
+        bullet2 = new Texture(Gdx.files.internal("data/bullet2.gif"));
+        bullet2.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
+        bullet3 = new Texture(Gdx.files.internal("data/bullet3.gif"));
+        bullet3.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
+        //Play
 		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
 		playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
 		playButtonUp.flip(false, true);

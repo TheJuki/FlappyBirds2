@@ -3,6 +3,10 @@ package com.nargles.flappybird2.gameEnvironment.player;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.nargles.flappybird2.assetManager.AssetLoader;
+import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bird {
 
@@ -13,6 +17,12 @@ public class Bird {
 	private float rotation;
 	private int width;
 	private float height;
+
+    public List<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    private List<Projectile> projectiles;
 
 	private float originalY;
 
@@ -29,6 +39,7 @@ public class Bird {
 		acceleration = new Vector2(0, 460);
 		boundingCircle = new Circle();
 		isAlive = true;
+        projectiles = new ArrayList<Projectile>();
 	}
 
 	public void update(float delta, boolean isRightGoing) {
@@ -131,6 +142,11 @@ public class Bird {
 		isAlive = true;
 	}
 
+    public void shoot() {
+        Projectile p = new Projectile(position.x + 5, position.y + 5, 12, 12);
+        projectiles.add(p);
+    }
+
 	public float getX() {
 		return position.x;
 	}
@@ -158,5 +174,6 @@ public class Bird {
 	public boolean isAlive() {
 		return isAlive;
 	}
+
 
 }

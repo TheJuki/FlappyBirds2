@@ -1,13 +1,17 @@
 package com.nargles.flappybird2.gameEnvironment.projectiles;
 
 /**
- * Created by Justin on 3/24/16.
+ * Created by Taylor Chason on 3/24/16.
  */
 public class Projectile {
-    private int x, y, speedX;
+    private float x, y, speedX;
     private boolean visible;
+    private int width;
+    private float height;
 
-    public Projectile(int startX, int startY){
+    public Projectile(float startX, float startY, int width, int height){
+        this.width = width;
+        this.height = height;
         x = startX;
         y = startY;
         speedX = 7;
@@ -22,15 +26,15 @@ public class Projectile {
 
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public int getSpeedX() {
+    public float getSpeedX() {
         return speedX;
     }
 
@@ -52,6 +56,14 @@ public class Projectile {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 
 }
