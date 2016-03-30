@@ -1,21 +1,21 @@
 package com.nargles.flappybird2.scoreManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.sql.Database;
 import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.sql.DatabaseFactory;
 import com.badlogic.gdx.sql.SQLiteGdxException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FlappyBird2Database {
 
     private Database dbHandler;
 
-    public static final String TABLE_HIGHSCORES = "highscore";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_HIGHSCORE = "highscore";
+    private static final String TABLE_HIGHSCORES = "highscore";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_HIGHSCORE = "highscore";
 
     private static final String DATABASE_NAME = "flappybird2.db";
     private static final int DATABASE_VERSION = 1;
@@ -26,8 +26,11 @@ public class FlappyBird2Database {
             + " integer primary key autoincrement, " + COLUMN_HIGHSCORE
             + " integer);";
 
+    /**
+     * Constructor
+     */
     public FlappyBird2Database() {
-        Gdx.app.log("FlappyBirdsDatabase", "creation started");
+
         dbHandler = DatabaseFactory.getNewDatabase(DATABASE_NAME,
                 DATABASE_VERSION, DATABASE_CREATE, null);
 
@@ -36,64 +39,44 @@ public class FlappyBird2Database {
             dbHandler.openOrCreateDatabase();
             dbHandler.execSQL(DATABASE_CREATE);
         } catch (SQLiteGdxException e) {
-            e.printStackTrace();
+            Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
         }
 
         Gdx.app.log("FlappyBirdsDatabase", "created/opened successfully");
         
-        /*       
-        try {
-            dbHandler
-                    .execSQL("DELETE FROM highscore");
-        } catch (SQLiteGdxException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            dbHandler
-                    .execSQL("INSERT INTO highscore ('highscore') VALUES ('12')");
-        } catch (SQLiteGdxException e) {
-            e.printStackTrace();
-        }
-        DatabaseCursor cursor = null;
-
-        try {
-            cursor = dbHandler.rawQuery("SELECT * FROM highscore");
-        } catch (SQLiteGdxException e) {
-            e.printStackTrace();
-        }
-        while (cursor.next()) {
-            Gdx.app.log("FromDb", String.valueOf(cursor.getInt(1)));
-        }
-        
-        cursor.close();
-        */
-        
     }
-    
-    public void addHighscore(int highscore)
+
+    /**
+     * Add new HighScore
+     * @param highScore HighScore to add
+     */
+    public void addHighScore(int highScore)
     {
     	 DatabaseCursor cursor = null;
 
          try {
-             cursor = dbHandler.rawQuery("SELECT highscore FROM highscore WHERE highscore = '" + highscore + "'");
+             cursor = dbHandler.rawQuery("SELECT highscore FROM highscore WHERE highscore = '" + highScore + "'");
          } catch (SQLiteGdxException e) {
-             e.printStackTrace();
+             Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
          }
          
-         if(!cursor.next()) {
+         if(cursor != null && !cursor.next()) {
         	 try {
                  dbHandler
-                         .execSQL("INSERT INTO highscore ('highscore') VALUES ('" + highscore + "')");
+                         .execSQL("INSERT INTO highscore ('highscore') VALUES ('" + highScore + "')");
              } catch (SQLiteGdxException e) {
-                 e.printStackTrace();
+                 Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
              }
+
+             cursor.close();
          }
-         
-         cursor.close();
     }
-    
-    public List<Integer> getAllHighscores()
+
+    /**
+     * Get all HighScores as a list
+     * @return List of all HighScores
+     */
+    public List<Integer> getAllHighScores()
     {
     	List<Integer> list = new ArrayList<Integer>();
     	 DatabaseCursor cursor = null;
@@ -101,44 +84,53 @@ public class FlappyBird2Database {
          try {
              cursor = dbHandler.rawQuery("SELECT * FROM highscore ORDER BY highscore desc");
          } catch (SQLiteGdxException e) {
-             e.printStackTrace();
+             Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
          }
-         while (cursor.next()) {
-             list.add(cursor.getInt(1));
-         }
-         
-         cursor.close();
-         
+        if (cursor != null) {
+            while (cursor.next()) {
+                list.add(cursor.getInt(1));
+            }
+
+            cursor.close();
+        }
+
          return list;
     }
-    
-    public int getHighestHighscore()
+
+    /**
+     * Get Highest HighScore
+     * @return Highest HighScore
+     */
+    public int getHighestHighScore()
     {
-    	int highscore = 0;
+    	int highScore = 0;
     	 DatabaseCursor cursor = null;
 
          try {
              cursor = dbHandler.rawQuery("SELECT MAX(highscore) AS HighestScore FROM highscore");
          } catch (SQLiteGdxException e) {
-             e.printStackTrace();
+             Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
          }
-         
-         if(cursor.next()) {
-        	 highscore = cursor.getInt(0);
-         }
-         
-         cursor.close();
-         
-         return highscore;
+
+        if (cursor != null && cursor.next()) {
+            highScore = cursor.getInt(0);
+
+            cursor.close();
+        }
+
+         return highScore;
     }
-  
+
+    /**
+     * Close database
+     */
     public void close()
     {
     	if(this.dbHandler != null) {
 	    	try {
 				this.dbHandler.closeDatabase();
 	        } catch (Exception e) {
-	            e.printStackTrace();
+                Gdx.app.log("FlappyBirdsDatabase SQL Exception", e.getMessage());
 	        }
 			this.dbHandler = null;
 	        Gdx.app.log("FlappyBirdsDatabase", "disposed");

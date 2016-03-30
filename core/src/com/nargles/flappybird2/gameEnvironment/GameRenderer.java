@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,7 +17,7 @@ import com.nargles.flappybird2.gameEnvironment.obstacles.Grass;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Pipe;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
 import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
-import com.nargles.flappybird2.ui.Buttons.SimpleButton;
+import com.nargles.flappybird2.ui.Buttons.GameButton;
 import com.nargles.flappybird2.ui.InputHandler;
 import com.nargles.flappybird2.ui.TweenAccessors.Value;
 import com.nargles.flappybird2.ui.TweenAccessors.ValueAccessor;
@@ -43,7 +42,7 @@ public class GameRenderer {
 	private List<Pipe> pipes;
 
 	// Game Assets
-    private Texture bullet1, bullet2, bullet3;
+    private TextureRegion bullet1, bullet2, bullet3;
 
 	private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
 			fbLogo, gameOver, highScore, scoreboard, retry;
@@ -54,10 +53,17 @@ public class GameRenderer {
 	private Value alpha = new Value();
 
 	// Buttons
-	private List<SimpleButton> menuButtons;
+	private List<GameButton> menuButtons;
 	private Color transitionColor;
 
-	public GameRenderer(GameWorld world, int gameHeight, int midPointX , int midPointY) {
+    /**
+     * Constructor
+     * @param world Game World
+     * @param gameHeight Height of game screen
+     * @param midPointY Middle of game screen vertically
+     * @param midPointX Middle of game screen horizontally
+     */
+    public GameRenderer(GameWorld world, int gameHeight, int midPointX , int midPointY) {
 		myWorld = world;
 
 		this.midPointY = midPointY;
@@ -80,7 +86,10 @@ public class GameRenderer {
 		prepareTransition(255, 255, 255, .5f);
 	}
 
-	private void initGameObjects() {
+    /**
+     * Get player and obstacles
+     */
+    private void initGameObjects() {
 		bird = myWorld.getBird();
 		scroller = myWorld.getScroller();
 		frontGrass = scroller.getFrontGrass();
@@ -88,7 +97,10 @@ public class GameRenderer {
 		pipes = scroller.getPipes();
 	}
 
-	private void initAssets() {
+    /**
+     * Get assets
+     */
+    private void initAssets() {
 		bg = AssetLoader.bg;
 		grass = AssetLoader.grass;
 		birdAnimation = AssetLoader.birdAnimation;
@@ -109,15 +121,21 @@ public class GameRenderer {
         bullet3 = AssetLoader.bullet3;
 	}
 
-	private void drawGrass() {
-		// Draw the grass
+    /**
+     * Draw grass
+     */
+    private void drawGrass() {
+
 		batcher.draw(grass, frontGrass.getX(), frontGrass.getY(),
 				frontGrass.getWidth(), frontGrass.getHeight());
 		batcher.draw(grass, backGrass.getX(), backGrass.getY(),
 				backGrass.getWidth(), backGrass.getHeight());
 	}
 
-	private void drawPipeTops() {
+    /**
+     * Draw top portion for all pipes (Up and down)
+     */
+    private void drawPipeTops() {
 
 		for(Pipe pipe: pipes)
 		{
@@ -128,6 +146,9 @@ public class GameRenderer {
 		}
 	}
 
+    /**
+     * Draw all pipes (Up and down)
+     */
 	private void drawPipes() {
 		
 		for(Pipe pipe: pipes)
@@ -139,20 +160,29 @@ public class GameRenderer {
 		}
 	}
 
-	private void drawBirdCentered(float runTime) {
+    /**
+     * Draw Bird in center of game screen
+     * @param runTime Update animation frame
+     */
+    private void drawBirdCentered(float runTime) {
 		batcher.draw(birdAnimation.getKeyFrame(runTime), 59 * 2, (bird.getY() - 15) * 2,
 				bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
 				bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
 	}
 
-	private void drawBird(float runTime) {
+    /**
+     * Draw bird (Handle flip)
+     * Draw bird's fired projectiles
+     * @param runTime Update animation frame
+     */
+    private void drawBird(float runTime) {
 
-		if (bird.shouldntFlap() && myWorld.getScroller().isRightGoing()) {
+		if (bird.shouldNotFlap() && myWorld.getScroller().isRightGoing()) {
 			batcher.draw(birdMid, bird.getX(), bird.getY(),
 					bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
 					bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
 
-		} else if(bird.shouldntFlap() && !myWorld.getScroller().isRightGoing()) {
+		} else if(bird.shouldNotFlap() && !myWorld.getScroller().isRightGoing()) {
 			batcher.draw(birdMidFlipped, bird.getX(), bird.getY(),
 					bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
 					bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
@@ -173,7 +203,8 @@ public class GameRenderer {
             if (p.isVisible()) {
                 p.update();
                 batcher.draw(bullet1, p.getX(), p.getY(), p.getWidth(),
-                        p.getHeight());
+                        p.getHeight(), p.getWidth(),
+                        p.getHeight(), 1, 1, p.getRotation());
             } else {
                 bird.getProjectiles().remove(i);
             }
@@ -181,20 +212,27 @@ public class GameRenderer {
 
 	}
 
-	private void drawMenuUI(boolean showLogo) {
+    /**
+     * Draw menu buttons
+     * @param showLogo Main Menu displays the game logo
+     */
+    private void drawMenuUI(boolean showLogo) {
 		if(showLogo) {
 			batcher.draw(fbLogo, (float) midPointX - 70 , (midPointY - 20) /2 ,
 				fbLogo.getRegionWidth() / 1.2f, fbLogo.getRegionHeight() / 1.2f);
 		}
 
-		for (SimpleButton button : menuButtons) {
+		for (GameButton button : menuButtons) {
 			button.draw(batcher);
 		}
 
 	}
 
-	private void drawScoreboard() {
-		batcher.draw(scoreboard, 22 * 4, midPointY - 00, 97, 37);
+    /**
+     * Draw HighScore and final score on board
+     */
+    private void drawScoreboard() {
+		batcher.draw(scoreboard, 22 * 4, midPointY, 97, 37);
 
 		/*
 		if (myWorld.getScore() > 2) {
@@ -222,25 +260,23 @@ public class GameRenderer {
 		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getScore(),
 				(float) ((104 - (2 * length)) * 1.7), midPointY + 10);
 
-		int length2 = ("" + myWorld.getDatabase().getHighestHighscore()).length();
-		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getDatabase().getHighestHighscore(),
+		int length2 = ("" + myWorld.getDb().getHighestHighScore()).length();
+		AssetLoader.whiteFont.draw(batcher, "" + myWorld.getDb().getHighestHighScore(),
 				(float) ((104 - (2.5f * length2)) * 1.7), midPointY + 27);
 
 	}
 
-	private void drawRetry() {
-		//batcher.draw(retry, bird.getWidth() / 2.0f, (midPointY) * 2, 66, 14);
-	}
-
-	private void drawReady() {
+    /**
+     * Draw Ready text sprite
+     */
+    private void drawReady() {
 		batcher.draw(ready, bird.getX() - 25, (midPointY) * 2, 68, 14);
 	}
 
-	private void drawGameOver() {
-		//batcher.draw(gameOver, 24, (midPointY - 50) * 2, 92, 14);
-	}
-
-	private void drawScore() {
+    /**
+     * Draw current score during game play
+     */
+    private void drawScore() {
 		int length = ("" + myWorld.getScore()).length();
 		AssetLoader.shadow.draw(batcher, "" + myWorld.getScore(),
 				midPointX - (3 * length), midPointY - 22);
@@ -248,16 +284,15 @@ public class GameRenderer {
 				midPointX - (3 * length), midPointY - 23);
 	}
 
-	private void drawHighScore() {
-		//batcher.draw(highScore, midPointX, (midPointY - 20) * 2, 96, 14);
-	}
-
-	public void render(float delta, float runTime) {
+    /**
+     * Render screen and changes to objects
+     * @param delta Update Transition
+     * @param runTime Update animation frame
+     */
+    public void render(float delta, float runTime) {
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		
 
 		batcher.begin();
 		batcher.disableBlending();
@@ -303,12 +338,12 @@ public class GameRenderer {
 		} else if (myWorld.isGameOver()) {
 			drawScoreboard();
 			drawBird(runTime);
-			drawGameOver();
-			drawRetry();
+			//drawGameOver();
+			//drawRetry();
 		} else if (myWorld.isHighScore()) {
 			drawScoreboard();
 			drawBird(runTime);
-			drawHighScore();
+			//drawHighScore();
 			drawMenuUI(false);
 		}
 
@@ -318,7 +353,14 @@ public class GameRenderer {
 		drawTransition(delta);
 	}
 
-	public void prepareTransition(int r, int g, int b, float duration) {
+    /**
+     * Get Tween ready
+     * @param r R
+     * @param g G
+     * @param b B
+     * @param duration Duration of transition
+     */
+    public void prepareTransition(int r, int g, int b, float duration) {
 		transitionColor.set(r / 255.0f, g / 255.0f, b / 255.0f, 1);
 		alpha.setValue(1);
 		Tween.registerAccessor(Value.class, new ValueAccessor());
@@ -327,7 +369,11 @@ public class GameRenderer {
 				.ease(TweenEquations.easeOutQuad).start(manager);
 	}
 
-	private void drawTransition(float delta) {
+    /**
+     * Draw Flash
+     * @param delta Update Transition
+     */
+    private void drawTransition(float delta) {
 		if (alpha.getValue() > 0) {
 			manager.update(delta);
 			Gdx.gl.glEnable(GL20.GL_BLEND);

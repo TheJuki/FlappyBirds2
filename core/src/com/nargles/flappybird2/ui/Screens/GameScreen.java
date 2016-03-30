@@ -13,7 +13,12 @@ public class GameScreen implements Screen {
 	private GameRenderer renderer;
 	private float runTime;
 
-	public GameScreen(FlappyBirds2 game) {
+    /**
+     * Constructor
+     * Setup the screen size, world, and renderer
+     * @param game FlappyBirds2
+     */
+    public GameScreen(FlappyBirds2 game) {
 
 		float screenWidth = Gdx.graphics.getWidth();
 		float screenHeight = Gdx.graphics.getHeight();
@@ -28,7 +33,11 @@ public class GameScreen implements Screen {
 		world.setRenderer(renderer);
 	}
 
-	@Override
+    /**
+     * Render screen
+     * @param delta Update scalar
+     */
+    @Override
 	public void render(float delta) {
 		runTime += delta;
 		world.update(delta);

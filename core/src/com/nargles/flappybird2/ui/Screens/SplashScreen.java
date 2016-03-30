@@ -22,11 +22,18 @@ public class SplashScreen implements Screen {
 	private Sprite sprite;
 	private FlappyBirds2 game;
 
-	public SplashScreen(FlappyBirds2 game) {
+    /**
+     * Constructor
+     * @param game FlappyBirds2
+     */
+    public SplashScreen(FlappyBirds2 game) {
 		this.game = game;
 	}
 
-	@Override
+    /**
+     * Display Logo
+     */
+    @Override
 	public void show() {
 		sprite = new Sprite(AssetLoader.logo);
 		sprite.setColor(1, 1, 1, 0);
@@ -43,7 +50,10 @@ public class SplashScreen implements Screen {
 		batcher = new SpriteBatch();
 	}
 
-	private void setupTween() {
+    /**
+     * Setup Tween for simple transition
+     */
+    private void setupTween() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		manager = new TweenManager();
 
@@ -60,7 +70,11 @@ public class SplashScreen implements Screen {
 				.start(manager);
 	}
 
-	@Override
+    /**
+     * Render screen
+     * @param delta Update Screen Transition
+     */
+    @Override
 	public void render(float delta) {
 		manager.update(delta);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -70,33 +84,29 @@ public class SplashScreen implements Screen {
 		batcher.end();
 	}
 
-	@Override
-	public void resize(int width, int height) {
+    @Override
+    public void resize(int width, int height) {
 
-	}
+    }
 
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
+    @Override
+    public void pause() {
 
-	}
+    }
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+    @Override
+    public void resume() {
 
-	}
+    }
 
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
+    @Override
+    public void hide() {
 
-	}
+    }
 
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
+    @Override
+    public void dispose() {
 
-	}
+    }
 
 }

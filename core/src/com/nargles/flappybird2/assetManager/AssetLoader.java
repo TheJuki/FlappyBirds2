@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-	public static Texture texture, logoTexture, bullet1, bullet2, bullet3;
-	public static TextureRegion logo, fbLogo, bg, grass, 
+	public static Texture texture, logoTexture, bulletTexture;
+	public static TextureRegion logo, fbLogo, bg, grass,
 	bird, birdDown, birdUp, 
 	birdFlipped, birdDownFlipped, birdUpFlipped,
-	pipeUp, pipeDown, bar, 
+	pipeUp, pipeDown, bar, bullet1, bullet2, bullet3,
 			playButtonUp, playButtonDown,
 			quitButtonUp, quitButtonDown,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
@@ -22,24 +22,28 @@ public class AssetLoader {
 	public static Sound dead, flap, coin, fall;
 	public static BitmapFont font, shadow, whiteFont;
 
-	public static void load() {
+    /**
+     * Load each asset
+     */
+    public static void load() {
 
 		logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
 		logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        bulletTexture = new Texture(Gdx.files.internal("data/bullet1.gif"));
+        bulletTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
 		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-        bullet1 = new Texture(Gdx.files.internal("data/bullet1.gif"));
-        bullet1.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        bullet1 = new TextureRegion(bulletTexture, 0, 0, 30, 38);
 
-        bullet2 = new Texture(Gdx.files.internal("data/bullet2.gif"));
-        bullet2.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-        bullet3 = new Texture(Gdx.files.internal("data/bullet3.gif"));
-        bullet3.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        bullet2 = new TextureRegion(bulletTexture, 0, 0, 30, 38);
+
+        bullet3 = new TextureRegion(bulletTexture, 0, 0, 30, 38);
 
         //Play
 		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
@@ -132,8 +136,12 @@ public class AssetLoader {
 
 	}
 
-	public static void dispose() {
-		// We must dispose of the texture when we are finished.
+    /**
+     * Dispose of assets
+     */
+    public static void dispose() {
+
+		// Dispose texture
 		texture.dispose();
 
 		// Dispose sounds
@@ -141,6 +149,7 @@ public class AssetLoader {
 		flap.dispose();
 		coin.dispose();
 
+        //Dispose fonts
 		font.dispose();
 		shadow.dispose();
 	}

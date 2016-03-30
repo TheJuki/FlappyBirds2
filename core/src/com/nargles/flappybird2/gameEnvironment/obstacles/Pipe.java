@@ -1,25 +1,34 @@
 package com.nargles.flappybird2.gameEnvironment.obstacles;
 
-import java.util.Random;
-
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.gameEnvironment.Scrollable;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
 
+import java.util.Random;
+
 public class Pipe extends Scrollable {
 
 	private Rectangle pipeTopUp, pipeTopDown, barUp, barDown;
 
-	public static final int VERTICAL_GAP = 45;
-	public static final int PIPE_TOP_WIDTH = 24;
-	public static final int PIPE_TOP_HEIGHT = 11;
+	private static final int VERTICAL_GAP = 45;
+    private static final int PIPE_TOP_WIDTH = 24;
+    private static final int PIPE_TOP_HEIGHT = 11;
 	private static long seedQualifier = 432282912137141232L;
 	private float groundY;
 
 	private boolean isScored = false;
 
-	public Pipe(float x, float y, int width, int height, float scrollSpeed,
+    /**
+     * Constructor
+     * @param x Pipe X position
+     * @param y Pipe Y position
+     * @param width Pipe sprite width
+     * @param height Pipe sprite height
+     * @param scrollSpeed Speed of the Pipe
+     * @param groundY Ground's Y position
+     */
+    public Pipe(float x, float y, int width, int height, float scrollSpeed,
 			float groundY) {
 		super(x, y, width, height, scrollSpeed);
 
@@ -31,7 +40,11 @@ public class Pipe extends Scrollable {
 		this.groundY = groundY;
 	}
 
-	@Override
+    /**
+     * Update the stacked pipes
+     * @param delta Update scalar
+     */
+    @Override
 	public void update(float delta) {
 		super.update(delta);
 
@@ -46,7 +59,11 @@ public class Pipe extends Scrollable {
 
 	}
 
-	@Override
+    /**
+     * Reset pipe x position and height
+     * @param newX New x position
+     */
+    @Override
 	public void reset(float newX) {
 		super.reset(newX);
 		// Change the height to a random number
@@ -54,40 +71,31 @@ public class Pipe extends Scrollable {
 		isScored = false;
 	}
 
-	public void onRestart(float x, float scrollSpeed) {
+    /**
+     * Restart pipe position
+     * @param x x position to move to
+     * @param scrollSpeed Movement speed
+     */
+    public void onRestart(float x, float scrollSpeed) {
 		super.onRestart();
 		velocity.x = scrollSpeed;
 		reset(x);
 	}
 
-	public Rectangle getPipeTopUp() {
-		return pipeTopUp;
-	}
+    /**
+     * Determines if a bird and the pipe met
+     * @param bird Bird
+     * @return if a bird and the pipe met
+     */
+    public boolean collides(Bird bird) {
 
-	public Rectangle getPipeTopDown() {
-		return pipeTopDown;
-	}
+        return (position.x < (bird.getX() + bird.getWidth())) &&
+                (Intersector.overlaps(bird.getBoundingCircle(), barUp) ||
+                        Intersector.overlaps(bird.getBoundingCircle(), barDown) ||
+                        Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) ||
+                        Intersector.overlaps(bird.getBoundingCircle(), pipeTopDown));
 
-	public Rectangle getBarUp() {
-		return barUp;
-	}
-
-	public Rectangle getBarDown() {
-		return barDown;
-	}
-
-	public boolean collides(Bird bird) {
-		
-		if (position.x < bird.getX() + bird.getWidth()) {
-			return (Intersector.overlaps(bird.getBoundingCircle(), barUp)
-					|| Intersector.overlaps(bird.getBoundingCircle(), barDown)
-					|| Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) || Intersector
-						.overlaps(bird.getBoundingCircle(), pipeTopDown));
-		}
-		
-		
-		return false;
-	}
+    }
 
 	public boolean isScored() {
 		return isScored;

@@ -3,18 +3,24 @@ package com.nargles.flappybird2.gameEnvironment;
 import com.badlogic.gdx.math.Vector2;
 
 public class Scrollable {
-	
-	
-	// Protected is similar to private, but allows inheritance by subclasses.
+
 	protected Vector2 position;
 	protected Vector2 velocity;
 	protected int width;
 	protected int height;
-	protected boolean isScrolledBack;
-	protected boolean isRightGoing;
-	protected float scrollSpeed;
+	private boolean isScrolledBack;
+    private boolean isRightGoing;
+    private float scrollSpeed;
 
-	public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
+    /**
+     * Constructor
+     * @param y Y position of the object
+     * @param x X position of the object
+     * @param width Width of sprite
+     * @param height Height of sprite
+     * @param scrollSpeed Speed of the objects that move
+     */
+    public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
 		position = new Vector2(x, y);
 		this.scrollSpeed = scrollSpeed;
 		velocity = new Vector2(scrollSpeed, 0);
@@ -24,7 +30,11 @@ public class Scrollable {
 		isRightGoing = scrollSpeed < 0;
 	}
 
-	public void update(float delta) {
+    /**
+     * Update position
+     * @param delta Update Scalar
+     */
+    public void update(float delta) {
 		position.add(velocity.cpy().scl(delta));
 
 		// If the Scrollable object is no longer visible:
@@ -36,21 +46,31 @@ public class Scrollable {
 		}
 	}
 
-	// Reset: Should Override in subclass for more specific behavior.
-	public void reset(float newX) {
+    /**
+     * Reset position
+     * @param newX New X position
+     */
+    public void reset(float newX) {
 		position.x = newX;
 		isScrolledBack = false;
 	}
 
-	public void stop() {
+    /**
+     * Stop movement
+     */
+    public void stop() {
 		velocity.x = 0;
 	}
-	
-	public boolean isScrolledBack() {
+
+    public boolean isScrolledBack() {
 		return isScrolledBack;
 	}
-	
-	public float getTailX() {
+
+    /**
+     * Tail X position
+     * @return X position of previous object
+     */
+    public float getTailX() {
 		if(isRightGoing) {
 			return position.x + width;
 		}
@@ -75,8 +95,11 @@ public class Scrollable {
 	public int getHeight() {
 		return height;
 	}
-	
-	public void goRight()
+
+    /**
+     * Change velocity X to negative scroll speed
+     */
+    public void goRight()
 	{
 		isRightGoing = true;
 		
@@ -89,7 +112,10 @@ public class Scrollable {
 			velocity.x = scrollSpeed;
 		}
 	}
-	
+
+    /**
+     * Change velocity X to positive scroll speed
+     */
 	public void goLeft()
 	{
 		isRightGoing = false;
@@ -108,8 +134,11 @@ public class Scrollable {
 	{
 		return isRightGoing;
 	}
-	
-	protected void onRestart()
+
+    /**
+     * Go right on restart
+     */
+    protected void onRestart()
 	{
 		goRight();
 	}

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.assetManager.AssetLoader;
 
-public class SimpleButton {
+public class GameButton {
 
 	private float x, y, width, height;
 	private String name;
@@ -17,8 +17,18 @@ public class SimpleButton {
 
 	private boolean isPressed = false;
 
-	public SimpleButton(String name, float x, float y, float width, float height,
-			TextureRegion buttonUp, TextureRegion buttonDown) {
+    /**
+     * Constructor
+     * @param name Tag of Button
+     * @param x X position of Button
+     * @param y Y position of Button
+     * @param width Button width
+     * @param height Button height
+     * @param buttonUp Button Unpressed texture
+     * @param buttonDown Button Pressed texture
+     */
+    public GameButton(String name, float x, float y, float width, float height,
+                      TextureRegion buttonUp, TextureRegion buttonDown) {
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -31,11 +41,11 @@ public class SimpleButton {
 
 	}
 
-	public boolean isClicked(int screenX, int screenY) {
-		return bounds.contains(screenX, screenY);
-	}
-
-	public void draw(SpriteBatch batcher) {
+    /**
+     * Draw button
+     * @param batcher SpriteBatch
+     */
+    public void draw(SpriteBatch batcher) {
 		if (isPressed) {
 			batcher.draw(buttonDown, x, y, width, height);
 		} else {
@@ -43,7 +53,13 @@ public class SimpleButton {
 		}
 	}
 
-	public boolean isTouchDown(int screenX, int screenY) {
+    /**
+     * Button is Pressed Down
+     * @param screenX Tap X position
+     * @param screenY Tap Y position
+     * @return Button is tapped
+     */
+    public boolean isTouchDown(int screenX, int screenY) {
 
 		if (bounds.contains(screenX, screenY)) {
 			isPressed = true;
@@ -53,16 +69,20 @@ public class SimpleButton {
 		return false;
 	}
 
+    /**
+     * Button is Released
+     * @param screenX Tap X position
+     * @param screenY Tap Y position
+     * @return Button is released within its bounds
+     */
 	public boolean isTouchUp(int screenX, int screenY) {
-		
-		// It only counts as a touchUp if the button is in a pressed state.
+
 		if (bounds.contains(screenX, screenY) && isPressed) {
 			isPressed = false;
 			AssetLoader.flap.play();
 			return true;
 		}
-		
-		// Whenever a finger is released, we will cancel any presses.
+
 		isPressed = false;
 		return false;
 	}

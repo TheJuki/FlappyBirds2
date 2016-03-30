@@ -6,7 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.GameWorld;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
-import com.nargles.flappybird2.ui.Buttons.SimpleButton;
+import com.nargles.flappybird2.ui.Buttons.GameButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class InputHandler implements InputProcessor {
 	private Bird myBird;
 	private GameWorld myWorld;
 
-	private List<SimpleButton> menuButtons;
+	private List<GameButton> menuButtons;
 
 	private float scaleFactorX;
 	private float scaleFactorY;
@@ -29,18 +29,18 @@ public class InputHandler implements InputProcessor {
 		this.scaleFactorX = scaleFactorX;
 		this.scaleFactorY = scaleFactorY;
 
-		menuButtons = new ArrayList<SimpleButton>();
+		menuButtons = new ArrayList<GameButton>();
 
 		// Add play button
-		menuButtons.add(new SimpleButton("play", (136) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50, 29,
+		menuButtons.add(new GameButton("play", (136) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50, 29,
 				16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
 
 		// Add quit button
-		menuButtons.add(new SimpleButton("quit", (136 - 50) - (AssetLoader.quitButtonUp.getRegionWidth() / 2), midPointY + 50,
+		menuButtons.add(new GameButton("quit", (136 - 50) - (AssetLoader.quitButtonUp.getRegionWidth() / 2), midPointY + 50,
 				29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown));
 
 		// Add high score button
-		//menuButtons.add(new SimpleButton("highscore", (136 + 50) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50,
+		//menuButtons.add(new GameButton("highscore", (136 + 50) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50,
 			//	29, 16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
 
 
@@ -52,7 +52,7 @@ public class InputHandler implements InputProcessor {
 		screenY = scaleY(screenY * 2);
 
 		if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
-			for(SimpleButton btn : menuButtons) {
+			for(GameButton btn : menuButtons) {
 				btn.isTouchDown(screenX, screenY);
 			}
 		} else if (myWorld.isReady()) {
@@ -87,7 +87,7 @@ public class InputHandler implements InputProcessor {
 		screenY = scaleY(screenY * 2);
 
 		if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
-			for(SimpleButton btn : menuButtons) {
+			for(GameButton btn : menuButtons) {
 				boolean btnTapped = btn.isTouchUp(screenX, screenY);
 				if(btnTapped && btn.getName().equals("play"))
 				{
@@ -175,7 +175,7 @@ public class InputHandler implements InputProcessor {
 		return (int) (screenY / scaleFactorY);
 	}
 
-	public List<SimpleButton> getMenuButtons() {
+	public List<GameButton> getMenuButtons() {
 		return menuButtons;
 	}
 }

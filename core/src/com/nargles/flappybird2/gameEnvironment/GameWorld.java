@@ -9,7 +9,7 @@ import com.nargles.flappybird2.scoreManager.FlappyBird2Database;
 
 public class GameWorld {
 
-	private FlappyBird2Database db;
+    private FlappyBird2Database db;
 	private Bird bird;
 	private ScrollHandler scroller;
 	private Rectangle ground;
@@ -20,11 +20,20 @@ public class GameWorld {
 
 	private GameState currentState;
 
-	public enum GameState {
+    /**
+     * The current game state
+     */
+    private enum GameState {
 		MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED
 	}
 
-	public GameWorld(FlappyBirds2 game, int midPointY, int midPointX) {
+    /**
+     * Constructor
+     * @param game FlappyBirds2 created initially
+     * @param midPointY Middle of game screen vertically
+     * @param midPointX Middle of game screen horizontally
+     */
+    public GameWorld(FlappyBirds2 game, int midPointY, int midPointX) {
 		db = game.getDatabase();
 		currentState = GameState.MENU;
 		this.midPointY = midPointY;
@@ -34,7 +43,10 @@ public class GameWorld {
 		ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
 	}
 
-	public void update(float delta) {
+    /**
+     * @param delta Updates scalars
+     */
+    public void update(float delta) {
 		runTime += delta;
 
 		switch (currentState) {
@@ -52,12 +64,20 @@ public class GameWorld {
 
 	}
 
-	private void updateReady(float delta) {
+    /**
+     * Update Bird and Scroller at Ready state
+     * @param delta Update scalars
+     */
+    private void updateReady(float delta) {
 		bird.updateReady(runTime);
 		scroller.updateReady(delta);
 	}
 
-	public void updateRunning(float delta) {
+    /**
+     *  Update Bird and Scroller at Running state
+     * @param delta Update scalars
+     */
+    private void updateRunning(float delta) {
 		if (delta > .15f) {
 			delta = .15f;
 		}
@@ -87,17 +107,14 @@ public class GameWorld {
 			bird.decelerate();
 			currentState = GameState.GAMEOVER;
 			if (score > 0) {
-				db.addHighscore(score);
+				db.addHighScore(score);
 			}
 			currentState = GameState.HIGHSCORE;
 
 		}
 	}
 
-	public Bird getBird() {
-		return bird;
-
-	}
+	public Bird getBird() { return bird; }
 
 	public int getMidPointY() {
 		return midPointY;
@@ -132,7 +149,10 @@ public class GameWorld {
 		currentState = GameState.HIGHSCORE;
 	}
 
-	public void restart() {
+    /**
+     * Restart Game
+     */
+    public void restart() {
 		score = 0;
 		bird.onRestart(midPointY - 5);
 		scroller.onRestart();
@@ -167,8 +187,8 @@ public class GameWorld {
 		this.renderer = renderer;
 	}
 
-	public FlappyBird2Database getDatabase() {
-		return db;
-	}
+    public FlappyBird2Database getDb() {
+        return db;
+    }
 
 }

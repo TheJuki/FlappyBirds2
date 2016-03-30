@@ -8,16 +8,30 @@ public class Projectile {
     private boolean visible;
     private int width;
     private float height;
+    private float rotation;
 
-    public Projectile(float startX, float startY, int width, int height){
+    /**
+     * Constructor
+     * @param startX Player X position
+     * @param startY Player Y position
+     * @param width Projectile sprite width
+     * @param height Projectile sprite height
+     * @param rotation Projectile rotation
+     */
+    public Projectile(float startX, float startY, int width, int height, float rotation){
         this.width = width;
         this.height = height;
+        this.rotation = rotation;
         x = startX;
         y = startY;
         speedX = 7;
         visible = true;
     }
 
+    /**
+     * Update the x and y position (Moving)
+     * If offscreen then hide
+     */
     public void update(){
         x += speedX;
         if (x > 800){
@@ -64,6 +78,10 @@ public class Projectile {
 
     public float getHeight() {
         return height;
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 
 }

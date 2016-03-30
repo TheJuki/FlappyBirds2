@@ -30,7 +30,14 @@ public class Bird {
 
 	private Circle boundingCircle;
 
-	public Bird(float x, float y, int width, int height) {
+    /**
+     * Constructor
+     * @param x Player X position
+     * @param y Player Y position
+     * @param width Bird sprite width
+     * @param height Bird sprite height
+     */
+    public Bird(float x, float y, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.originalY = y;
@@ -42,7 +49,12 @@ public class Bird {
         projectiles = new ArrayList<Projectile>();
 	}
 
-	public void update(float delta, boolean isRightGoing) {
+    /**
+     * Update bird direction and y position
+     * @param delta Scalar for Acceleration vector
+     * @param isRightGoing False if game flipped (Flip bird)
+     */
+    public void update(float delta, boolean isRightGoing) {
 
 		velocity.add(acceleration.cpy().scl(delta));
 
@@ -104,35 +116,60 @@ public class Bird {
 
 	}
 
-	public void updateReady(float runTime) {
+    /**
+     * Constantly move bird up and down on the Main Menu
+     * @param runTime delta
+     */
+    public void updateReady(float runTime) {
 		position.y = 2 * (float) Math.sin(7 * runTime) + originalY;
 	}
 
-	public boolean isFalling() {
+    /**
+     * Determine if Bird is falling
+     * @return Velocity y is above some number
+     */
+    private boolean isFalling() {
 		return velocity.y > 110;
 	}
 
-	public boolean shouldntFlap() {
+    /**
+     * Determine if Bird should not animate
+     * @return Bird should not be animating
+     */
+    public boolean shouldNotFlap() {
 		return velocity.y > 70 || !isAlive;
 	}
 
-	public void onClick() {
+    /**
+     * If bird is alive, then flap up on tap/click
+     */
+    public void onClick() {
 		if (isAlive) {
 			AssetLoader.flap.play();
 			velocity.y = -140;
 		}
 	}
 
-	public void die() {
+    /**
+     * Move bird to the ground when dead
+     */
+    public void die() {
 		isAlive = false;
 		velocity.y = 0;
 	}
 
-	public void decelerate() {
+    /**
+     * Gravity takes over
+     */
+    public void decelerate() {
 		acceleration.y = 0;
 	}
 
-	public void onRestart(int y) {
+    /**
+     * Revive Bird
+     * @param y New Bird y position
+     */
+    public void onRestart(int y) {
 		rotation = 0;
 		position.y = y;
 		velocity.x = 0;
@@ -142,8 +179,11 @@ public class Bird {
 		isAlive = true;
 	}
 
+    /**
+     * Shoot a projectile from Bird
+     */
     public void shoot() {
-        Projectile p = new Projectile(position.x + 5, position.y + 5, 12, 12);
+        Projectile p = new Projectile(position.x + 5, position.y + 5, 12, 12, rotation);
         projectiles.add(p);
     }
 

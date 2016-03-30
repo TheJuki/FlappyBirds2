@@ -1,12 +1,12 @@
 package com.nargles.flappybird2.gameEnvironment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Grass;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Pipe;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScrollHandler {
 
@@ -15,12 +15,19 @@ public class ScrollHandler {
 	private int scrollSpeed;
 	private boolean isRightGoing;
 	private boolean initialLeftFlip;
-	public static final int PIPE_GAP = 49;
-	public static final int NUM_PIPES = 6;
+	private static final int PIPE_GAP = 49;
+    private static final int NUM_PIPES = 6;
 
 	private GameWorld gameWorld;
 
-	public ScrollHandler(GameWorld gameWorld, float yPos, float xPos, int scrollSpeed) {
+    /**
+     * Constructor
+     * @param gameWorld Game World
+     * @param yPos Y position of the object
+     * @param xPos X position of the object
+     * @param scrollSpeed Speed of the objects that move
+     */
+    public ScrollHandler(GameWorld gameWorld, float yPos, float xPos, int scrollSpeed) {
 		this.gameWorld = gameWorld;
 		this.scrollSpeed = scrollSpeed;
 		frontGrass = new Grass(0, yPos, 143 * 2, 11, scrollSpeed);
@@ -38,7 +45,10 @@ public class ScrollHandler {
 		isRightGoing = scrollSpeed < 0;
 	}
 
-	public void updateReady(float delta) {
+    /**
+     * @param delta Update scalar
+     */
+    public void updateReady(float delta) {
 
 		// Update grass
 		frontGrass.update(delta);
@@ -53,7 +63,10 @@ public class ScrollHandler {
 		}
 	}
 
-	public void flip() {
+    /**
+     * Flip direction of ground and pipe movement
+     */
+    public void flip() {
 		isRightGoing = !isRightGoing;
 
 		if (!isRightGoing) {
@@ -69,6 +82,10 @@ public class ScrollHandler {
 		}
 	}
 
+    /**
+     * Update ground and pipes x positions
+     * @param delta Scalar for Velocity vectors
+     */
 	public void update(float delta) {
 
 		// Update grass
@@ -121,7 +138,10 @@ public class ScrollHandler {
 		}
 	}
 
-	public void stop() {
+    /**
+     * Stop movement of the pipes and ground
+     */
+    public void stop() {
 		frontGrass.stop();
 		backGrass.stop();
 		for (Pipe pipe : pipes) {
@@ -129,7 +149,13 @@ public class ScrollHandler {
 		}
 	}
 
-	public boolean collides(Bird bird) {
+    /**
+     * Determines if a bird and a pipe met
+     * If not then see if score needs to be updated
+     * @param bird Bird
+     * @return A pipe collided with the bird
+     */
+    public boolean collides(Bird bird) {
 
 		boolean isCollided = false;
 
@@ -163,7 +189,10 @@ public class ScrollHandler {
 		return pipes;
 	}
 
-	public void onRestart() {
+    /**
+     * Revive pipes and ground
+     */
+    public void onRestart() {
 		isRightGoing = true;
 		initialLeftFlip = false;
 		frontGrass.onRestart(0, scrollSpeed);

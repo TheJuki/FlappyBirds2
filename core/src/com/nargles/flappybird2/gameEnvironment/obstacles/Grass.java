@@ -4,11 +4,24 @@ import com.nargles.flappybird2.gameEnvironment.Scrollable;
 
 public class Grass extends Scrollable {
 
-	public Grass(float x, float y, int width, int height, float scrollSpeed) {
+    /**
+     * Constructor
+     * @param x Grass X position
+     * @param y Grass Y position
+     * @param width Grass sprite width
+     * @param height Grass sprite height
+     * @param scrollSpeed Speed of the Grass
+     */
+    public Grass(float x, float y, int width, int height, float scrollSpeed) {
 		super(x, y, width, height, scrollSpeed);
 	}
 
-	public void onRestart(float x, float scrollSpeed) {
+    /**
+     * Restart grass position
+     * @param x New X position
+     * @param scrollSpeed Speed of the Grass
+     */
+    public void onRestart(float x, float scrollSpeed) {
 		super.onRestart();
 		position.x = x;
 		velocity.x = scrollSpeed;
