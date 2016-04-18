@@ -21,7 +21,7 @@ public class Projectile {
     public Projectile(float startX, float startY, int width, int height, float rotation){
         this.width = width;
         this.height = height;
-        this.rotation = rotation;
+        //this.rotation = rotation;
         x = startX;
         y = startY;
         speedX = 7;
