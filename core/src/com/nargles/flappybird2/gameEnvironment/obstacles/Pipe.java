@@ -7,6 +7,12 @@ import com.nargles.flappybird2.gameEnvironment.player.Bird;
 
 import java.util.Random;
 
+/**
+ * Pipe
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class Pipe extends Scrollable {
 
 	private Rectangle pipeTopUp, pipeTopDown, barUp, barDown;

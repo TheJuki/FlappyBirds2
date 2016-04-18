@@ -11,11 +11,18 @@ import com.nargles.flappybird2.ui.Buttons.GameButton;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Input Handler
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class InputHandler implements InputProcessor {
 	private Bird myBird;
 	private GameWorld myWorld;
 
 	private List<GameButton> menuButtons;
+    private List<GameButton> inGameButtons;
 
 	private float scaleFactorX;
 	private float scaleFactorY;
@@ -30,14 +37,23 @@ public class InputHandler implements InputProcessor {
 		this.scaleFactorY = scaleFactorY;
 
 		menuButtons = new ArrayList<GameButton>();
+        inGameButtons = new ArrayList<GameButton>();
 
 		// Add play button
 		menuButtons.add(new GameButton("play", (136) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50, 29,
-				16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
+				16, AssetLoader.playButtonUp, AssetLoader.playButtonDown, true));
 
 		// Add quit button
 		menuButtons.add(new GameButton("quit", (136 - 50) - (AssetLoader.quitButtonUp.getRegionWidth() / 2), midPointY + 50,
-				29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown));
+				29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown, true));
+
+        // Add Fire button
+        inGameButtons.add(new GameButton("fire", (136 - 130), midPointY + 98,
+                96/2f, 54/2f, AssetLoader.fireButtonUp, AssetLoader.fireButtonDown, false));
+
+        // Add Flip button
+        inGameButtons.add(new GameButton("flip", (136 - 30), midPointY + 98,
+                96/2f, 54/2f, AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true));
 
 		// Add high score button
 		//menuButtons.add(new GameButton("highscore", (136 + 50) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50,
@@ -66,9 +82,9 @@ public class InputHandler implements InputProcessor {
 			}
 			else
 			{
-				myWorld.pause();
-				
-				myWorld.getScroller().flip();
+                for(GameButton btn : inGameButtons) {
+                    btn.isTouchDown(screenX, screenY);
+                }
 			}
 		} else if (myWorld.isPaused()) {
 
@@ -109,6 +125,25 @@ public class InputHandler implements InputProcessor {
 			}
 			return true;
 		}
+        else if (myWorld.isRunning())
+        {
+            for(GameButton btn : inGameButtons) {
+                boolean btnTapped = btn.isTouchUp(screenX, screenY);
+                if(btnTapped && btn.getName().equals("fire"))
+                {
+                    myBird.shoot();
+                }
+                else if(btnTapped && btn.getName().equals("flip"))
+                {
+                    myWorld.pause();
+                    if(!myWorld.getScroller().flip())
+                        btn.setTextures(AssetLoader.flipButtonLeft, AssetLoader.flipButtonLeft, true);
+                    else
+                        btn.setTextures(AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true);
+                }
+            }
+            return true;
+        }
 
 		return false;
 	}
@@ -178,4 +213,8 @@ public class InputHandler implements InputProcessor {
 	public List<GameButton> getMenuButtons() {
 		return menuButtons;
 	}
+
+    public List<GameButton> getInGameButtons() {
+        return inGameButtons;
+    }
 }

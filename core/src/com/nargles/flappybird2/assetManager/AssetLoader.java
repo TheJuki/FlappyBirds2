@@ -8,15 +8,24 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * Asset Loader
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class AssetLoader {
 
-	public static Texture texture, logoTexture, bulletTexture;
+	public static Texture texture, logoTexture, bulletTexture, flipButtonLeftTexture, flipButtonRightTexture,
+    fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture;
 	public static TextureRegion logo, fbLogo, bg, grass,
 	bird, birdDown, birdUp, 
 	birdFlipped, birdDownFlipped, birdUpFlipped,
 	pipeUp, pipeDown, bar, bullet1, bullet2, bullet3,
 			playButtonUp, playButtonDown,
 			quitButtonUp, quitButtonDown,
+            flipButtonLeft, flipButtonRight,
+            fireButtonUp, fireButtonDown, fireButtonDisabled,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
 	public static Animation birdAnimation, birdAnimationFlipped;
 	public static Sound dead, flap, coin, fall;
@@ -33,6 +42,18 @@ public class AssetLoader {
         bulletTexture = new Texture(Gdx.files.internal("data/bullet1.gif"));
         bulletTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        flipButtonLeftTexture = new Texture(Gdx.files.internal("data/left_flip.png"));
+        flipButtonLeftTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        flipButtonRightTexture = new Texture(Gdx.files.internal("data/right_flip.png"));
+        flipButtonRightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        fireButtonUpTexture = new Texture(Gdx.files.internal("data/unpressed_fire.png"));
+        fireButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireButtonDownTexture = new Texture(Gdx.files.internal("data/pressed_fire.png"));
+        fireButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireButtonDisabledTexture = new Texture(Gdx.files.internal("data/disabled_fire.png"));
+        fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
 		logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
@@ -44,6 +65,20 @@ public class AssetLoader {
         bullet2 = new TextureRegion(bulletTexture, 0, 0, 30, 38);
 
         bullet3 = new TextureRegion(bulletTexture, 0, 0, 30, 38);
+
+        //Fire
+        fireButtonUp = new TextureRegion(fireButtonUpTexture, 0, 0, 960, 540);
+        fireButtonUp.flip(false, true);
+        fireButtonDown = new TextureRegion(fireButtonDownTexture, 0, 0, 960, 540);
+        fireButtonDown.flip(false, true);
+        fireButtonDisabled = new TextureRegion(fireButtonDisabledTexture, 0, 0, 960, 540);
+        fireButtonDisabled.flip(false, true);
+
+        //Flip
+        flipButtonLeft = new TextureRegion(flipButtonLeftTexture, 0, 0, 960, 540);
+        flipButtonLeft.flip(false, true);
+        flipButtonRight = new TextureRegion(flipButtonRightTexture, 0, 0, 960, 540);
+        flipButtonRight.flip(false, true);
 
         //Play
 		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);

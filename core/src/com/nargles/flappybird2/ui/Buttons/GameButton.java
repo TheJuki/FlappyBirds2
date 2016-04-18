@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.assetManager.AssetLoader;
 
+/**
+ * Game Button
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class GameButton {
 
 	private float x, y, width, height;
@@ -12,6 +18,8 @@ public class GameButton {
 
 	private TextureRegion buttonUp;
 	private TextureRegion buttonDown;
+
+    private boolean isButtonEnabled;
 
 	private Rectangle bounds;
 
@@ -26,9 +34,10 @@ public class GameButton {
      * @param height Button height
      * @param buttonUp Button Unpressed texture
      * @param buttonDown Button Pressed texture
+     * @param isButtonEnabled Button Disabled true/false
      */
     public GameButton(String name, float x, float y, float width, float height,
-                      TextureRegion buttonUp, TextureRegion buttonDown) {
+                      TextureRegion buttonUp, TextureRegion buttonDown, boolean isButtonEnabled) {
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -36,6 +45,7 @@ public class GameButton {
 		this.height = height;
 		this.buttonUp = buttonUp;
 		this.buttonDown = buttonDown;
+        this.isButtonEnabled = isButtonEnabled;
 
 		bounds = new Rectangle(x, y, width, height);
 
@@ -90,6 +100,13 @@ public class GameButton {
 	public String getName() {
 		return name;
 	}
+
+    public void setTextures(TextureRegion buttonUp, TextureRegion buttonDown, boolean isButtonEnabled)
+    {
+        this.buttonUp = buttonUp;
+        this.buttonDown = buttonDown;
+        this.isButtonEnabled = isButtonEnabled;
+    }
 
 
 }

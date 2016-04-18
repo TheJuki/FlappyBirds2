@@ -8,6 +8,12 @@ import com.nargles.flappybird2.gameEnvironment.player.Bird;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scroll Handler
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class ScrollHandler {
 
 	private Grass frontGrass, backGrass;
@@ -66,7 +72,7 @@ public class ScrollHandler {
     /**
      * Flip direction of ground and pipe movement
      */
-    public void flip() {
+    public boolean flip() {
 		isRightGoing = !isRightGoing;
 
 		if (!isRightGoing) {
@@ -80,6 +86,8 @@ public class ScrollHandler {
 			initialLeftFlip = false;
 			onRestart();
 		}
+
+        return isRightGoing;
 	}
 
     /**

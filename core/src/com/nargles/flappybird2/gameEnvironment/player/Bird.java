@@ -8,6 +8,12 @@ import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bird
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class Bird {
 
 	private Vector2 position;

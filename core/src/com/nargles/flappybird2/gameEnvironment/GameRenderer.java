@@ -24,6 +24,12 @@ import com.nargles.flappybird2.ui.TweenAccessors.ValueAccessor;
 
 import java.util.List;
 
+/**
+ * Game Renderer
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class GameRenderer {
 
 	private GameWorld myWorld;
@@ -54,6 +60,7 @@ public class GameRenderer {
 
 	// Buttons
 	private List<GameButton> menuButtons;
+    private List<GameButton> inGameButtons;
 	private Color transitionColor;
 
     /**
@@ -70,6 +77,8 @@ public class GameRenderer {
 		this.midPointX = midPointX;
 		this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
 				.getMenuButtons();
+        this.inGameButtons = ((InputHandler) Gdx.input.getInputProcessor())
+                .getInGameButtons();
 
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, 136 * 2, gameHeight * 2);
@@ -285,6 +294,15 @@ public class GameRenderer {
 	}
 
     /**
+     * Draw fire and flip buttons during game play
+     */
+    private void drawInGameButtons() {
+        for (GameButton button : inGameButtons) {
+            button.draw(batcher);
+        }
+    }
+
+    /**
      * Render screen and changes to objects
      * @param delta Update Transition
      * @param runTime Update animation frame
@@ -329,6 +347,7 @@ public class GameRenderer {
 		if (myWorld.isRunning() || myWorld.isPaused()) {
 			drawBird(runTime);
 			drawScore();
+            drawInGameButtons();
 		} else if (myWorld.isReady()) {
 			drawBird(runTime);
 			drawReady();

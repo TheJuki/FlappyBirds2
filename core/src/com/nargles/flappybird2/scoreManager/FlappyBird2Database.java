@@ -9,6 +9,12 @@ import com.badlogic.gdx.sql.SQLiteGdxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Database Handler
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class FlappyBird2Database {
 
     private Database dbHandler;

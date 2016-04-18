@@ -7,6 +7,12 @@ import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
 import com.nargles.flappybird2.scoreManager.FlappyBird2Database;
 
+/**
+ * Game World
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class GameWorld {
 
     private FlappyBird2Database db;

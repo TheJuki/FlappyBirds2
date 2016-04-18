@@ -2,6 +2,12 @@ package com.nargles.flappybird2.gameEnvironment;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Scrollable
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class Scrollable {
 
 	protected Vector2 position;

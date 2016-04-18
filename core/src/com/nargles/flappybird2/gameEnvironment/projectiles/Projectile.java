@@ -1,7 +1,10 @@
 package com.nargles.flappybird2.gameEnvironment.projectiles;
 
 /**
- * Created by Taylor Chason on 3/24/16.
+ * Projectile
+ * Copyright 2016 Nargles.
+ * @author Taylor Chason (Programmer)
+ * @version 1.0
  */
 public class Projectile {
     private float x, y, speedX;

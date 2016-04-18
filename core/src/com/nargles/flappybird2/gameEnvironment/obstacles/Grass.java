@@ -2,6 +2,12 @@ package com.nargles.flappybird2.gameEnvironment.obstacles;
 
 import com.nargles.flappybird2.gameEnvironment.Scrollable;
 
+/**
+ * Grass
+ * Copyright 2016 Nargles.
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class Grass extends Scrollable {
 
     /**
