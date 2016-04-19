@@ -48,7 +48,7 @@ public class GameRenderer {
 	private List<Pipe> pipes;
 
 	// Game Assets
-    private TextureRegion bullet1, bullet2, bullet3;
+    private TextureRegion blueEgg, fireEgg, grenadeEgg;
 
 	private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
 			fbLogo, gameOver, highScore, scoreboard, retry;
@@ -125,9 +125,9 @@ public class GameRenderer {
 		highScore = AssetLoader.highScore;
 		scoreboard = AssetLoader.scoreboard;
 		retry = AssetLoader.retry;
-        bullet1 = AssetLoader.bullet1;
-        bullet2 = AssetLoader.bullet2;
-        bullet3 = AssetLoader.bullet3;
+        blueEgg = AssetLoader.blueEgg;
+        fireEgg = AssetLoader.fireEgg;
+        grenadeEgg = AssetLoader.grenadeEgg;
 	}
 
     /**
@@ -211,7 +211,7 @@ public class GameRenderer {
             Projectile p = bird.getProjectiles().get(i);
             if (p.isVisible()) {
                 p.update();
-                batcher.draw(bullet1, p.getX(), p.getY(), p.getWidth(),
+                batcher.draw(blueEgg, p.getX(), p.getY(), p.getWidth(),
                         p.getHeight(), p.getWidth(),
                         p.getHeight(), 1, 1, p.getRotation());
             } else {

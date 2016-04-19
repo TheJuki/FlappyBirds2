@@ -9,7 +9,7 @@ package com.nargles.flappybird2.gameEnvironment.projectiles;
 public class Projectile {
     private float x, y, speedX;
     private boolean visible;
-    private int width;
+    private float width;
     private float height;
     private float rotation;
 
@@ -21,7 +21,7 @@ public class Projectile {
      * @param height Projectile sprite height
      * @param rotation Projectile rotation
      */
-    public Projectile(float startX, float startY, int width, int height, float rotation){
+    public Projectile(float startX, float startY, float width, float height, float rotation){
         this.width = width;
         this.height = height;
         //this.rotation = rotation;

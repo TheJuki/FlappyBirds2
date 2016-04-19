@@ -189,7 +189,7 @@ public class Bird {
      * Shoot a projectile from Bird
      */
     public void shoot() {
-        Projectile p = new Projectile(position.x + 5, position.y + 5, 12, 12, rotation);
+        Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation);
         projectiles.add(p);
     }
 
