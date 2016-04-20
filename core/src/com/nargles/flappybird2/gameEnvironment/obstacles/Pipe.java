@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.gameEnvironment.Scrollable;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
+import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
 
 import java.util.Random;
 
@@ -22,6 +23,9 @@ public class Pipe extends Scrollable {
     private static final int PIPE_TOP_HEIGHT = 11;
 	private static long seedQualifier = 432282912137141232L;
 	private float groundY;
+
+    private boolean barTopVisible;
+    private boolean barBottomVisible;
 
 	private boolean isScored = false;
 
@@ -44,6 +48,9 @@ public class Pipe extends Scrollable {
 		barDown = new Rectangle();
 		this.height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
 		this.groundY = groundY;
+
+        barTopVisible = true;
+        barBottomVisible = true;
 	}
 
     /**
@@ -74,6 +81,8 @@ public class Pipe extends Scrollable {
 		super.reset(newX);
 		// Change the height to a random number
 		height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
+        barTopVisible = true;
+        barBottomVisible = true;
 		isScored = false;
 	}
 
@@ -85,6 +94,8 @@ public class Pipe extends Scrollable {
     public void onRestart(float x, float scrollSpeed) {
 		super.onRestart();
 		velocity.x = scrollSpeed;
+        barTopVisible = true;
+        barBottomVisible = true;
 		reset(x);
 	}
 
@@ -96,10 +107,38 @@ public class Pipe extends Scrollable {
     public boolean collides(Bird bird) {
 
         return (position.x < (bird.getX() + bird.getWidth())) &&
-                (Intersector.overlaps(bird.getBoundingCircle(), barUp) ||
-                        Intersector.overlaps(bird.getBoundingCircle(), barDown) ||
-                        Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) ||
-                        Intersector.overlaps(bird.getBoundingCircle(), pipeTopDown));
+                ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
+                        (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
+                        (Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) && barTopVisible) ||
+                        (Intersector.overlaps(bird.getBoundingCircle(), pipeTopDown) && barBottomVisible));
+
+    }
+
+    /**
+     * Determines if a projectile and the pipe met
+     * @param projectile Projectile
+     * @return if a projectile and the pipe met
+     */
+    public boolean collides(Projectile projectile) {
+
+        boolean collided = false;
+
+        if ((position.x < (projectile.getX() + projectile.getWidth())) && barTopVisible &&
+                (Intersector.overlaps(projectile.getBoundingCircle(), barUp) ||
+                        Intersector.overlaps(projectile.getBoundingCircle(), pipeTopUp)))
+        {
+            collided = true;
+            barTopVisible = false;
+        }
+        else if ((position.x < (projectile.getX() + projectile.getWidth())) && barBottomVisible &&
+                (Intersector.overlaps(projectile.getBoundingCircle(), barDown) ||
+                        Intersector.overlaps(projectile.getBoundingCircle(), pipeTopDown)))
+        {
+            collided = true;
+            barBottomVisible = false;
+        }
+
+        return collided;
 
     }
 
@@ -110,4 +149,12 @@ public class Pipe extends Scrollable {
 	public void setScored(boolean b) {
 		isScored = b;
 	}
+
+    public boolean isBarTopVisible() {
+        return barTopVisible;
+    }
+
+    public boolean isBarBottomVisible() {
+        return barBottomVisible;
+    }
 }

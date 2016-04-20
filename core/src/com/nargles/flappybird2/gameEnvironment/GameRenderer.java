@@ -22,6 +22,7 @@ import com.nargles.flappybird2.ui.InputHandler;
 import com.nargles.flappybird2.ui.TweenAccessors.Value;
 import com.nargles.flappybird2.ui.TweenAccessors.ValueAccessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -131,6 +132,19 @@ public class GameRenderer {
 	}
 
     /**
+     * Resets objects on a new game
+     */
+    public void onRestart() {
+        for(GameButton btn : inGameButtons) {
+            if (btn.getName().equals("flip"))
+            {
+                btn.setTextures(AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true);
+                break;
+            }
+        }
+    }
+
+    /**
      * Draw grass
      */
     private void drawGrass() {
@@ -148,10 +162,14 @@ public class GameRenderer {
 
 		for(Pipe pipe: pipes)
 		{
-			batcher.draw(pipeUp, pipe.getX() - 1,
-					pipe.getY() + pipe.getHeight() - 14, 24, 14);
-			batcher.draw(pipeDown, pipe.getX() - 1,
-					pipe.getY() + pipe.getHeight() + 45, 24, 14);
+            if(pipe.isBarTopVisible()) {
+                batcher.draw(pipeUp, pipe.getX() - 1,
+                        pipe.getY() + pipe.getHeight() - 14, 24, 14);
+            }
+            if(pipe.isBarBottomVisible()) {
+                batcher.draw(pipeDown, pipe.getX() - 1,
+                        pipe.getY() + pipe.getHeight() + 45, 24, 14);
+            }
 		}
 	}
 
@@ -162,10 +180,14 @@ public class GameRenderer {
 		
 		for(Pipe pipe: pipes)
 		{
-			batcher.draw(bar, pipe.getX(), pipe.getY(), pipe.getWidth(),
-					pipe.getHeight());
-			batcher.draw(bar, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
-					pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+            if(pipe.isBarTopVisible()) {
+                batcher.draw(bar, pipe.getX(), pipe.getY(), pipe.getWidth(),
+                        pipe.getHeight());
+            }
+            if(pipe.isBarBottomVisible()) {
+                batcher.draw(bar, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                        pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+            }
 		}
 	}
 
@@ -207,16 +229,22 @@ public class GameRenderer {
 					1, 1, bird.getRotation());
 		}
 
+        List<Integer> projectilesToRemove = new ArrayList<Integer>();
         for (int i = 0; i < bird.getProjectiles().size(); i++) {
             Projectile p = bird.getProjectiles().get(i);
             if (p.isVisible()) {
                 p.update();
-                batcher.draw(blueEgg, p.getX(), p.getY(), p.getWidth(),
+                batcher.draw(fireEgg, p.getX(), p.getY(), p.getWidth(),
                         p.getHeight(), p.getWidth(),
                         p.getHeight(), 1, 1, p.getRotation());
             } else {
-                bird.getProjectiles().remove(i);
+                projectilesToRemove.add(i);
             }
+        }
+
+        for(int i: projectilesToRemove)
+        {
+            bird.getProjectiles().remove(i);
         }
 
 	}

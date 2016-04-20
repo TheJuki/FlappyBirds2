@@ -4,6 +4,7 @@ import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Grass;
 import com.nargles.flappybird2.gameEnvironment.obstacles.Pipe;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
+import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ScrollHandler {
 	private int scrollSpeed;
 	private boolean isRightGoing;
 	private boolean initialLeftFlip;
-	private static final int PIPE_GAP = 49;
+	private static final int PIPE_GAP = 100;
     private static final int NUM_PIPES = 6;
 
 	private GameWorld gameWorld;
@@ -120,7 +121,7 @@ public class ScrollHandler {
 			
 			if (pipes.get(0).isScrolledBack()) {
 				if(initialLeftFlip) {
-					pipes.get(0).reset(-30);
+					pipes.get(0).reset(-60);
 					//initialLeftFlip = false;
 				}
 				else
@@ -180,6 +181,26 @@ public class ScrollHandler {
 
 		return isCollided;
 	}
+
+    /**
+     * Determines if a projectile a pipe met
+     * @param projectile Projectile
+     * @return A pipe collided with the projectile
+     */
+    public boolean collides(Projectile projectile) {
+
+        boolean isCollided = false;
+
+        for (Pipe pipe : pipes) {
+
+            if (pipe.collides(projectile)) {
+                isCollided = true;
+                break;
+            }
+        }
+
+        return isCollided;
+    }
 
 	private void addScore(int increment) {
 		gameWorld.addScore(increment);

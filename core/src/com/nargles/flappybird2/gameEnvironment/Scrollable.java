@@ -72,6 +72,10 @@ public class Scrollable {
 		return isScrolledBack;
 	}
 
+    public void setIsScrolledBack(boolean isScrolledBack) {
+        this.isScrolledBack = isScrolledBack;
+    }
+
     /**
      * Tail X position
      * @return X position of previous object

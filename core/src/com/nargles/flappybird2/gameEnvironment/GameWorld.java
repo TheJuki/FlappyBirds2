@@ -5,7 +5,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.FlappyBirds2;
 import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
+import com.nargles.flappybird2.gameEnvironment.projectiles.Projectile;
 import com.nargles.flappybird2.scoreManager.FlappyBird2Database;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Game World
@@ -99,6 +103,23 @@ public class GameWorld {
 
 			AssetLoader.fall.play();
 		}
+        else if (bird.isAlive())
+        {
+            List<Integer> projectilesToRemove = new ArrayList<Integer>();
+            for (int i = 0; i < bird.getProjectiles().size(); i++) {
+                Projectile p = bird.getProjectiles().get(i);
+                if (scroller.collides(p)) {
+                    p.setVisible(false);
+                    addScore(10);
+                    projectilesToRemove.add(i);
+                }
+            }
+
+            for(int i: projectilesToRemove)
+            {
+                bird.getProjectiles().remove(i);
+            }
+        }
 
 		if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
 
@@ -162,6 +183,7 @@ public class GameWorld {
 		score = 0;
 		bird.onRestart(midPointY - 5);
 		scroller.onRestart();
+        renderer.onRestart();
 		ready();
 	}
 

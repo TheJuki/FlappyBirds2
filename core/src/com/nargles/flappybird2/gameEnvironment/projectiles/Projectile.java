@@ -1,5 +1,8 @@
 package com.nargles.flappybird2.gameEnvironment.projectiles;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * Projectile
  * Copyright 2016 Nargles.
@@ -7,28 +10,33 @@ package com.nargles.flappybird2.gameEnvironment.projectiles;
  * @version 1.0
  */
 public class Projectile {
-    private float x, y, speedX;
+    private float speedX;
     private boolean visible;
     private float width;
     private float height;
     private float rotation;
+    private boolean isRightGoing;
+    private Vector2 position;
+
+    private Circle boundingCircle;
 
     /**
      * Constructor
-     * @param startX Player X position
-     * @param startY Player Y position
+     * @param x Projectile X position
+     * @param y Projectile Y position
      * @param width Projectile sprite width
      * @param height Projectile sprite height
      * @param rotation Projectile rotation
      */
-    public Projectile(float startX, float startY, float width, float height, float rotation){
+    public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing){
         this.width = width;
         this.height = height;
+        this.isRightGoing = isRightGoing;
         //this.rotation = rotation;
-        x = startX;
-        y = startY;
-        speedX = 7;
+        position = new Vector2(x, y);
+        speedX = 3.5f;
         visible = true;
+        boundingCircle = new Circle();
     }
 
     /**
@@ -36,19 +44,31 @@ public class Projectile {
      * If offscreen then hide
      */
     public void update(){
-        x += speedX;
-        if (x > 800){
-            visible = false;
+
+        if(isRightGoing) {
+            position.x += speedX;
+            if (position.x > (136 * 4)) {
+                visible = false;
+            }
         }
+        else
+        {
+            position.x -= speedX;
+            if (position.x < 0) {
+                visible = false;
+            }
+        }
+
+        boundingCircle.set(position.x + 4.8f, position.y + 2.7f, 5f);
 
     }
 
     public float getX() {
-        return x;
+        return position.x;
     }
 
     public float getY() {
-        return y;
+        return position.y;
     }
 
     public float getSpeedX() {
@@ -60,11 +80,11 @@ public class Projectile {
     }
 
     public void setX(int x) {
-        this.x = x;
+        this.position.x = x;
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.position.y = y;
     }
 
     public void setSpeedX(int speedX) {
@@ -87,4 +107,7 @@ public class Projectile {
         return rotation;
     }
 
+    public Circle getBoundingCircle() {
+        return boundingCircle;
+    }
 }

@@ -33,6 +33,7 @@ public class Bird {
 	private float originalY;
 
 	private boolean isAlive;
+    private boolean isRightGoing;
 
 	private Circle boundingCircle;
 
@@ -53,6 +54,7 @@ public class Bird {
 		boundingCircle = new Circle();
 		isAlive = true;
         projectiles = new ArrayList<Projectile>();
+        isRightGoing = true;
 	}
 
     /**
@@ -61,6 +63,8 @@ public class Bird {
      * @param isRightGoing False if game flipped (Flip bird)
      */
     public void update(float delta, boolean isRightGoing) {
+
+        this.isRightGoing = isRightGoing;
 
 		velocity.add(acceleration.cpy().scl(delta));
 
@@ -189,7 +193,7 @@ public class Bird {
      * Shoot a projectile from Bird
      */
     public void shoot() {
-        Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation);
+        Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation, this.isRightGoing);
         projectiles.add(p);
     }
 
