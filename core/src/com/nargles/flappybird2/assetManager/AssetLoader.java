@@ -17,10 +17,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 
 	public static Texture texture, logoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture, flipButtonLeftTexture, flipButtonRightTexture,
-    fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture;
+    fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
+    blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture;
 	public static TextureRegion logo, fbLogo, bg, grass,
 	bird, birdDown, birdUp,
     blueEgg, fireEgg, grenadeEgg,
+            blueEggNest, fireEggNest, grenadeEggNest,
 	birdFlipped, birdDownFlipped, birdUpFlipped,
 	pipeUp, pipeDown, bar,
 			playButtonUp, playButtonDown,
@@ -37,9 +39,11 @@ public class AssetLoader {
      */
     public static void load() {
 
+        //Logo
 		logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
 		logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
         blueEggTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         fireEggTexture = new Texture(Gdx.files.internal("data/fire_egg.png"));
@@ -47,11 +51,21 @@ public class AssetLoader {
         grenadeEggTexture = new Texture(Gdx.files.internal("data/grenade_egg.png"));
         grenadeEggTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Nests
+        blueEggNestTexture = new Texture(Gdx.files.internal("data/blue_egg_nest.png"));
+        blueEggNestTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireEggNestTexture = new Texture(Gdx.files.internal("data/fire_egg_nest.png"));
+        fireEggNestTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        grenadeEggNestTexture = new Texture(Gdx.files.internal("data/grenade_egg_nest.png"));
+        grenadeEggNestTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Flip Button
         flipButtonLeftTexture = new Texture(Gdx.files.internal("data/left_flip.png"));
         flipButtonLeftTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         flipButtonRightTexture = new Texture(Gdx.files.internal("data/right_flip.png"));
         flipButtonRightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Fire Button
         fireButtonUpTexture = new Texture(Gdx.files.internal("data/unpressed_fire.png"));
         fireButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         fireButtonDownTexture = new Texture(Gdx.files.internal("data/pressed_fire.png"));
@@ -64,12 +78,21 @@ public class AssetLoader {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
 		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
+        //Egg
         blueEgg = new TextureRegion(blueEggTexture, 0, 0, 960, 540);
         blueEgg.flip(false, true);
         fireEgg = new TextureRegion(fireEggTexture, 0, 0, 960, 540);
         fireEgg.flip(false, true);
         grenadeEgg = new TextureRegion(grenadeEggTexture, 0, 0, 960, 540);
         grenadeEgg.flip(false, true);
+
+        //Nests
+        blueEggNest = new TextureRegion(blueEggNestTexture, 0, 0, 960, 540);
+        blueEggNest.flip(false, true);
+        fireEggNest = new TextureRegion(fireEggNestTexture, 0, 0, 960, 540);
+        fireEggNest.flip(false, true);
+        grenadeEggNest = new TextureRegion(grenadeEggNestTexture, 0, 0, 960, 540);
+        grenadeEggNest.flip(false, true);
 
         //Fire
         fireButtonUp = new TextureRegion(fireButtonUpTexture, 0, 0, 960, 540);

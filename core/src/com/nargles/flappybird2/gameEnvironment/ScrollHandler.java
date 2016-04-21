@@ -155,6 +155,10 @@ public class ScrollHandler {
 		backGrass.stop();
 		for (Pipe pipe : pipes) {
 			pipe.stop();
+            if(pipe.getNest() != null)
+            {
+                pipe.getNest().stop();
+            }
 		}
 	}
 

@@ -153,4 +153,7 @@ public class Scrollable {
 		goRight();
 	}
 
+    public float getScrollSpeed() {
+        return scrollSpeed;
+    }
 }

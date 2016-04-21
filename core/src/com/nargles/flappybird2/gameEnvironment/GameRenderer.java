@@ -49,7 +49,8 @@ public class GameRenderer {
 	private List<Pipe> pipes;
 
 	// Game Assets
-    private TextureRegion blueEgg, fireEgg, grenadeEgg;
+    private TextureRegion blueEgg, fireEgg, grenadeEgg, blueEggNest, fireEggNest, grenadeEggNest;
+
 
 	private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
 			fbLogo, gameOver, highScore, scoreboard, retry;
@@ -129,6 +130,9 @@ public class GameRenderer {
         blueEgg = AssetLoader.blueEgg;
         fireEgg = AssetLoader.fireEgg;
         grenadeEgg = AssetLoader.grenadeEgg;
+        blueEggNest = AssetLoader.blueEggNest;
+        fireEggNest = AssetLoader.fireEggNest;
+        grenadeEggNest = AssetLoader.grenadeEggNest;
 	}
 
     /**
@@ -169,6 +173,41 @@ public class GameRenderer {
             if(pipe.isBarBottomVisible()) {
                 batcher.draw(pipeDown, pipe.getX() - 1,
                         pipe.getY() + pipe.getHeight() + 45, 24, 14);
+            }
+
+            if(pipe.getNest() != null)
+            {
+                if(pipe.getNest().isNestVisible()) {
+                    switch(pipe.getNest().getAmmoType())
+                    {
+                        case 0:
+                            batcher.draw(blueEggNest, pipe.getNest().getX(), pipe.getNest().getY(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), 1, 1, 1.0f);
+                            break;
+                        case 1:
+                            batcher.draw(fireEggNest, pipe.getNest().getX(), pipe.getNest().getY(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), 1, 1, 1.0f);
+                            break;
+                        case 2:
+                            batcher.draw(grenadeEggNest, pipe.getNest().getX(), pipe.getNest().getY(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), 1, 1, 1.0f);
+                            break;
+                        default:
+                            batcher.draw(grenadeEggNest, pipe.getNest().getX(), pipe.getNest().getY(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), pipe.getNest().getWidth(),
+                                    pipe.getNest().getHeight(), 1, 1, 1.0f);
+                            break;
+
+                    }
+
+                }
+                else
+                {
+                    pipe.setNest(null);
+                }
             }
 		}
 	}

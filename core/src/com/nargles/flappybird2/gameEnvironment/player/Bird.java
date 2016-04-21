@@ -24,11 +24,10 @@ public class Bird {
 	private int width;
 	private float height;
 
-    public List<Projectile> getProjectiles() {
-        return projectiles;
-    }
-
     private List<Projectile> projectiles;
+
+    private int ammoType;
+    private int ammo;
 
 	private float originalY;
 
@@ -55,6 +54,9 @@ public class Bird {
 		isAlive = true;
         projectiles = new ArrayList<Projectile>();
         isRightGoing = true;
+
+        ammo = 0;
+        ammoType = 0;
 	}
 
     /**
@@ -187,6 +189,8 @@ public class Bird {
 		acceleration.x = 0;
 		acceleration.y = 460;
 		isAlive = true;
+        ammo = 0;
+        ammoType = 0;
 	}
 
     /**
@@ -225,5 +229,23 @@ public class Bird {
 		return isAlive;
 	}
 
+    public List<Projectile> getProjectiles() {
+        return projectiles;
+    }
 
+    public int getAmmoType() {
+        return ammoType;
+    }
+
+    public void setAmmoType(int ammoType) {
+        this.ammoType = ammoType;
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void addAmmo(int ammo) {
+        this.ammo += ammo;
+    }
 }

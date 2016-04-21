@@ -27,6 +27,8 @@ public class Pipe extends Scrollable {
     private boolean barTopVisible;
     private boolean barBottomVisible;
 
+    private Nest nest;
+
 	private boolean isScored = false;
 
     /**
@@ -51,6 +53,8 @@ public class Pipe extends Scrollable {
 
         barTopVisible = true;
         barBottomVisible = true;
+
+        addNest(0);
 	}
 
     /**
@@ -60,6 +64,11 @@ public class Pipe extends Scrollable {
     @Override
 	public void update(float delta) {
 		super.update(delta);
+
+        if(nest != null)
+        {
+            nest.update(delta);
+        }
 
 		barUp.set(position.x, position.y, width, height);
 		barDown.set(position.x, position.y + height + VERTICAL_GAP, width,
@@ -96,6 +105,7 @@ public class Pipe extends Scrollable {
 		velocity.x = scrollSpeed;
         barTopVisible = true;
         barBottomVisible = true;
+        nest = null;
 		reset(x);
 	}
 
@@ -142,6 +152,13 @@ public class Pipe extends Scrollable {
 
     }
 
+    /**
+     * Add nest to pipe
+     */
+    private void addNest(int ammoType) {
+        this.nest = new Nest(position.x -0.5f, getY() + getHeight() + 36, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
+    }
+
 	public boolean isScored() {
 		return isScored;
 	}
@@ -156,5 +173,13 @@ public class Pipe extends Scrollable {
 
     public boolean isBarBottomVisible() {
         return barBottomVisible;
+    }
+
+    public Nest getNest() {
+        return nest;
+    }
+
+    public void setNest(Nest nest) {
+        this.nest = nest;
     }
 }
