@@ -31,6 +31,8 @@ public class Pipe extends Scrollable {
 
 	private boolean isScored = false;
 
+    private boolean pipeCreatedChild = false;
+
     /**
      * Constructor
      * @param x Pipe X position
@@ -39,9 +41,11 @@ public class Pipe extends Scrollable {
      * @param height Pipe sprite height
      * @param scrollSpeed Speed of the Pipe
      * @param groundY Ground's Y position
+     * @param addNest if true, add a nest to the pipe
+     * @param nestType The nest type to add
      */
     public Pipe(float x, float y, int width, int height, float scrollSpeed,
-			float groundY) {
+			float groundY, boolean addNest, int nestType) {
 		super(x, y, width, height, scrollSpeed);
 
 		pipeTopUp = new Rectangle();
@@ -54,7 +58,9 @@ public class Pipe extends Scrollable {
         barTopVisible = true;
         barBottomVisible = true;
 
-        addNest(0);
+        if(addNest) {
+            addNest(nestType);
+        }
 	}
 
     /**
@@ -116,7 +122,7 @@ public class Pipe extends Scrollable {
      */
     public boolean collides(Bird bird) {
 
-        return (position.x < (bird.getX() + bird.getWidth())) &&
+        return ((1==2) && position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) && barTopVisible) ||
@@ -156,7 +162,7 @@ public class Pipe extends Scrollable {
      * Add nest to pipe
      */
     private void addNest(int ammoType) {
-        this.nest = new Nest(position.x -0.5f, getY() + getHeight() + 36, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
+        this.nest = new Nest(position.x -0.5f, getY() + getHeight() + 30, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
     }
 
 	public boolean isScored() {
@@ -181,5 +187,13 @@ public class Pipe extends Scrollable {
 
     public void setNest(Nest nest) {
         this.nest = nest;
+    }
+
+    public boolean isPipeCreatedChild() {
+        return pipeCreatedChild;
+    }
+
+    public void setPipeCreatedChild(boolean pipeCreatedChild) {
+        this.pipeCreatedChild = pipeCreatedChild;
     }
 }

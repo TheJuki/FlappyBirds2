@@ -26,6 +26,7 @@ public class ScrollHandler {
     private static final int NUM_PIPES = 6;
 
 	private GameWorld gameWorld;
+    private float yPos;
 
     /**
      * Constructor
@@ -37,15 +38,16 @@ public class ScrollHandler {
     public ScrollHandler(GameWorld gameWorld, float yPos, float xPos, int scrollSpeed) {
 		this.gameWorld = gameWorld;
 		this.scrollSpeed = scrollSpeed;
+        this.yPos = yPos;
 		frontGrass = new Grass(0, yPos, 143 * 2, 11, scrollSpeed);
 		backGrass = new Grass(frontGrass.getTailX(), yPos, 143 * 2, 11, scrollSpeed);
 
 		pipes = new ArrayList<Pipe>();
 		// 210 * 2, 0 , 22, 10
-		pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos));
+		pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, true, 0));
 
 		for (int i = 1; i < NUM_PIPES; i++) {
-			pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos));
+			pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
 		}
 
 		initialLeftFlip = false;
@@ -82,10 +84,20 @@ public class ScrollHandler {
 			backGrass.goLeft();
 			for (Pipe pipe : pipes) {
 				pipe.goLeft();
+                if(pipe.getNest() != null) {
+                    pipe.getNest().goLeft();
+                }
 			}
 		} else {
 			initialLeftFlip = false;
-			onRestart();
+            frontGrass.goRight();
+            backGrass.goRight();
+            for (Pipe pipe : pipes) {
+                pipe.goRight();
+                if(pipe.getNest() != null) {
+                    pipe.getNest().goRight();
+                }
+            }
 		}
 
         return isRightGoing;
@@ -108,17 +120,23 @@ public class ScrollHandler {
 		// Reset Pipes
 
 		if (isRightGoing) {
-			if (pipes.get(0).isScrolledBack()) {
-				pipes.get(0).reset(pipes.get(NUM_PIPES - 1).getTailX() + PIPE_GAP);
-			}
 
-			for (int i = 1; i < NUM_PIPES; i++) {
-				if (pipes.get(i).isScrolledBack()) {
-					pipes.get(i).reset(pipes.get(i - 1).getTailX() + PIPE_GAP);
+            /*
+			if (pipes.get(0).isScrolledBack()) {
+				pipes.get(0).reset(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP);
+			}
+			*/
+
+			for (int i = 0; i < pipes.size(); i++) {
+				if (pipes.get(i).isScrolledBack() && !pipes.get(i).isPipeCreatedChild()) {
+                    pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+                    pipes.get(i).setPipeCreatedChild(true);
+                    break;
 				}
 			}
 		} else {
-			
+
+            /*
 			if (pipes.get(0).isScrolledBack()) {
 				if(initialLeftFlip) {
 					pipes.get(0).reset(-60);
@@ -135,6 +153,7 @@ public class ScrollHandler {
 					pipes.get(i).reset(pipes.get(i - 1).getTailX() - PIPE_GAP);
 				}
 			}
+			*/
 		}
 
 		// Reset grass
@@ -232,7 +251,7 @@ public class ScrollHandler {
 		backGrass.onRestart(frontGrass.getTailX(), scrollSpeed);
 		pipes.get(0).onRestart(300, scrollSpeed);
 
-		for (int i = 1; i < NUM_PIPES; i++) {
+		for (int i = 1; i < pipes.size(); i++) {
 			pipes.get(i).onRestart(pipes.get(i - 1).getTailX() + PIPE_GAP, scrollSpeed);
 		}
 	}
