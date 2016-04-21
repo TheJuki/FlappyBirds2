@@ -31,7 +31,7 @@ public class AssetLoader {
             fireButtonUp, fireButtonDown, fireButtonDisabled,
 			ready, gameOver, highScore, scoreboard, star, noStar, retry;
 	public static Animation birdAnimation, birdAnimationFlipped;
-	public static Sound dead, flap, coin, fall;
+	public static Sound dead, flap, coin, fall, shoot;
 	public static BitmapFont font, shadow, whiteFont;
 
     /**
@@ -187,15 +187,27 @@ public class AssetLoader {
 		flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
 		coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
 		fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
-
-		font = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+        shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
+/*
+		font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
 		font.getData().setScale(.25f, -.25f);
 
-		whiteFont = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+		whiteFont = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
 		whiteFont.getData().setScale(.1f, -.1f);
 
-		shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
-		shadow.getData().setScale(.25f, -.25f);
+		shadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
+        shadow.setColor(Color.BLACK);
+		shadow.getData().setScale(.28f, -.28f);
+		*/
+
+        font = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+        font.getData().setScale(.25f, -.25f);
+
+        whiteFont = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+        whiteFont.getData().setScale(.1f, -.1f);
+
+        shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        shadow.getData().setScale(.25f, -.25f);
 
 	}
 

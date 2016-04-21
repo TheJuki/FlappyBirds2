@@ -89,7 +89,13 @@ public class GameButton {
 
 		if (bounds.contains(screenX, screenY) && isPressed) {
 			isPressed = false;
-			AssetLoader.flap.play();
+            if(name != null && name.equals("fire"))
+            {
+                AssetLoader.shoot.play();
+            }
+            else {
+                AssetLoader.flap.play();
+            }
 			return true;
 		}
 

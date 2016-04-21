@@ -170,7 +170,10 @@ public class InputHandler implements InputProcessor {
 
         if (keycode == Keys.B) {
 
-            myBird.shoot();
+            if (myWorld.isRunning()) {
+                myBird.shoot();
+                AssetLoader.shoot.play();
+            }
 
         }
 
