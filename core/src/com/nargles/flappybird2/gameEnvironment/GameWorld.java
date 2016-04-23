@@ -27,6 +27,7 @@ public class GameWorld {
     private int score = 0;
     private float runTime = 0;
     private int midPointY;
+    private int midPointX;
     private GameRenderer renderer;
 
     private GameState currentState;
@@ -49,6 +50,7 @@ public class GameWorld {
         db = game.getDatabase();
         currentState = GameState.MENU;
         this.midPointY = midPointY;
+        this.midPointX = midPointX;
         bird = new Bird(33 * 2, midPointY - 5, 17, 12);
 
         scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
@@ -148,6 +150,10 @@ public class GameWorld {
 
     public int getMidPointY() {
         return midPointY;
+    }
+
+    public int getMidPointX() {
+        return midPointX;
     }
 
     public ScrollHandler getScroller() {

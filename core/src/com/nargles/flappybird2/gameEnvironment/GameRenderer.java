@@ -409,7 +409,7 @@ public class GameRenderer {
         batcher.begin();
         batcher.disableBlending();
 
-        batcher.draw(bg, -10, (midPointY - 38), 136 * 3, (float) 180);
+        batcher.draw(bg, -10, (midPointY - 40), 136 * 3, (float) 180);
 
         drawPipes();
 

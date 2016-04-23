@@ -137,7 +137,7 @@ public class Bird {
      * @param runTime delta
      */
     public void updateReady(float runTime) {
-        position.y = 2 * (float) Math.sin(7 * runTime) + originalY;
+        position.y = 2 * (float) Math.sin(7 * runTime) + (originalY + 5);
     }
 
     /**

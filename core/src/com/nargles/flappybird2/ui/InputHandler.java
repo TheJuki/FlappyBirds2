@@ -33,6 +33,7 @@ public class InputHandler implements InputProcessor {
         myBird = myWorld.getBird();
 
         int midPointY = myWorld.getMidPointY();
+        int midPointX = myWorld.getMidPointX();
 
         this.scaleFactorX = scaleFactorX;
         this.scaleFactorY = scaleFactorY;
@@ -40,13 +41,28 @@ public class InputHandler implements InputProcessor {
         menuButtons = new ArrayList<GameButton>();
         inGameButtons = new ArrayList<GameButton>();
 
-        // Add play button
-        menuButtons.add(new GameButton("play", (136) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50, 29,
-                16, AssetLoader.playButtonUp, AssetLoader.playButtonDown, true));
+        // Add Play button
+        menuButtons.add(new GameButton("play", (midPointX + 20), (midPointY * 2.1f),
+                96 / 1.3f, 54 / 1.3f, AssetLoader.playButtonUp, AssetLoader.playButtonDown, false));
 
-        // Add quit button
-        menuButtons.add(new GameButton("quit", (136 - 50) - (AssetLoader.quitButtonUp.getRegionWidth() / 2), midPointY + 50,
-                29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown, true));
+        // Add Quit button
+        menuButtons.add(new GameButton("quit", (midPointX - 70), (midPointY * 2.1f),
+                96 / 1.3f, 54 / 1.3f, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown, false));
+
+        // Add Controls button
+        menuButtons.add(new GameButton("controls", (136 - 120), (midPointY * 1.1f),
+                96 / 1.3f, 54 / 1.3f, AssetLoader.controlsButtonUp, AssetLoader.controlsButtonDown, false));
+
+
+
+        // Add High Scores button
+        menuButtons.add(new GameButton("highscore", (136 + 70), (midPointY * 1.1f),
+                96 / 1.3f, 54 / 1.3f, AssetLoader.highScoreButtonUp, AssetLoader.highScoreButtonDown, false));
+
+
+
+
+
 
         // Add Fire button
         inGameButtons.add(new GameButton("fire", (136 - 130), (midPointY * 3.5f) - 9,

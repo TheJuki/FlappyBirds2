@@ -20,6 +20,9 @@ public class AssetLoader {
     public static Texture texture, logoTexture, gameLogoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture,
             flipButtonLeftTexture, flipButtonRightTexture,
             highScoreButtonUpTexture, highScoreButtonDownTexture,
+            controlsButtonUpTexture, controlsButtonDownTexture,
+            playButtonUpTexture,playButtonDownTexture,
+            quitButtonUpTexture, quitButtonDownTexture,
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
             backdropTexture, groundTexture;
@@ -31,6 +34,8 @@ public class AssetLoader {
             pipeUp, pipeDown, bar,
             playButtonUp, playButtonDown,
             quitButtonUp, quitButtonDown,
+            controlsButtonUp, controlsButtonDown,
+            highScoreButtonUp, highScoreButtonDown,
             flipButtonLeft, flipButtonRight,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
             ready, gameOver, highScore, scoreboard, star, noStar, retry;
@@ -90,12 +95,28 @@ public class AssetLoader {
         fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //High Scores Button
-        fireButtonUpTexture = new Texture(Gdx.files.internal("data/unpressed_fire.png"));
-        fireButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        fireButtonDownTexture = new Texture(Gdx.files.internal("data/pressed_fire.png"));
-        fireButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        fireButtonDisabledTexture = new Texture(Gdx.files.internal("data/disabled_fire.png"));
-        fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        highScoreButtonUpTexture = new Texture(Gdx.files.internal("data/HighScores.png"));
+        highScoreButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        highScoreButtonDownTexture = new Texture(Gdx.files.internal("data/HighScoreClick1.png"));
+        highScoreButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Controls Button
+        controlsButtonUpTexture = new Texture(Gdx.files.internal("data/Controls.png"));
+        controlsButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        controlsButtonDownTexture = new Texture(Gdx.files.internal("data/Controls.png"));
+        controlsButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Play Button
+        playButtonUpTexture = new Texture(Gdx.files.internal("data/Play.png"));
+        playButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        playButtonDownTexture = new Texture(Gdx.files.internal("data/Play.png"));
+        playButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Quit Button
+        quitButtonUpTexture = new Texture(Gdx.files.internal("data/Quit.png"));
+        quitButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        quitButtonDownTexture = new Texture(Gdx.files.internal("data/Quit.png"));
+        quitButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
@@ -118,7 +139,7 @@ public class AssetLoader {
         grenadeEggNest = new TextureRegion(grenadeEggNestTexture, 0, 0, 960, 540);
         grenadeEggNest.flip(false, true);
 
-        //Fire
+        //Fire button
         fireButtonUp = new TextureRegion(fireButtonUpTexture, 0, 0, 960, 540);
         fireButtonUp.flip(false, true);
         fireButtonDown = new TextureRegion(fireButtonDownTexture, 0, 0, 960, 540);
@@ -126,29 +147,35 @@ public class AssetLoader {
         fireButtonDisabled = new TextureRegion(fireButtonDisabledTexture, 0, 0, 960, 540);
         fireButtonDisabled.flip(false, true);
 
-        //Fire
-        fireButtonUp = new TextureRegion(fireButtonUpTexture, 0, 0, 960, 540);
-        fireButtonUp.flip(false, true);
-        fireButtonDown = new TextureRegion(fireButtonDownTexture, 0, 0, 960, 540);
-        fireButtonDown.flip(false, true);
+        //High score button
+        highScoreButtonUp = new TextureRegion(highScoreButtonUpTexture, 0, 0, 960, 540);
+        highScoreButtonUp.flip(false, true);
+        highScoreButtonDown = new TextureRegion(highScoreButtonDownTexture, 0, 0, 960, 540);
+        highScoreButtonDown.flip(false, true);
 
-        //Flip
+        //Controls button
+        controlsButtonUp = new TextureRegion(controlsButtonUpTexture, 0, 0, 960, 540);
+        controlsButtonUp.flip(false, true);
+        controlsButtonDown = new TextureRegion(controlsButtonDownTexture, 0, 0, 960, 540);
+        controlsButtonDown.flip(false, true);
+
+        //Play button
+        playButtonUp = new TextureRegion(playButtonUpTexture, 0, 0, 960, 540);
+        playButtonUp.flip(false, true);
+        playButtonDown = new TextureRegion(playButtonDownTexture, 0, 0, 960, 540);
+        playButtonDown.flip(false, true);
+
+        //Quit button
+        quitButtonUp = new TextureRegion(quitButtonUpTexture, 0, 0, 960, 540);
+        quitButtonUp.flip(false, true);
+        quitButtonDown = new TextureRegion(quitButtonDownTexture, 0, 0, 960, 540);
+        quitButtonDown.flip(false, true);
+
+        //Flip button
         flipButtonLeft = new TextureRegion(flipButtonLeftTexture, 0, 0, 960, 540);
         flipButtonLeft.flip(false, true);
         flipButtonRight = new TextureRegion(flipButtonRightTexture, 0, 0, 960, 540);
         flipButtonRight.flip(false, true);
-
-        //Play
-        playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
-        playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
-        playButtonUp.flip(false, true);
-        playButtonDown.flip(false, true);
-
-        //Quit
-        quitButtonUp = new TextureRegion(texture, 0, 101, 29, 16);
-        quitButtonDown = new TextureRegion(texture, 29, 101, 29, 16);
-        quitButtonUp.flip(false, true);
-        quitButtonDown.flip(false, true);
 
         ready = new TextureRegion(texture, 59, 83, 34, 7);
         ready.flip(false, true);
