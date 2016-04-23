@@ -30,6 +30,9 @@ public class Pipe extends Scrollable {
 
     private Nest nest;
 
+    private float topHealth;
+    private float bottomHealth;
+
     private boolean isScored = false;
 
     private boolean pipeCreatedChild = false;
@@ -56,7 +59,8 @@ public class Pipe extends Scrollable {
         barDown = new Rectangle();
         this.height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
         this.groundY = groundY;
-
+        topHealth = 3.0f;
+         bottomHealth = 3.0f;
         barTopVisible = true;
         barBottomVisible = true;
 
@@ -149,12 +153,41 @@ public class Pipe extends Scrollable {
                 (Intersector.overlaps(projectile.getBoundingCircle(), barUp) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopUp))) {
             collided = true;
-            barTopVisible = false;
+
+            switch(projectile.getType())
+            {
+                case 0: topHealth -= 1;
+                    break;
+                case 1: topHealth -= 1.5;
+                    break;
+                case 2: topHealth -= 3;
+                    break;
+                default:
+                    break;
+            }
+
+            if(topHealth <= 0)
+                barTopVisible = false;
+
         } else if ((position.x < (projectile.getX() + projectile.getWidth())) && barBottomVisible &&
                 (Intersector.overlaps(projectile.getBoundingCircle(), barDown) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopDown))) {
             collided = true;
-            barBottomVisible = false;
+
+           switch(projectile.getType())
+           {
+               case 0: bottomHealth -= 1;
+                   break;
+               case 1: bottomHealth -= 1.5;
+                   break;
+               case 2: bottomHealth -= 3;
+                   break;
+               default:
+                   break;
+           }
+
+            if(bottomHealth <= 0)
+                barBottomVisible = false;
         }
 
         return collided;
@@ -199,4 +232,5 @@ public class Pipe extends Scrollable {
     public void setPipeCreatedChild(boolean pipeCreatedChild) {
         this.pipeCreatedChild = pipeCreatedChild;
     }
+
 }

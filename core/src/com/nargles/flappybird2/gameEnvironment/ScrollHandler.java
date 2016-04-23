@@ -46,7 +46,7 @@ public class ScrollHandler {
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10
-        pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, true, 2));
+        pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, true, 0));
 
         for (int i = 1; i < NUM_PIPES; i++) {
             pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
