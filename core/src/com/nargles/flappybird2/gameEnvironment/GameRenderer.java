@@ -308,8 +308,8 @@ public class GameRenderer {
      */
     private void drawMenuUI(boolean showLogo) {
 		if(showLogo) {
-			batcher.draw(fbLogo, (float) midPointX - 70 , (midPointY - 20) /2 ,
-				fbLogo.getRegionWidth() / 1.2f, fbLogo.getRegionHeight() / 1.2f);
+			batcher.draw(fbLogo, (float) (midPointY) * 3 , midPointX * 2 ,
+				fbLogo.getRegionWidth(), fbLogo.getRegionHeight());
 		}
 
 		for (GameButton button : menuButtons) {

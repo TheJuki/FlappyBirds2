@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class AssetLoader {
 
-	public static Texture texture, logoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture, flipButtonLeftTexture, flipButtonRightTexture,
+	public static Texture texture, logoTexture, gameLogoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture, flipButtonLeftTexture, flipButtonRightTexture,
     fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
     blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture;
 	public static TextureRegion logo, fbLogo, bg, grass,
@@ -39,9 +39,13 @@ public class AssetLoader {
      */
     public static void load() {
 
-        //Logo
+        //Nargles Logo
 		logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
 		logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Game Logo
+        gameLogoTexture = new Texture(Gdx.files.internal("data/fb_logo.png"));
+        gameLogoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
@@ -141,7 +145,7 @@ public class AssetLoader {
 		highScore = new TextureRegion(texture, 59, 101, 48, 7);
 		highScore.flip(false, true);
 
-		fbLogo = new TextureRegion(texture, 0, 55, 160, 24);
+		fbLogo = new TextureRegion(gameLogoTexture, 0, 0, 960, 540);
 		fbLogo.flip(false, true);
 
 		bg = new TextureRegion(texture, 0, 0, 136, 43);

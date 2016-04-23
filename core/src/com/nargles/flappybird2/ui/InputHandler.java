@@ -48,11 +48,11 @@ public class InputHandler implements InputProcessor {
 				29, 16, AssetLoader.quitButtonUp, AssetLoader.quitButtonDown, true));
 
         // Add Fire button
-        inGameButtons.add(new GameButton("fire", (136 - 130), midPointY + 98,
+        inGameButtons.add(new GameButton("fire", (136 - 130), (midPointY * 3.5f) - 9,
                 96/2f, 54/2f, AssetLoader.fireButtonUp, AssetLoader.fireButtonDown, false));
 
         // Add Flip button
-        inGameButtons.add(new GameButton("flip", (136 - 30), midPointY + 98,
+        inGameButtons.add(new GameButton("flip", (136 - 30), (midPointY * 3.5f) - 9,
                 96/2f, 54/2f, AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true));
 
 		// Add high score button
