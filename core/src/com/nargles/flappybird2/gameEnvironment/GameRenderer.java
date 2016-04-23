@@ -196,13 +196,8 @@ public class GameRenderer {
                                     pipe.getNest().getHeight(), 1, 1, 1.0f);
                             break;
                         default:
-                            batcher.draw(grenadeEggNest, pipe.getNest().getX(), pipe.getNest().getY(), pipe.getNest().getWidth(),
-                                    pipe.getNest().getHeight(), pipe.getNest().getWidth(),
-                                    pipe.getNest().getHeight(), 1, 1, 1.0f);
                             break;
-
                     }
-
                 }
                 else
                 {
@@ -273,9 +268,28 @@ public class GameRenderer {
             Projectile p = bird.getProjectiles().get(i);
             if (p.isVisible()) {
                 p.update();
-                batcher.draw(fireEgg, p.getX(), p.getY(), p.getWidth(),
-                        p.getHeight(), p.getWidth(),
-                        p.getHeight(), 1, 1, p.getRotation());
+
+                switch(p.getType())
+                {
+                    case 0:
+                        batcher.draw(blueEgg, p.getX(), p.getY(), p.getWidth(),
+                                p.getHeight(), p.getWidth(),
+                                p.getHeight(), 1, 1, p.getRotation());
+                        break;
+                    case 1:
+                        batcher.draw(fireEgg, p.getX(), p.getY(), p.getWidth(),
+                                p.getHeight(), p.getWidth(),
+                                p.getHeight(), 1, 1, p.getRotation());
+                        break;
+                    case 2:
+                        batcher.draw(grenadeEgg, p.getX(), p.getY(), p.getWidth(),
+                                p.getHeight(), p.getWidth(),
+                                p.getHeight(), 1, 1, p.getRotation());
+                        break;
+                    default:
+                        break;
+                }
+
             } else {
                 projectilesToRemove.add(i);
             }

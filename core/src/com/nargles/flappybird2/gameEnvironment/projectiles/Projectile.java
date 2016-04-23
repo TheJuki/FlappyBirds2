@@ -17,6 +17,7 @@ public class Projectile {
     private float rotation;
     private boolean isRightGoing;
     private Vector2 position;
+    private int type;
 
     private Circle boundingCircle;
 
@@ -27,11 +28,13 @@ public class Projectile {
      * @param width Projectile sprite width
      * @param height Projectile sprite height
      * @param rotation Projectile rotation
+     * @param type Projectile type
      */
-    public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing){
+    public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing, int type){
         this.width = width;
         this.height = height;
         this.isRightGoing = isRightGoing;
+        this.type = type;
         //this.rotation = rotation;
         position = new Vector2(x, y);
         speedX = 3.5f;
@@ -109,5 +112,9 @@ public class Projectile {
 
     public Circle getBoundingCircle() {
         return boundingCircle;
+    }
+
+    public int getType() {
+        return type;
     }
 }

@@ -26,8 +26,9 @@ public class Bird {
 
     private List<Projectile> projectiles;
 
-    private int ammoType;
-    private int ammo;
+    private int numBlueEggs;
+    private int numFireEggs;
+    private int numGrenadeEggs;
 
 	private float originalY;
 
@@ -55,8 +56,9 @@ public class Bird {
         projectiles = new ArrayList<Projectile>();
         isRightGoing = true;
 
-        ammo = 0;
-        ammoType = 0;
+        numBlueEggs = 0;
+        numFireEggs = 0;
+        numGrenadeEggs = 0;
 	}
 
     /**
@@ -189,16 +191,32 @@ public class Bird {
 		acceleration.x = 0;
 		acceleration.y = 460;
 		isAlive = true;
-        ammo = 0;
-        ammoType = 0;
+        numBlueEggs = 0;
+        numFireEggs = 0;
+        numGrenadeEggs = 0;
 	}
 
     /**
      * Shoot a projectile from Bird
      */
     public void shoot() {
-        Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation, this.isRightGoing);
-        projectiles.add(p);
+        if((numBlueEggs + numFireEggs + numGrenadeEggs) > 0) {
+            if(numGrenadeEggs > 0) {
+                Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation, this.isRightGoing, 2);
+                --numGrenadeEggs;
+                projectiles.add(p);
+            }
+            else if(numFireEggs > 0) {
+                Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation, this.isRightGoing, 1);
+                --numFireEggs;
+                projectiles.add(p);
+            }
+            else if(numBlueEggs > 0) {
+                Projectile p = new Projectile(position.x + 5, position.y + 5, 9.6f, 5.4f, rotation, this.isRightGoing, 0);
+                --numBlueEggs;
+                projectiles.add(p);
+            }
+        }
     }
 
 	public float getX() {
@@ -233,19 +251,27 @@ public class Bird {
         return projectiles;
     }
 
-    public int getAmmoType() {
-        return ammoType;
+    public int getNumBlueEggs() {
+        return numBlueEggs;
     }
 
-    public void setAmmoType(int ammoType) {
-        this.ammoType = ammoType;
+    public void addNumBlueEggs(int numBlueEggs) {
+        this.numBlueEggs += numBlueEggs;
     }
 
-    public int getAmmo() {
-        return ammo;
+    public int getNumFireEggs() {
+        return numFireEggs;
     }
 
-    public void addAmmo(int ammo) {
-        this.ammo += ammo;
+    public void addNumFireEggs(int numFireEggs) {
+        this.numFireEggs += numFireEggs;
+    }
+
+    public int getNumGrenadeEggs() {
+        return numGrenadeEggs;
+    }
+
+    public void addNumGrenadeEggs(int numGrenadeEggs) {
+        this.numGrenadeEggs += numGrenadeEggs;
     }
 }

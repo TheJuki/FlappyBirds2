@@ -200,10 +200,28 @@ public class ScrollHandler {
 			}
 			if (pipe.collides(bird))
 				isCollided = true;
+
+            gotNest(pipe, bird);
 		}
 
 		return isCollided;
 	}
+
+    /**
+     * Determines if a bird and a nest met
+     * @param pipe Pipe
+     * @param bird Bird
+     * @return The bird picked up a nest of eggs
+     */
+    public boolean gotNest(Pipe pipe, Bird bird) {
+
+        boolean didGet = false;
+
+        if (pipe.getNest() != null && pipe.getNest().collides(bird))
+            didGet = true;
+
+        return didGet;
+    }
 
     /**
      * Determines if a projectile a pipe met

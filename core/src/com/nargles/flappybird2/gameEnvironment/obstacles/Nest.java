@@ -60,8 +60,17 @@ public class Nest extends Scrollable {
         {
             collided = true;
             nestVisible = false;
-            bird.addAmmo(3);
-            bird.setAmmoType(this.ammoType);
+           switch(ammoType)
+           {
+               case 0: bird.addNumBlueEggs(5);
+                   break;
+               case 1: bird.addNumFireEggs(5);
+                   break;
+               case 2: bird.addNumGrenadeEggs(5);
+                   break;
+               default:
+                   break;
+           }
         }
 
         return collided;
