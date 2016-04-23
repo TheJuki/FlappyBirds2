@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Projectile
  * Copyright 2016 Nargles.
+ *
  * @author Taylor Chason (Programmer)
  * @version 1.0
  */
@@ -23,14 +24,15 @@ public class Projectile {
 
     /**
      * Constructor
-     * @param x Projectile X position
-     * @param y Projectile Y position
-     * @param width Projectile sprite width
-     * @param height Projectile sprite height
+     *
+     * @param x        Projectile X position
+     * @param y        Projectile Y position
+     * @param width    Projectile sprite width
+     * @param height   Projectile sprite height
      * @param rotation Projectile rotation
-     * @param type Projectile type
+     * @param type     Projectile type
      */
-    public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing, int type){
+    public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing, int type) {
         this.width = width;
         this.height = height;
         this.isRightGoing = isRightGoing;
@@ -46,16 +48,14 @@ public class Projectile {
      * Update the x and y position (Moving)
      * If offscreen then hide
      */
-    public void update(){
+    public void update() {
 
-        if(isRightGoing) {
+        if (isRightGoing) {
             position.x += speedX;
             if (position.x > (136 * 4)) {
                 visible = false;
             }
-        }
-        else
-        {
+        } else {
             position.x -= speedX;
             if (position.x < 0) {
                 visible = false;

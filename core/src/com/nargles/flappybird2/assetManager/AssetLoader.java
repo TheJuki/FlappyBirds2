@@ -11,28 +11,31 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Asset Loader
  * Copyright 2016 Nargles.
+ *
  * @author Justin Kirk (Project Manager)
  * @version 1.0
  */
 public class AssetLoader {
 
-	public static Texture texture, logoTexture, gameLogoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture, flipButtonLeftTexture, flipButtonRightTexture,
-    fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
-    blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture;
-	public static TextureRegion logo, fbLogo, bg, grass,
-	bird, birdDown, birdUp,
-    blueEgg, fireEgg, grenadeEgg,
+    public static Texture texture, logoTexture, gameLogoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture,
+            flipButtonLeftTexture, flipButtonRightTexture,
+            fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
+            blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
+            backdropTexture, groundTexture;
+    public static TextureRegion logo, fbLogo, bg, grass,
+            bird, birdDown, birdUp,
+            blueEgg, fireEgg, grenadeEgg,
             blueEggNest, fireEggNest, grenadeEggNest,
-	birdFlipped, birdDownFlipped, birdUpFlipped,
-	pipeUp, pipeDown, bar,
-			playButtonUp, playButtonDown,
-			quitButtonUp, quitButtonDown,
+            birdFlipped, birdDownFlipped, birdUpFlipped,
+            pipeUp, pipeDown, bar,
+            playButtonUp, playButtonDown,
+            quitButtonUp, quitButtonDown,
             flipButtonLeft, flipButtonRight,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
-			ready, gameOver, highScore, scoreboard, star, noStar, retry;
-	public static Animation birdAnimation, birdAnimationFlipped;
-	public static Sound dead, flap, coin, fall, shoot;
-	public static BitmapFont font, shadow, whiteFont;
+            ready, gameOver, highScore, scoreboard, star, noStar, retry;
+    public static Animation birdAnimation, birdAnimationFlipped;
+    public static Sound dead, flap, coin, fall, shoot;
+    public static BitmapFont font, shadow, whiteFont;
 
     /**
      * Load each asset
@@ -40,12 +43,20 @@ public class AssetLoader {
     public static void load() {
 
         //Nargles Logo
-		logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
-		logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
+        logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Game Logo
         gameLogoTexture = new Texture(Gdx.files.internal("data/fb_logo.png"));
         gameLogoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Backdrop/Background
+        backdropTexture = new Texture(Gdx.files.internal("data/background.png"));
+        backdropTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Grass/Ground
+        groundTexture = new Texture(Gdx.files.internal("data/ground.png"));
+        groundTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
@@ -77,10 +88,10 @@ public class AssetLoader {
         fireButtonDisabledTexture = new Texture(Gdx.files.internal("data/disabled_fire.png"));
         fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-		logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
+        logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
-		texture = new Texture(Gdx.files.internal("data/texture.png"));
-		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        texture = new Texture(Gdx.files.internal("data/texture.png"));
+        texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
         //Egg
         blueEgg = new TextureRegion(blueEggTexture, 0, 0, 960, 540);
@@ -113,87 +124,87 @@ public class AssetLoader {
         flipButtonRight.flip(false, true);
 
         //Play
-		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
-		playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
-		playButtonUp.flip(false, true);
-		playButtonDown.flip(false, true);
-		
-		//Quit
-		quitButtonUp = new TextureRegion(texture, 0, 101, 29, 16);
-		quitButtonDown = new TextureRegion(texture, 29, 101, 29, 16);
-		quitButtonUp.flip(false, true);
-		quitButtonDown.flip(false, true);
+        playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
+        playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
+        playButtonUp.flip(false, true);
+        playButtonDown.flip(false, true);
 
-		ready = new TextureRegion(texture, 59, 83, 34, 7);
-		ready.flip(false, true);
+        //Quit
+        quitButtonUp = new TextureRegion(texture, 0, 101, 29, 16);
+        quitButtonDown = new TextureRegion(texture, 29, 101, 29, 16);
+        quitButtonUp.flip(false, true);
+        quitButtonDown.flip(false, true);
 
-		retry = new TextureRegion(texture, 59, 110, 33, 7);
-		retry.flip(false, true);
-		
-		gameOver = new TextureRegion(texture, 59, 92, 46, 7);
-		gameOver.flip(false, true);
+        ready = new TextureRegion(texture, 59, 83, 34, 7);
+        ready.flip(false, true);
 
-		scoreboard = new TextureRegion(texture, 111, 83, 97, 37);
-		scoreboard.flip(false, true);
+        retry = new TextureRegion(texture, 59, 110, 33, 7);
+        retry.flip(false, true);
 
-		star = new TextureRegion(texture, 152, 70, 10, 10);
-		noStar = new TextureRegion(texture, 165, 70, 10, 10);
+        gameOver = new TextureRegion(texture, 59, 92, 46, 7);
+        gameOver.flip(false, true);
 
-		star.flip(false, true);
-		noStar.flip(false, true);
+        scoreboard = new TextureRegion(texture, 111, 83, 97, 37);
+        scoreboard.flip(false, true);
 
-		highScore = new TextureRegion(texture, 59, 101, 48, 7);
-		highScore.flip(false, true);
+        star = new TextureRegion(texture, 152, 70, 10, 10);
+        noStar = new TextureRegion(texture, 165, 70, 10, 10);
 
-		fbLogo = new TextureRegion(gameLogoTexture, 0, 0, 960, 540);
-		fbLogo.flip(false, true);
+        star.flip(false, true);
+        noStar.flip(false, true);
 
-		bg = new TextureRegion(texture, 0, 0, 136, 43);
-		bg.flip(false, true);
+        highScore = new TextureRegion(texture, 59, 101, 48, 7);
+        highScore.flip(false, true);
 
-		grass = new TextureRegion(texture, 0, 43, 143, 11);
-		grass.flip(false, true);
+        fbLogo = new TextureRegion(gameLogoTexture, 0, 0, 960, 540);
+        fbLogo.flip(false, true);
 
-		birdDown = new TextureRegion(texture, 136, 0, 17, 12);
-		birdDown.flip(false, true);
+        bg = new TextureRegion(backdropTexture, 0, 0, 960, 540);
+        bg.flip(false, true);
 
-		bird = new TextureRegion(texture, 153, 0, 17, 12);
-		bird.flip(false, true);
+        grass = new TextureRegion(groundTexture, 0, 0, 960, 540);
+        grass.flip(false, true);
 
-		birdUp = new TextureRegion(texture, 170, 0, 17, 12);
-		birdUp.flip(false, true);
-		
-		birdDownFlipped = new TextureRegion(texture, 136, 0, 17, 12);
-		birdDownFlipped.flip(true, true);
+        birdDown = new TextureRegion(texture, 136, 0, 17, 12);
+        birdDown.flip(false, true);
 
-		birdFlipped = new TextureRegion(texture, 153, 0, 17, 12);
-		birdFlipped.flip(true, true);
+        bird = new TextureRegion(texture, 153, 0, 17, 12);
+        bird.flip(false, true);
 
-		birdUpFlipped = new TextureRegion(texture, 170, 0, 17, 12);
-		birdUpFlipped.flip(true, true);
+        birdUp = new TextureRegion(texture, 170, 0, 17, 12);
+        birdUp.flip(false, true);
 
-		TextureRegion[] birds = { birdDown, bird, birdUp };
-		TextureRegion[] birdsFlipped = { birdDownFlipped, birdFlipped, birdUpFlipped };
-		birdAnimation = new Animation(0.06f, birds);
-		birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-		birdAnimationFlipped = new Animation(0.06f, birdsFlipped);
-		birdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        birdDownFlipped = new TextureRegion(texture, 136, 0, 17, 12);
+        birdDownFlipped.flip(true, true);
 
-		pipeUp = new TextureRegion(texture, 192, 0, 24, 14);
-		// Create by flipping existing skullUp
-		pipeDown = new TextureRegion(pipeUp);
-		pipeDown.flip(false, true);
+        birdFlipped = new TextureRegion(texture, 153, 0, 17, 12);
+        birdFlipped.flip(true, true);
 
-		bar = new TextureRegion(texture, 136, 16, 22, 3);
-		bar.flip(false, true);
+        birdUpFlipped = new TextureRegion(texture, 170, 0, 17, 12);
+        birdUpFlipped.flip(true, true);
 
-		dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
-		flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
-		coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
-		fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
+        TextureRegion[] birds = {birdDown, bird, birdUp};
+        TextureRegion[] birdsFlipped = {birdDownFlipped, birdFlipped, birdUpFlipped};
+        birdAnimation = new Animation(0.06f, birds);
+        birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        birdAnimationFlipped = new Animation(0.06f, birdsFlipped);
+        birdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        pipeUp = new TextureRegion(texture, 192, 0, 24, 14);
+        // Create by flipping existing skullUp
+        pipeDown = new TextureRegion(pipeUp);
+        pipeDown.flip(false, true);
+
+        bar = new TextureRegion(texture, 136, 16, 22, 3);
+        bar.flip(false, true);
+
+        dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
+        flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
+        coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
+        fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
         shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
 /*
-		font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
+        font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
 		font.getData().setScale(.25f, -.25f);
 
 		whiteFont = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
@@ -213,24 +224,24 @@ public class AssetLoader {
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.getData().setScale(.25f, -.25f);
 
-	}
+    }
 
     /**
      * Dispose of assets
      */
     public static void dispose() {
 
-		// Dispose texture
-		texture.dispose();
+        // Dispose texture
+        texture.dispose();
 
-		// Dispose sounds
-		dead.dispose();
-		flap.dispose();
-		coin.dispose();
+        // Dispose sounds
+        dead.dispose();
+        flap.dispose();
+        coin.dispose();
 
         //Dispose fonts
-		font.dispose();
-		shadow.dispose();
-	}
+        font.dispose();
+        shadow.dispose();
+    }
 
 }

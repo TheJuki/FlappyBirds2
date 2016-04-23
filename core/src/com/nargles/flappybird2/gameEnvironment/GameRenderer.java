@@ -377,17 +377,14 @@ public class GameRenderer {
         for (GameButton button : inGameButtons) {
 
             if (button.getName() != null && button.getName().equals("fire")) {
-                if (bird.isOutOfAmmo())
-                {
+                if (bird.isOutOfAmmo()) {
                     button.setTextures(AssetLoader.fireButtonDisabled, AssetLoader.fireButtonDisabled, false);
                 } else {
                     button.setTextures(AssetLoader.fireButtonUp, AssetLoader.fireButtonDown, true);
                 }
 
-            }
-            else if(button.getName() != null && button.getName().equals("flip"))
-            {
-                if(!myWorld.getScroller().isRightGoing())
+            } else if (button.getName() != null && button.getName().equals("flip")) {
+                if (!myWorld.getScroller().isRightGoing())
                     button.setTextures(AssetLoader.flipButtonLeft, AssetLoader.flipButtonLeft, true);
                 else
                     button.setTextures(AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true);
@@ -412,7 +409,7 @@ public class GameRenderer {
         batcher.begin();
         batcher.disableBlending();
 
-        batcher.draw(bg, -10, (midPointY - 38), 143 * 2, (float) (43 * 2.8));
+        batcher.draw(bg, -10, (midPointY - 38), 136 * 3, (float) 180);
 
         drawPipes();
 
@@ -433,8 +430,8 @@ public class GameRenderer {
         //shapeRenderer.rect(0, (midPointY + 66) / 2, 136 * 2, 11 / 2);
 
         // Draw Dirt
-        shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
-        shapeRenderer.rect(0, midPointY * 3, 136 * 2, (midPointY));
+        //shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
+        //shapeRenderer.rect(0, midPointY * 3, 136 * 2, (midPointY));
 
         shapeRenderer.end();
 

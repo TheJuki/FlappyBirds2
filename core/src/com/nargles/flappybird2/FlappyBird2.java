@@ -8,6 +8,7 @@ import com.nargles.flappybird2.scoreManager.FlappyBird2Database;
 /**
  * Flappy Bird 2 Game
  * Copyright 2016 Nargles.
+ *
  * @author Justin Kirk (Project Manager)
  * @version 1.0
  */
@@ -22,8 +23,7 @@ public class FlappyBird2 extends Game {
         setScreen(new SplashScreen(this));
     }
 
-    public FlappyBird2Database getDatabase()
-    {
+    public FlappyBird2Database getDatabase() {
         return db;
     }
 

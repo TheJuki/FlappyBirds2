@@ -14,97 +14,99 @@ import java.util.List;
 /**
  * Game World
  * Copyright 2016 Nargles.
+ *
  * @author Justin Kirk (Project Manager)
  * @version 1.0
  */
 public class GameWorld {
 
     private FlappyBird2Database db;
-	private Bird bird;
-	private ScrollHandler scroller;
-	private Rectangle ground;
-	private int score = 0;
-	private float runTime = 0;
-	private int midPointY;
-	private GameRenderer renderer;
+    private Bird bird;
+    private ScrollHandler scroller;
+    private Rectangle ground;
+    private int score = 0;
+    private float runTime = 0;
+    private int midPointY;
+    private GameRenderer renderer;
 
-	private GameState currentState;
+    private GameState currentState;
 
     /**
      * The current game state
      */
     private enum GameState {
-		MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED
-	}
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED
+    }
 
     /**
      * Constructor
-     * @param game FlappyBirds2 created initially
+     *
+     * @param game      FlappyBirds2 created initially
      * @param midPointY Middle of game screen vertically
      * @param midPointX Middle of game screen horizontally
      */
     public GameWorld(FlappyBird2 game, int midPointY, int midPointX) {
-		db = game.getDatabase();
-		currentState = GameState.MENU;
-		this.midPointY = midPointY;
-		bird = new Bird(33 * 2, midPointY - 5, 17, 12);
+        db = game.getDatabase();
+        currentState = GameState.MENU;
+        this.midPointY = midPointY;
+        bird = new Bird(33 * 2, midPointY - 5, 17, 12);
 
-		scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
-		ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
-	}
+        scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
+        ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);
+    }
 
     /**
      * @param delta Updates scalars
      */
     public void update(float delta) {
-		runTime += delta;
+        runTime += delta;
 
-		switch (currentState) {
-		case READY:
-		case MENU:
-			updateReady(delta);
-			break;
+        switch (currentState) {
+            case READY:
+            case MENU:
+                updateReady(delta);
+                break;
 
-		case RUNNING:
-			updateRunning(delta);
-			break;
-		default:
-			break;
-		}
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            default:
+                break;
+        }
 
-	}
+    }
 
     /**
      * Update Bird and Scroller at Ready state
+     *
      * @param delta Update scalars
      */
     private void updateReady(float delta) {
-		bird.updateReady(runTime);
-		scroller.updateReady(delta);
-	}
+        bird.updateReady(runTime);
+        scroller.updateReady(delta);
+    }
 
     /**
-     *  Update Bird and Scroller at Running state
+     * Update Bird and Scroller at Running state
+     *
      * @param delta Update scalars
      */
     private void updateRunning(float delta) {
-		if (delta > .15f) {
-			delta = .15f;
-		}
+        if (delta > .15f) {
+            delta = .15f;
+        }
 
-		bird.update(delta, scroller.isRightGoing());
-		scroller.update(delta);
+        bird.update(delta, scroller.isRightGoing());
+        scroller.update(delta);
 
-		if (scroller.collides(bird) && bird.isAlive()) {
-			scroller.stop();
-			bird.die();
-			AssetLoader.dead.play();
-			renderer.prepareTransition(255, 255, 255, .3f);
+        if (scroller.collides(bird) && bird.isAlive()) {
+            scroller.stop();
+            bird.die();
+            AssetLoader.dead.play();
+            renderer.prepareTransition(255, 255, 255, .3f);
 
-			AssetLoader.fall.play();
-		}
-        else if (bird.isAlive())
-        {
+            AssetLoader.fall.play();
+        } else if (bird.isAlive()) {
             List<Integer> projectilesToRemove = new ArrayList<Integer>();
             for (int i = 0; i < bird.getProjectiles().size(); i++) {
                 Projectile p = bird.getProjectiles().get(i);
@@ -115,105 +117,106 @@ public class GameWorld {
                 }
             }
 
-            for(int i: projectilesToRemove)
-            {
+            for (int i : projectilesToRemove) {
                 bird.getProjectiles().remove(i);
             }
         }
 
-		if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
+        if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
 
-			if (bird.isAlive()) {
-				AssetLoader.dead.play();
-				renderer.prepareTransition(255, 255, 255, .3f);
+            if (bird.isAlive()) {
+                AssetLoader.dead.play();
+                renderer.prepareTransition(255, 255, 255, .3f);
 
-				bird.die();
-			}
+                bird.die();
+            }
 
-			scroller.stop();
-			bird.decelerate();
-			currentState = GameState.GAMEOVER;
-			if (score > 0) {
-				db.addHighScore(score);
-			}
-			currentState = GameState.HIGHSCORE;
+            scroller.stop();
+            bird.decelerate();
+            currentState = GameState.GAMEOVER;
+            if (score > 0) {
+                db.addHighScore(score);
+            }
+            currentState = GameState.HIGHSCORE;
 
-		}
-	}
+        }
+    }
 
-	public Bird getBird() { return bird; }
+    public Bird getBird() {
+        return bird;
+    }
 
-	public int getMidPointY() {
-		return midPointY;
-	}
+    public int getMidPointY() {
+        return midPointY;
+    }
 
-	public ScrollHandler getScroller() {
-		return scroller;
-	}
+    public ScrollHandler getScroller() {
+        return scroller;
+    }
 
-	public int getScore() {
-		return score;
-	}
+    public int getScore() {
+        return score;
+    }
 
-	public void addScore(int increment) {
-		score += increment;
-	}
+    public void addScore(int increment) {
+        score += increment;
+    }
 
-	public void start() {
-		currentState = GameState.RUNNING;
-	}
-	
-	public void pause() {
-		currentState = GameState.PAUSED;
-	}
+    public void start() {
+        currentState = GameState.RUNNING;
+    }
 
-	public void ready() {
-		currentState = GameState.READY;
-		renderer.prepareTransition(0, 0, 0, 1f);
-	}
-	
-	public void highSore() {
-		currentState = GameState.HIGHSCORE;
-	}
+    public void pause() {
+        currentState = GameState.PAUSED;
+    }
+
+    public void ready() {
+        currentState = GameState.READY;
+        renderer.prepareTransition(0, 0, 0, 1f);
+    }
+
+    public void highSore() {
+        currentState = GameState.HIGHSCORE;
+    }
 
     /**
      * Restart Game
      */
     public void restart() {
-		score = 0;
-		bird.onRestart(midPointY - 5);
-		scroller.onRestart();
+        score = 0;
+        bird.onRestart(midPointY - 5);
+        scroller.onRestart();
         renderer.onRestart();
-		ready();
-	}
+        ready();
+    }
 
-	public boolean isReady() {
-		return currentState == GameState.READY;
-	}
+    public boolean isReady() {
+        return currentState == GameState.READY;
+    }
 
-	public boolean isGameOver() {
-		return currentState == GameState.GAMEOVER;
-	}
+    public boolean isGameOver() {
+        return currentState == GameState.GAMEOVER;
+    }
 
-	public boolean isHighScore() {
-		return currentState == GameState.HIGHSCORE;
-	}
+    public boolean isHighScore() {
+        return currentState == GameState.HIGHSCORE;
+    }
 
-	public boolean isMenu() {
-		return currentState == GameState.MENU;
-	}
+    public boolean isMenu() {
+        return currentState == GameState.MENU;
+    }
 
-	public boolean isRunning() {
-		return currentState == GameState.RUNNING;
-	}
-	
-	public boolean isPaused() {
-		return currentState == GameState.PAUSED;
-	}
+    public boolean isRunning() {
+        return currentState == GameState.RUNNING;
+    }
 
-	public void setRenderer(GameRenderer renderer) {
-		this.renderer = renderer;
-	}
+    public boolean isPaused() {
+        return currentState == GameState.PAUSED;
+    }
+
+    public void setRenderer(GameRenderer renderer) {
+        this.renderer = renderer;
+    }
 
     public FlappyBird2Database getDb() {
         return db;

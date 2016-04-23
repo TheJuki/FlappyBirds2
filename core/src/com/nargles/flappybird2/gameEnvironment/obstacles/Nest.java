@@ -8,6 +8,7 @@ import com.nargles.flappybird2.gameEnvironment.player.Bird;
 /**
  * Nest
  * Copyright 2016 Nargles.
+ *
  * @author Justin Kirk (Project Manager)
  * @version 1.0
  */
@@ -20,10 +21,11 @@ public class Nest extends Scrollable {
 
     /**
      * Constructor
-     * @param x Nest X position
-     * @param y Nest Y position
-     * @param width Nest sprite width
-     * @param height Nest sprite height
+     *
+     * @param x           Nest X position
+     * @param y           Nest Y position
+     * @param width       Nest sprite width
+     * @param height      Nest sprite height
      * @param scrollSpeed Speed of the Nest
      */
     public Nest(float x, float y, int width, int height, float scrollSpeed, int ammoType) {
@@ -36,6 +38,7 @@ public class Nest extends Scrollable {
 
     /**
      * Update the nest position
+     *
      * @param delta Update scalar
      */
     @Override
@@ -48,6 +51,7 @@ public class Nest extends Scrollable {
 
     /**
      * Determines if a bird and the nest met
+     *
      * @param bird Bird
      * @return if a bird and the nest met
      */
@@ -56,21 +60,22 @@ public class Nest extends Scrollable {
         boolean collided = false;
 
         if ((position.x < (bird.getX() + bird.getWidth())) &&
-                ((Intersector.overlaps(bird.getBoundingCircle(), nestRectangle) && nestVisible)))
-        {
+                ((Intersector.overlaps(bird.getBoundingCircle(), nestRectangle) && nestVisible))) {
             collided = true;
             nestVisible = false;
-           switch(ammoType)
-           {
-               case 0: bird.addNumBlueEggs(5);
-                   break;
-               case 1: bird.addNumFireEggs(5);
-                   break;
-               case 2: bird.addNumGrenadeEggs(5);
-                   break;
-               default:
-                   break;
-           }
+            switch (ammoType) {
+                case 0:
+                    bird.addNumBlueEggs(5);
+                    break;
+                case 1:
+                    bird.addNumFireEggs(5);
+                    break;
+                case 2:
+                    bird.addNumGrenadeEggs(5);
+                    break;
+                default:
+                    break;
+            }
         }
 
         return collided;
