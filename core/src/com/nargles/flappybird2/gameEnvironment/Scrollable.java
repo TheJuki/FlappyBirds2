@@ -13,10 +13,10 @@ public class Scrollable {
 
     protected Vector2 position;
     protected Vector2 velocity;
-    protected int width;
-    protected int height;
-    private boolean isScrolledBack;
-    private boolean isRightGoing;
+    protected float width;
+    protected float height;
+    protected boolean isScrolledBack;
+    protected boolean isRightGoing;
     private float scrollSpeed;
 
     /**
@@ -28,7 +28,7 @@ public class Scrollable {
      * @param height      Height of sprite
      * @param scrollSpeed Speed of the objects that move
      */
-    public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
+    public Scrollable(float x, float y, float width, float height, float scrollSpeed) {
         position = new Vector2(x, y);
         this.scrollSpeed = scrollSpeed;
         velocity = new Vector2(scrollSpeed, 0);
@@ -45,13 +45,6 @@ public class Scrollable {
      */
     public void update(float delta) {
         position.add(velocity.cpy().scl(delta));
-
-        // If the Scrollable object is no longer visible:
-        if (isRightGoing && (position.x + width) < 0) {
-            isScrolledBack = true;
-        } else if (!isRightGoing && (position.x + width) > (136 * 4)) {
-            isScrolledBack = true;
-        }
     }
 
     /**
@@ -77,7 +70,7 @@ public class Scrollable {
         // If the Scrollable object is no longer visible:
         if (isRightGoing && (position.x + width) < 0) {
             isScrolledBack = true;
-        } else if (!isRightGoing && (position.x + width) > (136 * 4)) {
+        } else if (!isRightGoing && (position.x + width) > (136 * 3)) {
             isScrolledBack = true;
         }
 
@@ -109,11 +102,11 @@ public class Scrollable {
         return position.y;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

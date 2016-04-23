@@ -41,8 +41,8 @@ public class ScrollHandler {
         this.gameWorld = gameWorld;
         this.scrollSpeed = scrollSpeed;
         this.yPos = yPos;
-        frontGrass = new Grass(0, yPos, 960 / 2, 540 / 2, scrollSpeed);
-        backGrass = new Grass(frontGrass.getTailX(), yPos, 960 / 2, 540 / 2, scrollSpeed);
+        frontGrass = new Grass(0, yPos, 960 , 540 / 2.5f, scrollSpeed);
+        backGrass = new Grass(frontGrass.getTailX(), yPos, 960 , 540 / 2.5f, scrollSpeed);
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10

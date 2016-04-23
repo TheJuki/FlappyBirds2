@@ -19,6 +19,7 @@ public class AssetLoader {
 
     public static Texture texture, logoTexture, gameLogoTexture, blueEggTexture, fireEggTexture, grenadeEggTexture,
             flipButtonLeftTexture, flipButtonRightTexture,
+            highScoreButtonUpTexture, highScoreButtonDownTexture,
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
             backdropTexture, groundTexture;
@@ -88,6 +89,14 @@ public class AssetLoader {
         fireButtonDisabledTexture = new Texture(Gdx.files.internal("data/disabled_fire.png"));
         fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //High Scores Button
+        fireButtonUpTexture = new Texture(Gdx.files.internal("data/unpressed_fire.png"));
+        fireButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireButtonDownTexture = new Texture(Gdx.files.internal("data/pressed_fire.png"));
+        fireButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireButtonDisabledTexture = new Texture(Gdx.files.internal("data/disabled_fire.png"));
+        fireButtonDisabledTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
         logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
         texture = new Texture(Gdx.files.internal("data/texture.png"));
@@ -116,6 +125,12 @@ public class AssetLoader {
         fireButtonDown.flip(false, true);
         fireButtonDisabled = new TextureRegion(fireButtonDisabledTexture, 0, 0, 960, 540);
         fireButtonDisabled.flip(false, true);
+
+        //Fire
+        fireButtonUp = new TextureRegion(fireButtonUpTexture, 0, 0, 960, 540);
+        fireButtonUp.flip(false, true);
+        fireButtonDown = new TextureRegion(fireButtonDownTexture, 0, 0, 960, 540);
+        fireButtonDown.flip(false, true);
 
         //Flip
         flipButtonLeft = new TextureRegion(flipButtonLeftTexture, 0, 0, 960, 540);

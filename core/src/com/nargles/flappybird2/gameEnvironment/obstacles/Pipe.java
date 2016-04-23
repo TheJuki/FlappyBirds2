@@ -46,7 +46,7 @@ public class Pipe extends Scrollable {
      * @param addNest     if true, add a nest to the pipe
      * @param nestType    The nest type to add
      */
-    public Pipe(float x, float y, int width, int height, float scrollSpeed,
+    public Pipe(float x, float y, float width, float height, float scrollSpeed,
                 float groundY, boolean addNest, int nestType) {
         super(x, y, width, height, scrollSpeed);
 

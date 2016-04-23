@@ -20,7 +20,7 @@ public class Grass extends Scrollable {
      * @param height      Grass sprite height
      * @param scrollSpeed Speed of the Grass
      */
-    public Grass(float x, float y, int width, int height, float scrollSpeed) {
+    public Grass(float x, float y, float width, float height, float scrollSpeed) {
         super(x, y, width, height, scrollSpeed);
     }
 
@@ -34,6 +34,20 @@ public class Grass extends Scrollable {
         super.onRestart();
         position.x = x;
         velocity.x = scrollSpeed;
+    }
+
+    @Override
+    public boolean isScrolledBack() {
+        isScrolledBack = false;
+
+        // If the Scrollable object is no longer visible:
+        if (isRightGoing && (position.x + width) < 0) {
+            isScrolledBack = true;
+        } else if (!isRightGoing && position.x > (136 * 3)) {
+            isScrolledBack = true;
+        }
+
+        return isScrolledBack;
     }
 
 }

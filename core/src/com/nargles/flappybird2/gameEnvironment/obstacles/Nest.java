@@ -28,7 +28,7 @@ public class Nest extends Scrollable {
      * @param height      Nest sprite height
      * @param scrollSpeed Speed of the Nest
      */
-    public Nest(float x, float y, int width, int height, float scrollSpeed, int ammoType) {
+    public Nest(float x, float y, float width, float height, float scrollSpeed, int ammoType) {
         super(x, y, width, height, scrollSpeed);
 
         nestRectangle = new Rectangle();

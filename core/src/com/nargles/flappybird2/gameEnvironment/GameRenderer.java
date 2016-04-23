@@ -438,6 +438,8 @@ public class GameRenderer {
         batcher.begin();
         batcher.enableBlending();
 
+        drawGrass();
+
         if (myWorld.isRunning() || myWorld.isPaused()) {
             drawBird(runTime);
             drawScore();
@@ -459,8 +461,6 @@ public class GameRenderer {
             //drawHighScore();
             drawMenuUI(false);
         }
-
-        drawGrass();
 
         batcher.end();
         drawTransition(delta);
