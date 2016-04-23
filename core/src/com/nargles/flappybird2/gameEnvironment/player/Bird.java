@@ -274,4 +274,8 @@ public class Bird {
     public void addNumGrenadeEggs(int numGrenadeEggs) {
         this.numGrenadeEggs += numGrenadeEggs;
     }
+
+    public boolean isOutOfAmmo() {
+        return (numBlueEggs + numFireEggs + numGrenadeEggs) == 0;
+    }
 }

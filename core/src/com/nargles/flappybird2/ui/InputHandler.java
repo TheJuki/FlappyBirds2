@@ -49,7 +49,7 @@ public class InputHandler implements InputProcessor {
 
         // Add Fire button
         inGameButtons.add(new GameButton("fire", (136 - 130), (midPointY * 3.5f) - 9,
-                96/2f, 54/2f, AssetLoader.fireButtonUp, AssetLoader.fireButtonDown, false));
+                96/2f, 54/2f, AssetLoader.fireButtonDisabled, AssetLoader.fireButtonDisabled, false));
 
         // Add Flip button
         inGameButtons.add(new GameButton("flip", (136 - 30), (midPointY * 3.5f) - 9,
@@ -129,9 +129,17 @@ public class InputHandler implements InputProcessor {
         {
             for(GameButton btn : inGameButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
-                if(btnTapped && btn.getName().equals("fire"))
+                if(btnTapped && btn.getName().equals("fire") && !myBird.isOutOfAmmo())
                 {
-                    myBird.shoot();
+                    if(!myBird.isOutOfAmmo())
+                    {
+                        myBird.shoot();
+                        if(myBird.isOutOfAmmo())
+                        {
+                            btn.setTextures(AssetLoader.fireButtonDisabled, AssetLoader.fireButtonDisabled, false);
+                        }
+                    }
+
                 }
                 else if(btnTapped && btn.getName().equals("flip"))
                 {
@@ -170,7 +178,7 @@ public class InputHandler implements InputProcessor {
 
         if (keycode == Keys.B) {
 
-            if (myWorld.isRunning()) {
+            if (myWorld.isRunning() && !myBird.isOutOfAmmo()) {
                 myBird.shoot();
                 AssetLoader.shoot.play();
             }

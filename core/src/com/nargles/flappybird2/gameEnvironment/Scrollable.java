@@ -69,7 +69,17 @@ public class Scrollable {
 	}
 
     public boolean isScrolledBack() {
-		return isScrolledBack;
+        isScrolledBack = false;
+
+        // If the Scrollable object is no longer visible:
+        if (isRightGoing && (position.x + width) < 0) {
+            isScrolledBack = true;
+        }
+        else if (!isRightGoing && (position.x + width) > (136 * 4)) {
+            isScrolledBack = true;
+        }
+
+        return isScrolledBack;
 	}
 
     public void setIsScrolledBack(boolean isScrolledBack) {
