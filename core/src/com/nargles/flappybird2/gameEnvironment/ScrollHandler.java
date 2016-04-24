@@ -23,8 +23,12 @@ public class ScrollHandler {
     private int scrollSpeed;
     private boolean isRightGoing;
     private boolean initialLeftFlip;
-    private static final int PIPE_GAP = 100;
+    private static final int PIPE_GAP = 50;
     private static final int NUM_PIPES = 6;
+    private static final float PIPE_WIDTH = 96;
+    private static final float PIPE_HEIGHT = 54;
+    private static final float PIPE_START_X = 300;
+    private static final float PIPE_START_Y = -10;
 
     private GameWorld gameWorld;
     private float yPos;
@@ -48,17 +52,19 @@ public class ScrollHandler {
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10
-        pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, false, 0));
+        pipes.add(new Pipe(PIPE_START_X, PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, 0));
 
         for (int i = 1; i < NUM_PIPES; i++) {
             if(i == 4)
             {
-                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, true, 0));
+                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP,
+                        PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, 0));
                 ++currentEggNest;
             }
             else
             {
-                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP,
+                        PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
             }
         }
 
@@ -145,12 +151,14 @@ public class ScrollHandler {
                     if (gameWorld.getDistance()%5 == 4) {
                         if(currentEggNest == 3)
                             currentEggNest = 0;
-                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, true, currentEggNest));
+                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP,
+                                PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, currentEggNest));
                         currentEggNest++;
                     }
                     else
                     {
-                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP,
+                                PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
                     }
                     pipes.get(i).setPipeCreatedChild(true);
                     break;

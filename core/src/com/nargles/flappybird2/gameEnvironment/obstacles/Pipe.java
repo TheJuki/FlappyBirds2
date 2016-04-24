@@ -1,5 +1,6 @@
 package com.nargles.flappybird2.gameEnvironment.obstacles;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.nargles.flappybird2.gameEnvironment.Scrollable;
@@ -17,11 +18,12 @@ import java.util.Random;
  */
 public class Pipe extends Scrollable {
 
-    private Rectangle pipeTopUp, pipeTopDown, barUp, barDown;
+    private Rectangle barUp, barDown;
+    private Circle pipeTopUp, pipeTopDown;
 
     private static final int VERTICAL_GAP = 45;
-    private static final int PIPE_TOP_WIDTH = 24;
-    private static final int PIPE_TOP_HEIGHT = 11;
+    private static final float PIPE_TOP_WIDTH = 96 / 1.5f;
+    private static final float PIPE_TOP_HEIGHT = 54 / 1.5f;
     private static long seedQualifier = 432282912137141232L;
     private float groundY;
 
@@ -53,14 +55,14 @@ public class Pipe extends Scrollable {
                 float groundY, boolean addNest, int nestType) {
         super(x, y, width, height, scrollSpeed);
 
-        pipeTopUp = new Rectangle();
-        pipeTopDown = new Rectangle();
+        pipeTopUp = new Circle();
+        pipeTopDown = new Circle();
         barUp = new Rectangle();
         barDown = new Rectangle();
         this.height = new Random(++seedQualifier + System.nanoTime()).nextInt(40) + 15;
         this.groundY = groundY;
         topHealth = 3.0f;
-         bottomHealth = 3.0f;
+        bottomHealth = 3.0f;
         barTopVisible = true;
         barBottomVisible = true;
 
@@ -82,14 +84,20 @@ public class Pipe extends Scrollable {
             nest.update(delta);
         }
 
-        barUp.set(position.x, position.y, width, height);
-        barDown.set(position.x, position.y + height + VERTICAL_GAP, width,
+        barUp.set(position.x + 44, position.y, width / 8.5f, height);
+        barDown.set(position.x + 44, position.y + height + VERTICAL_GAP, width / 8.5f,
                 groundY - (position.y + height + VERTICAL_GAP));
 
-        pipeTopUp.set(position.x - (PIPE_TOP_WIDTH - width) / 2, position.y + height
-                - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
-        pipeTopDown.set(position.x - (PIPE_TOP_WIDTH - width) / 2, barDown.y,
-                PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+        pipeTopUp.set(position.x - (PIPE_TOP_WIDTH - width / 2) / 2, position.y + height
+                - PIPE_TOP_HEIGHT, 20);
+        pipeTopDown.set(position.x - (PIPE_TOP_WIDTH - width / 2) / 2, barDown.y,
+                15);
+
+        pipeTopUp.set((position.x + 58) - (PIPE_TOP_WIDTH - width / 2) / 2, position.y - 5 + height, 14);
+
+        pipeTopDown.set((position.x + 58) - (PIPE_TOP_WIDTH - width / 2) / 2, barDown.y + 12,
+                14);
+
 
     }
 
@@ -108,8 +116,8 @@ public class Pipe extends Scrollable {
         isScored = false;
         topHealth = 3.0f;
         bottomHealth = 3.0f;
-        if(nest != null)
-            nest.resetNest(position.x - 0.5f, getY() + getHeight() + 30);
+        if (nest != null)
+            nest.resetNest(position.x + 38f, getY() + getHeight() + 30);
     }
 
     /**
@@ -123,7 +131,7 @@ public class Pipe extends Scrollable {
         velocity.x = scrollSpeed;
         barTopVisible = true;
         barBottomVisible = true;
-        if(nest != null) {
+        if (nest != null) {
             nest.onRestart(x, scrollSpeed);
         }
         reset(x);
@@ -136,8 +144,8 @@ public class Pipe extends Scrollable {
      * @return if a bird and the pipe met
      */
     public boolean collides(Bird bird) {
-
-        return ((1 == 2) && position.x < (bird.getX() + bird.getWidth())) &&
+//TODO remove easy mode
+        return ((1 == 1) && position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) && barTopVisible) ||
@@ -159,13 +167,15 @@ public class Pipe extends Scrollable {
                 (Intersector.overlaps(projectile.getBoundingCircle(), barUp) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopUp))) {
 
-            switch(projectile.getType())
-            {
-                case 0: topHealth -= 1;
+            switch (projectile.getType()) {
+                case 0:
+                    topHealth -= 1;
                     break;
-                case 1: topHealth -= 1.5;
+                case 1:
+                    topHealth -= 1.5;
                     break;
-                case 2: topHealth -= 3;
+                case 2:
+                    topHealth -= 3;
                     break;
                 default:
                     break;
@@ -173,7 +183,7 @@ public class Pipe extends Scrollable {
 
             destroyed = 1;
 
-            if(topHealth <= 0) {
+            if (topHealth <= 0) {
                 barTopVisible = false;
                 destroyed = 2;
             }
@@ -182,21 +192,23 @@ public class Pipe extends Scrollable {
                 (Intersector.overlaps(projectile.getBoundingCircle(), barDown) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopDown))) {
 
-           switch(projectile.getType())
-           {
-               case 0: bottomHealth -= 1;
-                   break;
-               case 1: bottomHealth -= 1.5;
-                   break;
-               case 2: bottomHealth -= 3;
-                   break;
-               default:
-                   break;
-           }
+            switch (projectile.getType()) {
+                case 0:
+                    bottomHealth -= 1;
+                    break;
+                case 1:
+                    bottomHealth -= 1.5;
+                    break;
+                case 2:
+                    bottomHealth -= 3;
+                    break;
+                default:
+                    break;
+            }
 
             destroyed = 1;
 
-            if(bottomHealth <= 0) {
+            if (bottomHealth <= 0) {
                 barBottomVisible = false;
                 destroyed = 2;
             }
@@ -210,7 +222,7 @@ public class Pipe extends Scrollable {
      * Add nest to pipe
      */
     private void addNest(int ammoType) {
-        this.nest = new Nest(position.x - 0.5f, getY() + getHeight() + 30, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
+        this.nest = new Nest(position.x + 38f, getY() + getHeight() + 30, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
     }
 
     public boolean isScored() {
@@ -245,4 +257,19 @@ public class Pipe extends Scrollable {
         this.pipeCreatedChild = pipeCreatedChild;
     }
 
+    public Circle getPipeTopUp() {
+        return pipeTopUp;
+    }
+
+    public Rectangle getBarUp() {
+        return barUp;
+    }
+
+    public Circle getPipeTopDown() {
+        return pipeTopDown;
+    }
+
+    public Rectangle getBarDown() {
+        return barDown;
+    }
 }

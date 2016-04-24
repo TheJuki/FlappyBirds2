@@ -25,13 +25,14 @@ public class AssetLoader {
             quitButtonUpTexture, quitButtonDownTexture,
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
-            backdropTexture, groundTexture;
+            backdropTexture, groundTexture,
+            treeTopTexture, treeTrunkTexture;
     public static TextureRegion logo, fbLogo, bg, grass,
             bird, birdDown, birdUp,
             blueEgg, fireEgg, grenadeEgg,
             blueEggNest, fireEggNest, grenadeEggNest,
             birdFlipped, birdDownFlipped, birdUpFlipped,
-            pipeUp, pipeDown, bar,
+            pipeUp, pipeDown, barUp, barDown,
             playButtonUp, playButtonDown,
             quitButtonUp, quitButtonDown,
             controlsButtonUp, controlsButtonDown,
@@ -63,6 +64,13 @@ public class AssetLoader {
         //Grass/Ground
         groundTexture = new Texture(Gdx.files.internal("data/ground.png"));
         groundTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Tree Top
+        treeTopTexture = new Texture(Gdx.files.internal("data/tree_top.png"));
+        treeTopTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        //Tree Trunk
+        treeTrunkTexture = new Texture(Gdx.files.internal("data/tree_trunk.png"));
+        treeTrunkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
@@ -232,13 +240,15 @@ public class AssetLoader {
         birdAnimationFlipped = new Animation(0.06f, birdsFlipped);
         birdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        pipeUp = new TextureRegion(texture, 192, 0, 24, 14);
-        // Create by flipping existing skullUp
+        pipeUp = new TextureRegion(treeTopTexture, 0, 0, 960, 540);
+        // Create by flipping existing pipeUp
         pipeDown = new TextureRegion(pipeUp);
         pipeDown.flip(false, true);
 
-        bar = new TextureRegion(texture, 136, 16, 22, 3);
-        bar.flip(false, true);
+        barUp = new TextureRegion(treeTrunkTexture, 0, 0, 960, 540);
+        barUp.flip(false, true);
+        barDown = new TextureRegion(barUp);
+        barDown.flip(false, true);
 
         dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
         flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));

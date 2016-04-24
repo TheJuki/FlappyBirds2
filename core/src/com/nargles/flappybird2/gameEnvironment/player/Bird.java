@@ -60,7 +60,7 @@ public class Bird {
 
         numBlueEggs = 0;
         numFireEggs = 0;
-        numGrenadeEggs = 0;
+        numGrenadeEggs = 10000;
     }
 
     /**

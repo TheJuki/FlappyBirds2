@@ -53,7 +53,7 @@ public class GameRenderer {
     private TextureRegion blueEgg, fireEgg, grenadeEgg, blueEggNest, fireEggNest, grenadeEggNest;
 
 
-    private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, bar, ready,
+    private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, barUp, barDown, ready,
             fbLogo, gameOver, highScore, scoreboard, retry;
     private Animation birdAnimation, birdAnimationFlipped;
 
@@ -122,7 +122,8 @@ public class GameRenderer {
         birdMidFlipped = AssetLoader.birdFlipped;
         pipeUp = AssetLoader.pipeUp;
         pipeDown = AssetLoader.pipeDown;
-        bar = AssetLoader.bar;
+        barUp = AssetLoader.barUp;
+        barDown = AssetLoader.barDown;
         ready = AssetLoader.ready;
         fbLogo = AssetLoader.fbLogo;
         gameOver = AssetLoader.gameOver;
@@ -166,13 +167,14 @@ public class GameRenderer {
     private void drawPipeTops() {
 
         for (Pipe pipe : pipes) {
+
             if (pipe.isBarTopVisible()) {
-                batcher.draw(pipeUp, pipe.getX() - 1,
-                        pipe.getY() + pipe.getHeight() - 14, 24, 14);
+                batcher.draw(pipeUp, pipe.getX() + 18,
+                        pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
             }
             if (pipe.isBarBottomVisible()) {
-                batcher.draw(pipeDown, pipe.getX() - 1,
-                        pipe.getY() + pipe.getHeight() + 45, 24, 14);
+                batcher.draw(pipeDown, pipe.getX() + 18,
+                        pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
             }
 
             if (pipe.getNest() != null) {
@@ -207,12 +209,13 @@ public class GameRenderer {
     private void drawPipes() {
 
         for (Pipe pipe : pipes) {
+
             if (pipe.isBarTopVisible()) {
-                batcher.draw(bar, pipe.getX(), pipe.getY(), pipe.getWidth(),
+                batcher.draw(barDown, pipe.getX(), pipe.getY(), pipe.getWidth(),
                         pipe.getHeight());
             }
             if (pipe.isBarBottomVisible()) {
-                batcher.draw(bar, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                batcher.draw(barUp, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
                         pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
             }
         }
@@ -426,29 +429,11 @@ public class GameRenderer {
 
         batcher.draw(bg, -10, (midPointY - 40), 136 * 3, (float) 180);
 
-        drawPipes();
-
         batcher.enableBlending();
+        drawPipes();
         drawPipeTops();
 
         batcher.end();
-
-        shapeRenderer.begin(ShapeType.Filled);
-
-        // Draw Background color
-        //shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-        //shapeRenderer.rect(0, 0, 136 * 2, (midPointY + (midPointY * 3)) * 2);
-
-
-        // Draw Grass
-        //shapeRenderer.setColor(111 / 255.0f, 186 / 255.0f, 45 / 255.0f, 1);
-        //shapeRenderer.rect(0, (midPointY + 66) / 2, 136 * 2, 11 / 2);
-
-        // Draw Dirt
-        //shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
-        //shapeRenderer.rect(0, midPointY * 3, 136 * 2, (midPointY));
-
-        shapeRenderer.end();
 
         batcher.begin();
         batcher.enableBlending();
