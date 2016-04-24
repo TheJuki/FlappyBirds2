@@ -106,6 +106,8 @@ public class Pipe extends Scrollable {
         barTopVisible = true;
         barBottomVisible = true;
         isScored = false;
+        topHealth = 3.0f;
+        bottomHealth = 3.0f;
         if(nest != null)
             nest.resetNest(position.x - 0.5f, getY() + getHeight() + 30);
     }
