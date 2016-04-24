@@ -2,6 +2,7 @@ package com.nargles.flappybird2.assetManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -281,7 +282,7 @@ public class AssetLoader {
         coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
         shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
-/*
+
         font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
 		font.getData().setScale(.25f, -.25f);
 
@@ -291,8 +292,8 @@ public class AssetLoader {
 		shadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
         shadow.setColor(Color.BLACK);
 		shadow.getData().setScale(.28f, -.28f);
-		*/
 
+/*
         font = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
         font.getData().setScale(.25f, -.25f);
 
@@ -301,11 +302,13 @@ public class AssetLoader {
 
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.getData().setScale(.25f, -.25f);
+        */
 
-        smallWhiteFont = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+        smallWhiteFont = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
         smallWhiteFont.getData().setScale(.15f, -.15f);
 
-        smallShadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        smallShadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
+        smallShadow.setColor(Color.BLACK);
         smallShadow.getData().setScale(.25f, -.25f);
 
     }

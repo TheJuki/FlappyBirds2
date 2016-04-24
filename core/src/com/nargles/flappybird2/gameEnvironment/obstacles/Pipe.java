@@ -117,7 +117,7 @@ public class Pipe extends Scrollable {
         topHealth = 3.0f;
         bottomHealth = 3.0f;
         if (nest != null)
-            nest.resetNest(position.x + 38f, getY() + getHeight() + 30);
+            nest.resetNest(position.x + 38f, getY() + getHeight() + 35);
     }
 
     /**
@@ -145,7 +145,7 @@ public class Pipe extends Scrollable {
      */
     public boolean collides(Bird bird) {
 //TODO remove easy mode
-        return ((1 == 2) && position.x < (bird.getX() + bird.getWidth())) &&
+        return (position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) && barTopVisible) ||
@@ -222,7 +222,7 @@ public class Pipe extends Scrollable {
      * Add nest to pipe
      */
     private void addNest(int ammoType) {
-        this.nest = new Nest(position.x + 38f, getY() + getHeight() + 30, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
+        this.nest = new Nest(position.x + 38f, getY() + getHeight() + 35, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
     }
 
     public boolean isScored() {

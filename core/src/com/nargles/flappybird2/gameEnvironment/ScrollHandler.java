@@ -52,7 +52,7 @@ public class ScrollHandler {
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10
-        pipes.add(new Pipe(PIPE_START_X, PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, 0));
+        pipes.add(new Pipe(PIPE_START_X, PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
 
         for (int i = 1; i < NUM_PIPES; i++) {
             if(i == 4)
@@ -292,7 +292,7 @@ public class ScrollHandler {
     public void onRestart() {
         isRightGoing = true;
         initialLeftFlip = false;
-        currentEggNest = 0;
+        //currentEggNest = 0;
         frontGrass.onRestart(0, scrollSpeed);
         backGrass.onRestart(frontGrass.getTailX(), scrollSpeed);
         pipes.get(0).onRestart(300, scrollSpeed);

@@ -336,7 +336,7 @@ public class GameRenderer {
         batcher.draw(deathScreen, 22 * 4, midPointY - 20, 595 / 6, 382 / 6);
 
         AssetLoader.font.draw(batcher, "" + myWorld.getScore(),
-                midPointX - (4 * ("" + myWorld.getScore()).length()), midPointY - 6);
+                midPointX - (4 * ("" + myWorld.getScore()).length()), midPointY - 7);
 
         AssetLoader.whiteFont.draw(batcher, "" + myWorld.getPipesDestroyed(),
                 (float) ((104 - (2 * ("" + myWorld.getPipesDestroyed()).length())) * 1.7), midPointY + 31);
