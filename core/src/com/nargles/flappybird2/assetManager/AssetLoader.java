@@ -41,7 +41,7 @@ public class AssetLoader {
             ready, gameOver, highScore, scoreboard, star, noStar, retry;
     public static Animation birdAnimation, birdAnimationFlipped;
     public static Sound dead, flap, coin, fall, shoot;
-    public static BitmapFont font, shadow, whiteFont;
+    public static BitmapFont font, shadow, whiteFont, smallShadow, smallWhiteFont;
 
     /**
      * Load each asset
@@ -265,6 +265,12 @@ public class AssetLoader {
 
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
         shadow.getData().setScale(.25f, -.25f);
+
+        smallWhiteFont = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));
+        smallWhiteFont.getData().setScale(.15f, -.15f);
+
+        smallShadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        smallShadow.getData().setScale(.25f, -.25f);
 
     }
 

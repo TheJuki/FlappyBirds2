@@ -60,7 +60,7 @@ public class SplashScreen implements Screen {
             }
         };
 
-        Tween.to(sprite, SpriteAccessor.ALPHA, .8f).target(1)
+        Tween.to(sprite, SpriteAccessor.ALPHA, .1f).target(1) // ALPHA 1.8f
                 .ease(TweenEquations.easeInOutQuad).repeatYoyo(1, .4f)
                 .setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE)
                 .start(manager);

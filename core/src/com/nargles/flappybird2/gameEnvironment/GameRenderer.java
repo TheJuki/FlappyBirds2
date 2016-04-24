@@ -396,6 +396,23 @@ public class GameRenderer {
     }
 
     /**
+     * Draw egg counts during game play
+     */
+    private void drawEggCounts()
+    {
+        batcher.draw(blueEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 10, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+        batcher.draw(fireEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 40, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+        batcher.draw(grenadeEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 70, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+
+        AssetLoader.smallWhiteFont.draw(batcher, "" + bird.getNumBlueEggs(),
+                midPointX * .05f - (3 * ("" + bird.getNumBlueEggs()).length()) + 20, (midPointY * .22f) + 12);
+        AssetLoader.smallWhiteFont.draw(batcher, "" + bird.getNumFireEggs(),
+                midPointX * .05f - (3 * ("" + bird.getNumFireEggs()).length()) + 20, (midPointY * .22f) + 42);
+        AssetLoader.smallWhiteFont.draw(batcher, "" + bird.getNumGrenadeEggs(),
+                midPointX * .05f - (3 * ("" + bird.getNumGrenadeEggs()).length()) + 20, (midPointY * .22f) + 72);
+    }
+
+    /**
      * Render screen and changes to objects
      *
      * @param delta   Update Transition
@@ -444,6 +461,7 @@ public class GameRenderer {
             drawBird(runTime);
             drawScore();
             drawInGameButtons();
+            drawEggCounts();
         } else if (myWorld.isReady()) {
             drawBird(runTime);
             drawReady();
