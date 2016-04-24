@@ -25,6 +25,8 @@ public class GameWorld {
     private ScrollHandler scroller;
     private Rectangle ground;
     private int score = 0;
+    private int distance = 0;
+    private int pipesDestroyed = 0;
     private float runTime = 0;
     private int midPointY;
     private int midPointX;
@@ -112,9 +114,13 @@ public class GameWorld {
             List<Integer> projectilesToRemove = new ArrayList<Integer>();
             for (int i = 0; i < bird.getProjectiles().size(); i++) {
                 Projectile p = bird.getProjectiles().get(i);
-                if (scroller.collides(p)) {
+
+                int destroyed = 0;
+
+                destroyed = scroller.destroys(p);
+
+                if (destroyed > 0) {
                     p.setVisible(false);
-                    addScore(10);
                     projectilesToRemove.add(i);
                 }
             }
@@ -166,6 +172,22 @@ public class GameWorld {
 
     public void addScore(int increment) {
         score += increment;
+    }
+
+    public int getPipesDestroyed() {
+        return pipesDestroyed;
+    }
+
+    public void addPipesDestroyed(int pipesDestroyed) {
+        this.pipesDestroyed += pipesDestroyed;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void addDistance(int distance) {
+        this.distance += distance;
     }
 
     public void start() {

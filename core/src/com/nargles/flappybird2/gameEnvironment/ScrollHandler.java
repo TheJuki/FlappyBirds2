@@ -29,6 +29,8 @@ public class ScrollHandler {
     private GameWorld gameWorld;
     private float yPos;
 
+    private int currentEggNest = 0;
+
     /**
      * Constructor
      *
@@ -46,10 +48,18 @@ public class ScrollHandler {
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10
-        pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, true, 0));
+        pipes.add(new Pipe(300, 0, 22, 10, scrollSpeed, yPos, false, 0));
 
         for (int i = 1; i < NUM_PIPES; i++) {
-            pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+            if(i == 4)
+            {
+                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, true, 0));
+                ++currentEggNest;
+            }
+            else
+            {
+                pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+            }
         }
 
         initialLeftFlip = false;
@@ -132,7 +142,16 @@ public class ScrollHandler {
 
             for (int i = 0; i < pipes.size(); i++) {
                 if (pipes.get(i).isScrolledBack() && !pipes.get(i).isPipeCreatedChild()) {
-                    pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+                    if (gameWorld.getDistance()%5 == 4) {
+                        if(currentEggNest == 3)
+                            currentEggNest = 0;
+                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, true, currentEggNest));
+                        currentEggNest++;
+                    }
+                    else
+                    {
+                        pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP, 0, 22, 10, scrollSpeed, yPos, false, 0));
+                    }
                     pipes.get(i).setPipeCreatedChild(true);
                     break;
                 }
@@ -186,6 +205,7 @@ public class ScrollHandler {
             if (!pipe.isScored() && pipe.isRightGoing()
                     && (pipe.getX() + (pipe.getWidth() / 2)) < (bird.getX() + bird.getWidth())) {
                 addScore(1);
+                gameWorld.addDistance(1);
                 pipe.setScored(true);
                 AssetLoader.coin.play();
             }
@@ -219,21 +239,27 @@ public class ScrollHandler {
      * Determines if a projectile a pipe met
      *
      * @param projectile Projectile
-     * @return A pipe collided with the projectile
+     * @return if a pipe was destroyed (2) or just hit (1)
      */
-    public boolean collides(Projectile projectile) {
+    public int destroys(Projectile projectile) {
 
-        boolean isCollided = false;
+        int isDestroyed = 0;
 
         for (Pipe pipe : pipes) {
 
-            if (pipe.collides(projectile)) {
-                isCollided = true;
+            isDestroyed = pipe.destroys(projectile);
+
+            if (isDestroyed == 1) {
+                break;
+            }
+            else if (isDestroyed == 2) {
+                gameWorld.addPipesDestroyed(1);
+                addScore(10);
                 break;
             }
         }
 
-        return isCollided;
+        return isDestroyed;
     }
 
     private void addScore(int increment) {
@@ -258,6 +284,7 @@ public class ScrollHandler {
     public void onRestart() {
         isRightGoing = true;
         initialLeftFlip = false;
+        currentEggNest = 0;
         frontGrass.onRestart(0, scrollSpeed);
         backGrass.onRestart(frontGrass.getTailX(), scrollSpeed);
         pipes.get(0).onRestart(300, scrollSpeed);

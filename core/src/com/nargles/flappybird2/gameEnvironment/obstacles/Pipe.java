@@ -106,6 +106,8 @@ public class Pipe extends Scrollable {
         barTopVisible = true;
         barBottomVisible = true;
         isScored = false;
+        if(nest != null)
+            nest.resetNest(position.x - 0.5f, getY() + getHeight() + 30);
     }
 
     /**
@@ -119,7 +121,9 @@ public class Pipe extends Scrollable {
         velocity.x = scrollSpeed;
         barTopVisible = true;
         barBottomVisible = true;
-        nest = null;
+        if(nest != null) {
+            nest.onRestart(x, scrollSpeed);
+        }
         reset(x);
     }
 
@@ -143,16 +147,15 @@ public class Pipe extends Scrollable {
      * Determines if a projectile and the pipe met
      *
      * @param projectile Projectile
-     * @return if a projectile and the pipe met
+     * @return if a pipe was destroyed (2) or just hit (1)
      */
-    public boolean collides(Projectile projectile) {
+    public int destroys(Projectile projectile) {
 
-        boolean collided = false;
+        int destroyed = 0;
 
         if ((position.x < (projectile.getX() + projectile.getWidth())) && barTopVisible &&
                 (Intersector.overlaps(projectile.getBoundingCircle(), barUp) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopUp))) {
-            collided = true;
 
             switch(projectile.getType())
             {
@@ -166,13 +169,16 @@ public class Pipe extends Scrollable {
                     break;
             }
 
-            if(topHealth <= 0)
+            destroyed = 1;
+
+            if(topHealth <= 0) {
                 barTopVisible = false;
+                destroyed = 2;
+            }
 
         } else if ((position.x < (projectile.getX() + projectile.getWidth())) && barBottomVisible &&
                 (Intersector.overlaps(projectile.getBoundingCircle(), barDown) ||
                         Intersector.overlaps(projectile.getBoundingCircle(), pipeTopDown))) {
-            collided = true;
 
            switch(projectile.getType())
            {
@@ -186,11 +192,15 @@ public class Pipe extends Scrollable {
                    break;
            }
 
-            if(bottomHealth <= 0)
+            destroyed = 1;
+
+            if(bottomHealth <= 0) {
                 barBottomVisible = false;
+                destroyed = 2;
+            }
         }
 
-        return collided;
+        return destroyed;
 
     }
 

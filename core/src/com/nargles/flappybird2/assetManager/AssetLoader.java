@@ -97,7 +97,7 @@ public class AssetLoader {
         //High Scores Button
         highScoreButtonUpTexture = new Texture(Gdx.files.internal("data/HighScores.png"));
         highScoreButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        highScoreButtonDownTexture = new Texture(Gdx.files.internal("data/HighScoreClick1.png"));
+        highScoreButtonDownTexture = new Texture(Gdx.files.internal("data/HighScoreClick2.png"));
         highScoreButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Controls Button

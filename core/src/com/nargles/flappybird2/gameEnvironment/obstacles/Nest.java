@@ -50,6 +50,18 @@ public class Nest extends Scrollable {
     }
 
     /**
+     * Reset position
+     *
+     * @param newX New X position
+     * @param newY New Y position
+     */
+    public void resetNest(float newX, float newY) {
+        position.x = newX;
+        position.y = newY;
+        isScrolledBack = false;
+    }
+
+    /**
      * Determines if a bird and the nest met
      *
      * @param bird Bird
@@ -83,6 +95,23 @@ public class Nest extends Scrollable {
 
     public boolean isNestVisible() {
         return nestVisible;
+    }
+
+    public void setNestVisible(boolean nestVisible) {
+        this.nestVisible = nestVisible;
+    }
+
+    /**
+     * Restart nest position
+     *
+     * @param x           x position to move to
+     * @param scrollSpeed Movement speed
+     */
+    public void onRestart(float x, float scrollSpeed) {
+        super.onRestart();
+        nestVisible = true;
+        velocity.x = scrollSpeed;
+        reset(x);
     }
 
     public int getAmmoType() {
