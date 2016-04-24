@@ -203,6 +203,11 @@ public class GameWorld {
         renderer.prepareTransition(0, 0, 0, 1f);
     }
 
+    public void menu() {
+        currentState = GameState.MENU;
+        renderer.prepareTransition(0, 0, 0, 1f);
+    }
+
     public void highSore() {
         currentState = GameState.HIGHSCORE;
     }
@@ -212,6 +217,8 @@ public class GameWorld {
      */
     public void restart() {
         score = 0;
+        distance = 0;
+        pipesDestroyed = 0;
         bird.onRestart(midPointY - 5);
         scroller.onRestart();
         renderer.onRestart();

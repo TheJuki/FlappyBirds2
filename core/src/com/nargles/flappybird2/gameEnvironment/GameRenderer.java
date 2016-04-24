@@ -54,7 +54,7 @@ public class GameRenderer {
 
 
     private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, barUp, barDown, ready,
-            fbLogo, gameOver, highScore, scoreboard, retry;
+            fbLogo, gameOver, highScore, deathScreen, retry;
     private Animation birdAnimation, birdAnimationFlipped;
 
     // Tween
@@ -64,6 +64,7 @@ public class GameRenderer {
     // Buttons
     private List<GameButton> menuButtons;
     private List<GameButton> inGameButtons;
+    private List<GameButton> gameOverButtons;
     private Color transitionColor;
 
     /**
@@ -83,6 +84,8 @@ public class GameRenderer {
                 .getMenuButtons();
         this.inGameButtons = ((InputHandler) Gdx.input.getInputProcessor())
                 .getInGameButtons();
+        this.gameOverButtons = ((InputHandler) Gdx.input.getInputProcessor())
+                .getGameOverButtons();
 
         cam = new OrthographicCamera();
         cam.setToOrtho(true, 136 * 2, gameHeight * 2);
@@ -128,7 +131,7 @@ public class GameRenderer {
         fbLogo = AssetLoader.fbLogo;
         gameOver = AssetLoader.gameOver;
         highScore = AssetLoader.highScore;
-        scoreboard = AssetLoader.scoreboard;
+        deathScreen = AssetLoader.deathScreen;
         retry = AssetLoader.retry;
         blueEgg = AssetLoader.blueEgg;
         fireEgg = AssetLoader.fireEgg;
@@ -316,40 +319,30 @@ public class GameRenderer {
     }
 
     /**
+     * Draw game over buttons
+     */
+    private void drawGameOverButtons() {
+
+        for (GameButton button : gameOverButtons) {
+            button.draw(batcher);
+        }
+
+    }
+
+    /**
      * Draw HighScore and final score on board
      */
     private void drawScoreboard() {
-        batcher.draw(scoreboard, 22 * 4, midPointY, 97, 37);
+        batcher.draw(deathScreen, 22 * 4, midPointY - 20, 595 / 6, 382 / 6);
 
-		/*
-        if (myWorld.getScore() > 2) {
-			batcher.draw(star, 73 * 3, midPointY - 15, 10, 10);
-		}
+        AssetLoader.font.draw(batcher, "" + myWorld.getScore(),
+                midPointX - (4 * ("" + myWorld.getScore()).length()), midPointY - 6);
 
-		if (myWorld.getScore() > 17) {
-			batcher.draw(star, 61 * 3, midPointY - 15, 10, 10);
-		}
+        AssetLoader.whiteFont.draw(batcher, "" + myWorld.getPipesDestroyed(),
+                (float) ((104 - (2 * ("" + myWorld.getPipesDestroyed()).length())) * 1.7), midPointY + 31);
 
-		if (myWorld.getScore() > 50) {
-			batcher.draw(star, 49 * 3, midPointY - 15, 10, 10);
-		}
-
-		if (myWorld.getScore() > 80) {
-			batcher.draw(star, 37 * 3, midPointY - 15, 10, 10);
-		}
-
-		if (myWorld.getScore() > 120) {
-			batcher.draw(star, 25 * 3, midPointY - 15, 10, 10);
-		}
-*/
-        int length = ("" + myWorld.getScore()).length();
-
-        AssetLoader.whiteFont.draw(batcher, "" + myWorld.getScore(),
-                (float) ((104 - (2 * length)) * 1.7), midPointY + 10);
-
-        int length2 = ("" + myWorld.getDb().getHighestHighScore()).length();
-        AssetLoader.whiteFont.draw(batcher, "" + myWorld.getDb().getHighestHighScore(),
-                (float) ((104 - (2.5f * length2)) * 1.7), midPointY + 27);
+        AssetLoader.whiteFont.draw(batcher, "" + myWorld.getDistance(),
+                (float) ((104 - (2 * ("" + myWorld.getDistance()).length())) * 1.7), midPointY + 11);
 
     }
 
@@ -454,13 +447,11 @@ public class GameRenderer {
         } else if (myWorld.isGameOver()) {
             drawScoreboard();
             drawBird(runTime);
-            //drawGameOver();
-            //drawRetry();
+            drawGameOverButtons();
         } else if (myWorld.isHighScore()) {
             drawScoreboard();
             drawBird(runTime);
-            //drawHighScore();
-            drawMenuUI(false);
+            drawGameOverButtons();
         }
 
         batcher.end();

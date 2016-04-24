@@ -2,6 +2,13 @@ package com.nargles.flappybird2.ui.TweenAccessors;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
+/**
+ * Value Accessor
+ * Copyright 2016 Nargles.
+ *
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class ValueAccessor implements TweenAccessor<Value> {
 
     @Override

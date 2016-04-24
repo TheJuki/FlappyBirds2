@@ -22,10 +22,12 @@ public class AssetLoader {
             highScoreButtonUpTexture, highScoreButtonDownTexture,
             controlsButtonUpTexture, controlsButtonDownTexture,
             playButtonUpTexture,playButtonDownTexture,
+            playAgainButtonUpTexture,playAgainButtonDownTexture,
+            returnButtonUpTexture,returnButtonDownTexture,
             quitButtonUpTexture, quitButtonDownTexture,
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
-            backdropTexture, groundTexture,
+            backdropTexture, groundTexture, deathScreenTexture,
             treeTopTexture, treeTrunkTexture;
     public static TextureRegion logo, fbLogo, bg, grass,
             bird, birdDown, birdUp,
@@ -37,9 +39,11 @@ public class AssetLoader {
             quitButtonUp, quitButtonDown,
             controlsButtonUp, controlsButtonDown,
             highScoreButtonUp, highScoreButtonDown,
-            flipButtonLeft, flipButtonRight,
+            playAgainButtonUp, playAgainButtonDown,
+            returnButtonUp, returnButtonDown,
+            flipButtonLeft, flipButtonRight, deathScreen,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
-            ready, gameOver, highScore, scoreboard, star, noStar, retry;
+            ready, gameOver, highScore, retry;
     public static Animation birdAnimation, birdAnimationFlipped;
     public static Sound dead, flap, coin, fall, shoot;
     public static BitmapFont font, shadow, whiteFont, smallShadow, smallWhiteFont;
@@ -71,6 +75,10 @@ public class AssetLoader {
         //Tree Trunk
         treeTrunkTexture = new Texture(Gdx.files.internal("data/tree_trunk.png"));
         treeTrunkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Game over/death screen
+        deathScreenTexture = new Texture(Gdx.files.internal("data/DeathScreen.png"));
+        deathScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
@@ -105,26 +113,38 @@ public class AssetLoader {
         //High Scores Button
         highScoreButtonUpTexture = new Texture(Gdx.files.internal("data/HighScores.png"));
         highScoreButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        highScoreButtonDownTexture = new Texture(Gdx.files.internal("data/HighScoreClick2.png"));
+        highScoreButtonDownTexture = new Texture(Gdx.files.internal("data/HighScoresClick.png"));
         highScoreButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Controls Button
         controlsButtonUpTexture = new Texture(Gdx.files.internal("data/Controls.png"));
         controlsButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        controlsButtonDownTexture = new Texture(Gdx.files.internal("data/Controls.png"));
+        controlsButtonDownTexture = new Texture(Gdx.files.internal("data/ControlsClick.png"));
         controlsButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Play Button
         playButtonUpTexture = new Texture(Gdx.files.internal("data/Play.png"));
         playButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        playButtonDownTexture = new Texture(Gdx.files.internal("data/Play.png"));
+        playButtonDownTexture = new Texture(Gdx.files.internal("data/PlayClick.png"));
         playButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Quit Button
         quitButtonUpTexture = new Texture(Gdx.files.internal("data/Quit.png"));
         quitButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        quitButtonDownTexture = new Texture(Gdx.files.internal("data/Quit.png"));
+        quitButtonDownTexture = new Texture(Gdx.files.internal("data/QuitClick.png"));
         quitButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Play Again Button
+        playAgainButtonUpTexture = new Texture(Gdx.files.internal("data/PlayAgain.png"));
+        playAgainButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        playAgainButtonDownTexture = new Texture(Gdx.files.internal("data/PlayAgainClick.png"));
+        playAgainButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Return Button
+        returnButtonUpTexture = new Texture(Gdx.files.internal("data/Return.png"));
+        returnButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        returnButtonDownTexture = new Texture(Gdx.files.internal("data/ReturnClick.png"));
+        returnButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
@@ -173,6 +193,18 @@ public class AssetLoader {
         playButtonDown = new TextureRegion(playButtonDownTexture, 0, 0, 960, 540);
         playButtonDown.flip(false, true);
 
+        //Play Again button
+        playAgainButtonUp = new TextureRegion(playAgainButtonUpTexture, 0, 0, 960, 540);
+        playAgainButtonUp.flip(false, true);
+        playAgainButtonDown = new TextureRegion(playAgainButtonDownTexture, 0, 0, 960, 540);
+        playAgainButtonDown.flip(false, true);
+
+        //Return button
+        returnButtonUp = new TextureRegion(returnButtonUpTexture, 0, 0, 960, 540);
+        returnButtonUp.flip(false, true);
+        returnButtonDown = new TextureRegion(returnButtonDownTexture, 0, 0, 960, 540);
+        returnButtonDown.flip(false, true);
+
         //Quit button
         quitButtonUp = new TextureRegion(quitButtonUpTexture, 0, 0, 960, 540);
         quitButtonUp.flip(false, true);
@@ -194,14 +226,8 @@ public class AssetLoader {
         gameOver = new TextureRegion(texture, 59, 92, 46, 7);
         gameOver.flip(false, true);
 
-        scoreboard = new TextureRegion(texture, 111, 83, 97, 37);
-        scoreboard.flip(false, true);
-
-        star = new TextureRegion(texture, 152, 70, 10, 10);
-        noStar = new TextureRegion(texture, 165, 70, 10, 10);
-
-        star.flip(false, true);
-        noStar.flip(false, true);
+        deathScreen = new TextureRegion(deathScreenTexture, 0, 0, 595, 382);
+        deathScreen.flip(false, true);
 
         highScore = new TextureRegion(texture, 59, 101, 48, 7);
         highScore.flip(false, true);

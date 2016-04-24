@@ -4,6 +4,13 @@ import aurelienribon.tweenengine.TweenAccessor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+/**
+ * Sprite Accessor
+ * Copyright 2016 Nargles.
+ *
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 
     public static final int ALPHA = 1;

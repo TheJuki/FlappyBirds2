@@ -23,6 +23,7 @@ public class InputHandler implements InputProcessor {
     private GameWorld myWorld;
 
     private List<GameButton> menuButtons;
+    private List<GameButton> gameOverButtons;
     private List<GameButton> inGameButtons;
 
     private float scaleFactorX;
@@ -40,6 +41,15 @@ public class InputHandler implements InputProcessor {
 
         menuButtons = new ArrayList<GameButton>();
         inGameButtons = new ArrayList<GameButton>();
+        gameOverButtons = new ArrayList<GameButton>();
+
+        // Add Play Again button
+        gameOverButtons.add(new GameButton("playagain", (midPointX + 5), (midPointY * 2.1f) + 5,
+                96 / 1.3f, 54 / 1.3f, AssetLoader.playAgainButtonUp, AssetLoader.playAgainButtonDown, false));
+
+        // Add Return button
+        gameOverButtons.add(new GameButton("return", (midPointX - 55), (midPointY * 2.1f) + 5,
+                96 / 1.3f, 54 / 1.3f, AssetLoader.returnButtonUp, AssetLoader.returnButtonDown, false));
 
         // Add Play button
         menuButtons.add(new GameButton("play", (midPointX + 20), (midPointY * 2.1f),
@@ -53,16 +63,9 @@ public class InputHandler implements InputProcessor {
         menuButtons.add(new GameButton("controls", (136 - 120), (midPointY * 1.1f),
                 96 / 1.3f, 54 / 1.3f, AssetLoader.controlsButtonUp, AssetLoader.controlsButtonDown, false));
 
-
-
         // Add High Scores button
         menuButtons.add(new GameButton("highscore", (136 + 70), (midPointY * 1.1f),
                 96 / 1.3f, 54 / 1.3f, AssetLoader.highScoreButtonUp, AssetLoader.highScoreButtonDown, false));
-
-
-
-
-
 
         // Add Fire button
         inGameButtons.add(new GameButton("fire", (136 - 130), (midPointY * 3.5f) - 9,
@@ -84,11 +87,19 @@ public class InputHandler implements InputProcessor {
         screenX = scaleX(screenX * 2);
         screenY = scaleY(screenY * 2);
 
-        if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
+        if (myWorld.isMenu()) {
             for (GameButton btn : menuButtons) {
                 btn.isTouchDown(screenX, screenY);
             }
-        } else if (myWorld.isReady()) {
+        }
+
+        else if (myWorld.isGameOver() || myWorld.isHighScore()) {
+            for (GameButton btn : gameOverButtons) {
+                btn.isTouchDown(screenX, screenY);
+            }
+        }
+
+        else if (myWorld.isReady()) {
             myWorld.start();
             myBird.onClick();
         } else if (myWorld.isRunning()) {
@@ -117,7 +128,7 @@ public class InputHandler implements InputProcessor {
         screenX = scaleX(screenX * 2);
         screenY = scaleY(screenY * 2);
 
-        if (myWorld.isMenu() || myWorld.isGameOver() || myWorld.isHighScore()) {
+        if (myWorld.isMenu()) {
             for (GameButton btn : menuButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("play")) {
@@ -133,7 +144,22 @@ public class InputHandler implements InputProcessor {
                 }
             }
             return true;
-        } else if (myWorld.isRunning()) {
+        }
+
+        else if ( myWorld.isGameOver() || myWorld.isHighScore()) {
+            for (GameButton btn : gameOverButtons) {
+                boolean btnTapped = btn.isTouchUp(screenX, screenY);
+                if (btnTapped && btn.getName().equals("playagain")) {
+                    myWorld.restart();
+                } else if (btnTapped && btn.getName().equals("return")) {
+                    myWorld.restart();
+                    myWorld.menu();
+                }
+            }
+            return true;
+        }
+
+        else if (myWorld.isRunning()) {
             for (GameButton btn : inGameButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("fire") && !myBird.isOutOfAmmo()) {
@@ -187,6 +213,15 @@ public class InputHandler implements InputProcessor {
 
         }
 
+        if (keycode == Keys.F) {
+
+            if (myWorld.isRunning()) {
+                myWorld.pause();
+                myWorld.getScroller().flip();
+            }
+
+        }
+
         return false;
     }
 
@@ -229,5 +264,9 @@ public class InputHandler implements InputProcessor {
 
     public List<GameButton> getInGameButtons() {
         return inGameButtons;
+    }
+
+    public List<GameButton> getGameOverButtons() {
+        return gameOverButtons;
     }
 }

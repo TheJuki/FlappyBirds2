@@ -23,7 +23,7 @@ public class ScrollHandler {
     private int scrollSpeed;
     private boolean isRightGoing;
     private boolean initialLeftFlip;
-    private static final int PIPE_GAP = 50;
+    private static final int PIPE_GAP = 25;
     private static final int NUM_PIPES = 6;
     private static final float PIPE_WIDTH = 96;
     private static final float PIPE_HEIGHT = 54;
