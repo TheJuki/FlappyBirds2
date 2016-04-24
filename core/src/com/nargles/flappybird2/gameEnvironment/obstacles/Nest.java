@@ -59,6 +59,7 @@ public class Nest extends Scrollable {
         position.x = newX;
         position.y = newY;
         isScrolledBack = false;
+        nestVisible = true;
     }
 
     /**

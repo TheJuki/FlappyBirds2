@@ -196,8 +196,6 @@ public class GameRenderer {
                         default:
                             break;
                     }
-                } else {
-                    pipe.setNest(null);
                 }
             }
         }
