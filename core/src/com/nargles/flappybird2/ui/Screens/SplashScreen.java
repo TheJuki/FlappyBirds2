@@ -10,6 +10,13 @@ import com.nargles.flappybird2.FlappyBird2;
 import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.ui.TweenAccessors.SpriteAccessor;
 
+/**
+ * Splash Screen
+ * Copyright 2016 Nargles.
+ *
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class SplashScreen implements Screen {
 
     private TweenManager manager;

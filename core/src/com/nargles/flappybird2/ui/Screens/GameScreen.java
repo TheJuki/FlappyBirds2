@@ -7,6 +7,13 @@ import com.nargles.flappybird2.gameEnvironment.GameRenderer;
 import com.nargles.flappybird2.gameEnvironment.GameWorld;
 import com.nargles.flappybird2.ui.InputHandler;
 
+/**
+ * Game Screen
+ * Copyright 2016 Nargles.
+ *
+ * @author Justin Kirk (Project Manager)
+ * @version 1.0
+ */
 public class GameScreen implements Screen {
 
     private GameWorld world;
