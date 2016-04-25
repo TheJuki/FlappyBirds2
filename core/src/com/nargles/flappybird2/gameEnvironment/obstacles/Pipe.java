@@ -220,6 +220,7 @@ public class Pipe extends Scrollable {
 
     /**
      * Add nest to pipe
+     * @param ammoType The type of ammo nest
      */
     private void addNest(int ammoType) {
         this.nest = new Nest(position.x + 38f, getY() + getHeight() + 35, 96 / 4, 54 / 4, getScrollSpeed(), ammoType);
