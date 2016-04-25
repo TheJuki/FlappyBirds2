@@ -75,11 +75,6 @@ public class InputHandler implements InputProcessor {
         inGameButtons.add(new GameButton("flip", (136 - 30), (midPointY * 3.5f) - 9,
                 96 / 2f, 54 / 2f, AssetLoader.flipButtonRight, AssetLoader.flipButtonRight, true));
 
-        // Add high score button
-        //menuButtons.add(new GameButton("highscore", (136 + 50) - (AssetLoader.playButtonUp.getRegionWidth() / 2), midPointY + 50,
-        //	29, 16, AssetLoader.playButtonUp, AssetLoader.playButtonDown));
-
-
     }
 
     @Override
@@ -140,7 +135,7 @@ public class InputHandler implements InputProcessor {
                 } else if (btnTapped && btn.getName().equals("quit")) {
                     Gdx.app.exit();
                 } else if (btnTapped && btn.getName().equals("highscore")) {
-                    myWorld.highSore();
+                    myWorld.highScore();
                 }
             }
             return true;

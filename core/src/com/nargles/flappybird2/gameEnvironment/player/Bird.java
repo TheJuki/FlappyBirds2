@@ -281,4 +281,8 @@ public class Bird {
     public boolean isOutOfAmmo() {
         return (numBlueEggs + numFireEggs + numGrenadeEggs) == 0;
     }
+
+    public boolean isRightGoing() {
+        return isRightGoing;
+    }
 }

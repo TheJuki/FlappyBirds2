@@ -145,8 +145,6 @@ public class GameWorld {
             if (score > 0) {
                 db.addHighScore(score);
             }
-            currentState = GameState.HIGHSCORE;
-
         }
     }
 
@@ -208,8 +206,12 @@ public class GameWorld {
         renderer.prepareTransition(0, 0, 0, 1f);
     }
 
-    public void highSore() {
+    public void highScore() {
         currentState = GameState.HIGHSCORE;
+    }
+
+    public void gameOver() {
+        currentState = GameState.GAMEOVER;
     }
 
     /**
