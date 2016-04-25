@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -7,10 +8,14 @@
 =======
 ## Java
 >>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
+=======
+## Java
+>>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
 
 *.class
 *.war
 *.ear
+<<<<<<< HEAD
 hs_err_pid*
 <<<<<<< HEAD
 =======
@@ -21,6 +26,9 @@ hs_err_pid*
 *.ear
 hs_err_pid*
 =======
+>>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
+=======
+hs_err_pid*
 >>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
 
 ## GWT
@@ -81,6 +89,9 @@ build/
 ## OS Specific
 .DS_Store
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/merger
+=======
+>>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
 =======
 >>>>>>> 1d0a99c173e836c8ec037a56e6b8f6e4a6402be7
