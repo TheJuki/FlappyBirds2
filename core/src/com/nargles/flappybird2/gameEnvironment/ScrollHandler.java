@@ -92,6 +92,7 @@ public class ScrollHandler {
 
     /**
      * Flip direction of ground and pipe movement
+     * @return if true, the game is right going now
      */
     public boolean flip() {
         isRightGoing = !isRightGoing;

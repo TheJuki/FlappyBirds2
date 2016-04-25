@@ -51,6 +51,7 @@ public class AssetLoader {
 
     /**
      * Load each asset
+     * @return if true, each file was found
      */
     public static boolean load() {
 
