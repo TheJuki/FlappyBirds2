@@ -70,4 +70,15 @@ public class GameScreen implements Screen {
     public void dispose() {
     }
 
+    public GameWorld getWorld() {
+        return world;
+    }
+
+    public GameRenderer getRenderer() {
+        return renderer;
+    }
+
+    public float getRunTime() {
+        return runTime;
+    }
 }

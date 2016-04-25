@@ -52,7 +52,7 @@ public class AssetLoader {
     /**
      * Load each asset
      */
-    public static void load() {
+    public static boolean load() {
 
         //Nargles Logo
         logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
@@ -310,6 +310,8 @@ public class AssetLoader {
         smallShadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
         smallShadow.setColor(Color.BLACK);
         smallShadow.getData().setScale(.25f, -.25f);
+
+        return true;
 
     }
 
