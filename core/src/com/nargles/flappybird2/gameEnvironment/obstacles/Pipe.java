@@ -273,4 +273,12 @@ public class Pipe extends Scrollable {
     public Rectangle getBarDown() {
         return barDown;
     }
+
+    public float getTopHealth() {
+        return topHealth;
+    }
+
+    public float getBottomHealth() {
+        return bottomHealth;
+    }
 }

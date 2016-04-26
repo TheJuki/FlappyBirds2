@@ -22,7 +22,7 @@ public class Bird {
     private Vector2 acceleration;
 
     private float rotation;
-    private int width;
+    private float width;
     private float height;
 
     private List<Projectile> projectiles;
@@ -46,7 +46,7 @@ public class Bird {
      * @param width  Bird sprite width
      * @param height Bird sprite height
      */
-    public Bird(float x, float y, int width, int height) {
+    public Bird(float x, float y, float width, float height) {
         this.width = width;
         this.height = height;
         this.originalY = y;
@@ -58,7 +58,7 @@ public class Bird {
         projectiles = new ArrayList<Projectile>();
         isRightGoing = true;
 
-        numBlueEggs = 0;
+        numBlueEggs = 100000;
         numFireEggs = 0;
         numGrenadeEggs = 0;
     }
@@ -196,7 +196,7 @@ public class Bird {
         acceleration.x = 0;
         acceleration.y = 460;
         isAlive = true;
-        numBlueEggs = 0;
+        numBlueEggs = 10000;
         numFireEggs = 0;
         numGrenadeEggs = 0;
     }
@@ -220,6 +220,26 @@ public class Bird {
                 projectiles.add(p);
             }
         }
+    }
+
+    /**
+     * Shoot a projectile from Bird
+     * @return The type as an int: Blue (0), Red (1), Green (2)
+     */
+    public int getTypeOfBird() {
+        int type = 0;
+
+        if ((numBlueEggs + numFireEggs + numGrenadeEggs) > 0) {
+            if (numGrenadeEggs > 0) {
+                type = 2;
+            } else if (numFireEggs > 0) {
+                type = 1;
+            } else if (numBlueEggs > 0) {
+                type = 0;
+            }
+        }
+
+        return type;
     }
 
     public float getX() {

@@ -33,7 +33,8 @@ public class AssetLoader {
             fireBird1Texture, fireBird2Texture, fireBird3Texture,
             grenadeBird1Texture, grenadeBird2Texture, grenadeBird3Texture,
             highScoreScreenTexture,
-            treeTopTexture, treeTrunkTexture;
+            treeTop1Texture, treeTop2Texture, treeTop3Texture,
+            treeTrunk1Texture, treeTrunk2Texture, treeTrunk3Texture;
     public static TextureRegion logo, fbLogo, bg, grass,
             blueBird1, blueBird2, blueBird3,
             fireBird1, fireBird2, fireBird3,
@@ -43,7 +44,8 @@ public class AssetLoader {
             blueBird1Flipped, blueBird2Flipped, blueBird3Flipped,
             fireBird1Flipped, fireBird2Flipped, fireBird3Flipped,
             grenadeBird1Flipped, grenadeBird2Flipped, grenadeBird3Flipped,
-            pipeUp, pipeDown, barUp, barDown,
+            treeTop1Up, treeTop1Down, treeTop2Up, treeTop2Down, treeTop3Up, treeTop3Down,
+            bar1Up, bar1Down, bar2Up, bar2Down, bar3Up, bar3Down,
             playButtonUp, playButtonDown,
             quitButtonUp, quitButtonDown,
             controlsButtonUp, controlsButtonDown,
@@ -53,8 +55,10 @@ public class AssetLoader {
             flipButtonLeft, flipButtonRight, deathScreen,
             highScoreScreen,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
-            ready, gameOver, highScore, retry;
-    public static Animation birdAnimation, birdAnimationFlipped;
+            ready;
+    public static Animation blueBirdAnimation, blueBirdAnimationFlipped,
+           fireBirdAnimation, fireBirdAnimationFlipped,
+    grenadeBirdAnimation, grenadeBirdAnimationFlipped;
     public static Sound dead, flap, coin, fall, shoot;
     public static BitmapFont font, shadow, whiteFont, smallShadow, smallWhiteFont;
 
@@ -76,16 +80,49 @@ public class AssetLoader {
         backdropTexture = new Texture(Gdx.files.internal("data/background.png"));
         backdropTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Blue Birds
+        blueBird1Texture = new Texture(Gdx.files.internal("data/BlueBird1.png"));
+        blueBird1Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        blueBird2Texture = new Texture(Gdx.files.internal("data/BlueBird2.png"));
+        blueBird2Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        blueBird3Texture = new Texture(Gdx.files.internal("data/BlueBird3.png"));
+        blueBird3Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Red Birds
+        fireBird1Texture = new Texture(Gdx.files.internal("data/RedBird1.png"));
+        fireBird1Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireBird2Texture = new Texture(Gdx.files.internal("data/RedBird2.png"));
+        fireBird2Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        fireBird3Texture = new Texture(Gdx.files.internal("data/RedBird3.png"));
+        fireBird3Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Green Birds
+        grenadeBird1Texture = new Texture(Gdx.files.internal("data/GreenBird1.png"));
+        grenadeBird1Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        grenadeBird2Texture = new Texture(Gdx.files.internal("data/GreenBird2.png"));
+        grenadeBird2Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        grenadeBird3Texture = new Texture(Gdx.files.internal("data/GreenBird3.png"));
+        grenadeBird3Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
         //Grass/Ground
         groundTexture = new Texture(Gdx.files.internal("data/ground.png"));
         groundTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Tree Top
-        treeTopTexture = new Texture(Gdx.files.internal("data/tree_top.png"));
-        treeTopTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTop1Texture = new Texture(Gdx.files.internal("data/TreeTop1.png"));
+        treeTop1Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTop2Texture = new Texture(Gdx.files.internal("data/TreeTop2.png"));
+        treeTop2Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTop3Texture = new Texture(Gdx.files.internal("data/TreeTop3.png"));
+        treeTop3Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         //Tree Trunk
-        treeTrunkTexture = new Texture(Gdx.files.internal("data/tree_trunk.png"));
-        treeTrunkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTrunk1Texture = new Texture(Gdx.files.internal("data/tree1.png"));
+        treeTrunk1Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTrunk2Texture = new Texture(Gdx.files.internal("data/tree3.png"));
+        treeTrunk2Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        treeTrunk3Texture = new Texture(Gdx.files.internal("data/tree4.png"));
+        treeTrunk3Texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
 
         //Game over/death screen
         deathScreenTexture = new Texture(Gdx.files.internal("data/DeathScreen.png"));
@@ -257,46 +294,117 @@ public class AssetLoader {
         grass = new TextureRegion(groundTexture, 0, 0, 960, 540);
         grass.flip(false, true);
 
+        /* Blue Bird */
+
         //Down
-        blueBird3 = new TextureRegion(texture, 136, 0, 17, 12);
+        blueBird3 = new TextureRegion(blueBird3Texture, 0, 0, 960, 540);
         blueBird3.flip(false, true);
-
         //Normal
-        blueBird1 = new TextureRegion(texture, 153, 0, 17, 12);
+        blueBird1 = new TextureRegion(blueBird1Texture, 0, 0, 960, 540);
         blueBird1.flip(false, true);
-
         //Up
-        blueBird2 = new TextureRegion(texture, 170, 0, 17, 12);
+        blueBird2 = new TextureRegion(blueBird2Texture, 0, 0, 960, 540);
         blueBird2.flip(false, true);
-
         //Down Flipped
         blueBird3Flipped = new TextureRegion(blueBird3);
         blueBird3Flipped.flip(true, false);
-
         //Normal Flipped
         blueBird1Flipped = new TextureRegion(blueBird1);
         blueBird1Flipped.flip(true, false);
-
         //Up Flipped
         blueBird2Flipped = new TextureRegion(blueBird2);
         blueBird2Flipped.flip(true, false);
+        TextureRegion[] blueBirds = {blueBird3, blueBird1, blueBird2};
+        TextureRegion[] blueBirdsFlipped = {blueBird3Flipped, blueBird1Flipped, blueBird2Flipped};
+        blueBirdAnimation = new Animation(0.06f, blueBirds);
+        blueBirdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        blueBirdAnimationFlipped = new Animation(0.06f, blueBirdsFlipped);
+        blueBirdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        TextureRegion[] birds = {blueBird3, blueBird1, blueBird2};
-        TextureRegion[] birdsFlipped = {blueBird3Flipped, blueBird1Flipped, blueBird2Flipped};
-        birdAnimation = new Animation(0.06f, birds);
-        birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        birdAnimationFlipped = new Animation(0.06f, birdsFlipped);
-        birdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+         /* Fire/Red Bird */
 
-        pipeUp = new TextureRegion(treeTopTexture, 0, 0, 960, 540);
-        // Create by flipping existing pipeUp
-        pipeDown = new TextureRegion(pipeUp);
-        pipeDown.flip(false, true);
+        //Down
+        fireBird3 = new TextureRegion(fireBird3Texture, 0, 0, 960, 540);
+        fireBird3.flip(false, true);
+        //Normal
+        fireBird1 = new TextureRegion(fireBird1Texture, 0, 0, 960, 540);
+        fireBird1.flip(false, true);
+        //Up
+        fireBird2 = new TextureRegion(fireBird2Texture, 0, 0, 960, 540);
+        fireBird2.flip(false, true);
+        //Down Flipped
+        fireBird3Flipped = new TextureRegion(fireBird3);
+        fireBird3Flipped.flip(true, false);
+        //Normal Flipped
+        fireBird1Flipped = new TextureRegion(fireBird1);
+        fireBird1Flipped.flip(true, false);
+        //Up Flipped
+        fireBird2Flipped = new TextureRegion(fireBird2);
+        fireBird2Flipped.flip(true, false);
+        TextureRegion[] fireBirds = {fireBird3, fireBird1, fireBird2};
+        TextureRegion[] fireBirdsFlipped = {fireBird3Flipped, fireBird1Flipped, fireBird2Flipped};
+        fireBirdAnimation = new Animation(0.06f, fireBirds);
+        fireBirdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        fireBirdAnimationFlipped = new Animation(0.06f, fireBirdsFlipped);
+        fireBirdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        barUp = new TextureRegion(treeTrunkTexture, 0, 0, 960, 540);
-        barUp.flip(false, true);
-        barDown = new TextureRegion(barUp);
-        barDown.flip(false, true);
+         /* Grenade/Green Bird */
+
+        //Down
+        grenadeBird3 = new TextureRegion(grenadeBird3Texture, 0, 0, 960, 540);
+        grenadeBird3.flip(false, true);
+        //Normal
+        grenadeBird1 = new TextureRegion(grenadeBird1Texture, 0, 0, 960, 540);
+        grenadeBird1.flip(false, true);
+        //Up
+        grenadeBird2 = new TextureRegion(grenadeBird2Texture, 0, 0, 960, 540);
+        grenadeBird2.flip(false, true);
+        //Down Flipped
+        grenadeBird3Flipped = new TextureRegion(grenadeBird3);
+        grenadeBird3Flipped.flip(true, false);
+        //Normal Flipped
+        grenadeBird1Flipped = new TextureRegion(grenadeBird1);
+        grenadeBird1Flipped.flip(true, false);
+        //Up Flipped
+        grenadeBird2Flipped = new TextureRegion(grenadeBird2);
+        grenadeBird2Flipped.flip(true, false);
+        TextureRegion[] grenadeBirds = {grenadeBird3, grenadeBird1, grenadeBird2};
+        TextureRegion[] grenadeBirdsFlipped = {grenadeBird3Flipped, grenadeBird1Flipped, grenadeBird2Flipped};
+        grenadeBirdAnimation = new Animation(0.06f, grenadeBirds);
+        grenadeBirdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        grenadeBirdAnimationFlipped = new Animation(0.06f, grenadeBirdsFlipped);
+        grenadeBirdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        treeTop1Up = new TextureRegion(treeTop1Texture, 0, 0, 960, 540);
+        treeTop1Up.flip(false, true);
+        treeTop1Down = new TextureRegion(treeTop1Up);
+        treeTop1Down.flip(false, true);
+
+        treeTop2Up = new TextureRegion(treeTop2Texture, 0, 0, 960, 540);
+        treeTop2Up.flip(false, true);
+        treeTop2Down = new TextureRegion(treeTop2Up);
+        treeTop2Down.flip(false, true);
+
+        treeTop3Up = new TextureRegion(treeTop3Texture, 0, 0, 960, 540);
+        treeTop3Up.flip(false, true);
+        treeTop3Down = new TextureRegion(treeTop3Up);
+        treeTop3Down.flip(false, true);
+
+
+        bar1Up = new TextureRegion(treeTrunk1Texture, 0, 0, 960, 540);
+        bar1Up.flip(false, true);
+        bar1Down = new TextureRegion(bar1Up);
+        bar1Down.flip(false, true);
+
+        bar2Up = new TextureRegion(treeTrunk2Texture, 0, 0, 960, 540);
+        bar2Up.flip(false, true);
+        bar2Down = new TextureRegion(bar2Up);
+        bar2Down.flip(false, true);
+
+        bar3Up = new TextureRegion(treeTrunk3Texture, 0, 0, 960, 540);
+        bar3Up.flip(false, true);
+        bar3Down = new TextureRegion(bar3Up);
+        bar3Down.flip(false, true);
 
         dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
         flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));

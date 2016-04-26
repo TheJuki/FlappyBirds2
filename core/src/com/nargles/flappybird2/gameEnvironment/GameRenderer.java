@@ -53,9 +53,17 @@ public class GameRenderer {
     private TextureRegion blueEgg, fireEgg, grenadeEgg, blueEggNest, fireEggNest, grenadeEggNest;
 
 
-    private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, barUp, barDown, ready,
-            fbLogo, deathScreen, highScoreScreen;
-    private Animation birdAnimation, birdAnimationFlipped;
+    private TextureRegion bg, grass,
+            bar1Up, bar1Down, bar2Up, bar2Down, bar3Up, bar3Down,
+            treeTop1Up, treeTop1Down, treeTop2Up, treeTop2Down, treeTop3Up, treeTop3Down,
+            ready,
+            fbLogo, deathScreen, highScoreScreen,
+            blueBirdMid, blueBirdMidFlipped,
+            fireBirdMid, fireBirdMidFlipped,
+            grenadeBirdMid, grenadeBirdMidFlipped;
+    private  Animation blueBirdAnimation, blueBirdAnimationFlipped,
+            fireBirdAnimation, fireBirdAnimationFlipped,
+            grenadeBirdAnimation, grenadeBirdAnimationFlipped;
 
     // Tween
     private TweenManager manager;
@@ -119,14 +127,31 @@ public class GameRenderer {
     private void initAssets() {
         bg = AssetLoader.bg;
         grass = AssetLoader.grass;
-        birdAnimation = AssetLoader.birdAnimation;
-        birdAnimationFlipped = AssetLoader.birdAnimationFlipped;
-        birdMid = AssetLoader.blueBird1;
-        birdMidFlipped = AssetLoader.blueBird1Flipped;
-        pipeUp = AssetLoader.pipeUp;
-        pipeDown = AssetLoader.pipeDown;
-        barUp = AssetLoader.barUp;
-        barDown = AssetLoader.barDown;
+        blueBirdAnimation = AssetLoader.blueBirdAnimation;
+        blueBirdAnimationFlipped = AssetLoader.blueBirdAnimationFlipped;
+        blueBirdMid = AssetLoader.blueBird1;
+        blueBirdMidFlipped = AssetLoader.blueBird1Flipped;
+        fireBirdAnimation = AssetLoader.fireBirdAnimation;
+        fireBirdAnimationFlipped = AssetLoader.fireBirdAnimationFlipped;
+        fireBirdMid = AssetLoader.fireBird1;
+        fireBirdMidFlipped = AssetLoader.fireBird1Flipped;
+        grenadeBirdAnimation = AssetLoader.grenadeBirdAnimation;
+        grenadeBirdAnimationFlipped = AssetLoader.grenadeBirdAnimationFlipped;
+        grenadeBirdMid = AssetLoader.grenadeBird1;
+        grenadeBirdMidFlipped = AssetLoader.grenadeBird1Flipped;
+        bar1Up = AssetLoader.bar1Up;
+        bar1Down = AssetLoader.bar1Down;
+        bar2Up = AssetLoader.bar2Up;
+        bar2Down = AssetLoader.bar2Down;
+        bar3Up = AssetLoader.bar3Up;
+        bar3Down = AssetLoader.bar3Down;
+
+        treeTop1Up = AssetLoader.treeTop1Up;
+        treeTop1Down = AssetLoader.treeTop1Down;
+        treeTop2Up = AssetLoader.treeTop2Up;
+        treeTop2Down = AssetLoader.treeTop2Down;
+        treeTop3Up = AssetLoader.treeTop3Up;
+        treeTop3Down = AssetLoader.treeTop3Down;
         ready = AssetLoader.ready;
         fbLogo = AssetLoader.fbLogo;
         highScoreScreen = AssetLoader.highScoreScreen;
@@ -170,12 +195,34 @@ public class GameRenderer {
         for (Pipe pipe : pipes) {
 
             if (pipe.isBarTopVisible()) {
-                batcher.draw(pipeUp, pipe.getX() + 18,
-                        pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
+
+                if(pipe.getTopHealth() > 2) {
+                    batcher.draw(treeTop1Up, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
+                }
+                else if(pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
+                    batcher.draw(treeTop2Up, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
+                }
+                else {
+                    batcher.draw(treeTop3Up, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
+                }
             }
             if (pipe.isBarBottomVisible()) {
-                batcher.draw(pipeDown, pipe.getX() + 18,
-                        pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
+                if (pipe.getBottomHealth() > 2) {
+                    batcher.draw(treeTop1Down, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
+                }
+                else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
+                    batcher.draw(treeTop2Down, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
+                }
+                else  {
+                    batcher.draw(treeTop3Down, pipe.getX() + 18,
+                            pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
+                }
+
             }
 
             if (pipe.getNest() != null) {
@@ -212,12 +259,34 @@ public class GameRenderer {
         for (Pipe pipe : pipes) {
 
             if (pipe.isBarTopVisible()) {
-                batcher.draw(barDown, pipe.getX(), pipe.getY(), pipe.getWidth(),
-                        pipe.getHeight());
+
+                if(pipe.getTopHealth() > 2) {
+                    batcher.draw(bar1Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
+                            pipe.getHeight());
+                }
+                else if(pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
+                    batcher.draw(bar2Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
+                            pipe.getHeight());
+                }
+                else {
+                    batcher.draw(bar3Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
+                            pipe.getHeight());
+                }
             }
             if (pipe.isBarBottomVisible()) {
-                batcher.draw(barUp, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
-                        pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+
+                    if (pipe.getBottomHealth() > 2) {
+                        batcher.draw(bar1Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                    }
+                   else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
+                        batcher.draw(bar2Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                    }
+                    else  {
+                        batcher.draw(bar3Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                    }
             }
         }
     }
@@ -228,7 +297,7 @@ public class GameRenderer {
      * @param runTime Update animation frame
      */
     private void drawBirdCentered(float runTime) {
-        batcher.draw(birdAnimation.getKeyFrame(runTime), 59 * 2, (bird.getY() - 15) * 2,
+        batcher.draw(blueBirdAnimation.getKeyFrame(runTime), 59 * 2, (bird.getY() - 15) * 2,
                 bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
                 bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
     }
@@ -242,24 +311,98 @@ public class GameRenderer {
     private void drawBird(float runTime) {
 
         if (bird.shouldNotFlap() && myWorld.getScroller().isRightGoing()) {
-            batcher.draw(birdMid, bird.getX(), bird.getY(),
-                    bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
-                    bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+            switch(bird.getTypeOfBird())
+            {
+                case 0:
+                    batcher.draw(blueBirdMid, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                case 1:
+                    batcher.draw(fireBirdMid, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                case 2:
+                    batcher.draw(grenadeBirdMid, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                default:
+                    break;
+            }
 
         } else if (bird.shouldNotFlap() && !myWorld.getScroller().isRightGoing()) {
-            batcher.draw(birdMidFlipped, bird.getX(), bird.getY(),
-                    bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
-                    bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+            switch(bird.getTypeOfBird())
+            {
+                case 0:
+                    batcher.draw(blueBirdMidFlipped, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                case 1:
+                    batcher.draw(fireBirdMidFlipped, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                case 2:
+                    batcher.draw(grenadeBirdMidFlipped, bird.getX(), bird.getY(),
+                            bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
+                            bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+                    break;
+                default:
+                    break;
+            }
+
         } else if (myWorld.getScroller().isRightGoing()) {
-            batcher.draw(birdAnimation.getKeyFrame(runTime), bird.getX(),
-                    bird.getY(), bird.getWidth() / 2.0f,
-                    bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
-                    1, 1, bird.getRotation());
+            switch(bird.getTypeOfBird())
+            {
+                case 0:
+                    batcher.draw(blueBirdAnimation.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                case 1:
+                    batcher.draw(fireBirdAnimation.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                case 2:
+                    batcher.draw(grenadeBirdAnimation.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                default:
+                    break;
+            }
+
         } else if (!myWorld.getScroller().isRightGoing()) {
-            batcher.draw(birdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
-                    bird.getY(), bird.getWidth() / 2.0f,
-                    bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
-                    1, 1, bird.getRotation());
+            switch(bird.getTypeOfBird())
+            {
+                case 0:
+                    batcher.draw(blueBirdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                case 1:
+                    batcher.draw(fireBirdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                case 2:
+                    batcher.draw(grenadeBirdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
+                            bird.getY(), bird.getWidth() / 2.0f,
+                            bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
+                            1, 1, bird.getRotation());
+                    break;
+                default:
+                    break;
+            }
         }
 
         List<Integer> projectilesToRemove = new ArrayList<Integer>();
@@ -294,7 +437,8 @@ public class GameRenderer {
         }
 
         for (int i : projectilesToRemove) {
-            bird.getProjectiles().remove(i);
+            if((i >= 0) && (i < bird.getProjectiles().size()))
+                 bird.getProjectiles().remove(i);
         }
 
     }
