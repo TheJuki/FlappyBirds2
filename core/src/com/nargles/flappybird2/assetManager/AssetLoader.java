@@ -29,13 +29,20 @@ public class AssetLoader {
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
             backdropTexture, groundTexture, deathScreenTexture,
+            blueBird1Texture, blueBird2Texture, blueBird3Texture,
+            fireBird1Texture, fireBird2Texture, fireBird3Texture,
+            grenadeBird1Texture, grenadeBird2Texture, grenadeBird3Texture,
             highScoreScreenTexture,
             treeTopTexture, treeTrunkTexture;
     public static TextureRegion logo, fbLogo, bg, grass,
-            bird, birdDown, birdUp,
+            blueBird1, blueBird2, blueBird3,
+            fireBird1, fireBird2, fireBird3,
+            grenadeBird1, grenadeBird2, grenadeBird3,
             blueEgg, fireEgg, grenadeEgg,
             blueEggNest, fireEggNest, grenadeEggNest,
-            birdFlipped, birdDownFlipped, birdUpFlipped,
+            blueBird1Flipped, blueBird2Flipped, blueBird3Flipped,
+            fireBird1Flipped, fireBird2Flipped, fireBird3Flipped,
+            grenadeBird1Flipped, grenadeBird2Flipped, grenadeBird3Flipped,
             pipeUp, pipeDown, barUp, barDown,
             playButtonUp, playButtonDown,
             quitButtonUp, quitButtonDown,
@@ -154,8 +161,10 @@ public class AssetLoader {
         returnButtonDownTexture = new Texture(Gdx.files.internal("data/ReturnClick.png"));
         returnButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        // Nargles Logo
         logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
+        //Texture
         texture = new Texture(Gdx.files.internal("data/texture.png"));
         texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
@@ -228,50 +237,52 @@ public class AssetLoader {
         ready = new TextureRegion(texture, 59, 83, 34, 7);
         ready.flip(false, true);
 
-        retry = new TextureRegion(texture, 59, 110, 33, 7);
-        retry.flip(false, true);
-
-        gameOver = new TextureRegion(texture, 59, 92, 46, 7);
-        gameOver.flip(false, true);
-
+        //Gameover screen
         deathScreen = new TextureRegion(deathScreenTexture, 0, 0, 595, 382);
         deathScreen.flip(false, true);
 
+        //Highscore screen
         highScoreScreen = new TextureRegion(highScoreScreenTexture, 0, 0, 960, 540);
         highScoreScreen.flip(false, true);
 
-        highScore = new TextureRegion(texture, 59, 101, 48, 7);
-        highScore.flip(false, true);
-
+        //Flappybird 2 logo
         fbLogo = new TextureRegion(gameLogoTexture, 0, 0, 960, 540);
         fbLogo.flip(false, true);
 
+        //Background
         bg = new TextureRegion(backdropTexture, 0, 0, 960, 540);
         bg.flip(false, true);
 
+        //Grass
         grass = new TextureRegion(groundTexture, 0, 0, 960, 540);
         grass.flip(false, true);
 
-        birdDown = new TextureRegion(texture, 136, 0, 17, 12);
-        birdDown.flip(false, true);
+        //Down
+        blueBird3 = new TextureRegion(texture, 136, 0, 17, 12);
+        blueBird3.flip(false, true);
 
-        bird = new TextureRegion(texture, 153, 0, 17, 12);
-        bird.flip(false, true);
+        //Normal
+        blueBird1 = new TextureRegion(texture, 153, 0, 17, 12);
+        blueBird1.flip(false, true);
 
-        birdUp = new TextureRegion(texture, 170, 0, 17, 12);
-        birdUp.flip(false, true);
+        //Up
+        blueBird2 = new TextureRegion(texture, 170, 0, 17, 12);
+        blueBird2.flip(false, true);
 
-        birdDownFlipped = new TextureRegion(texture, 136, 0, 17, 12);
-        birdDownFlipped.flip(true, true);
+        //Down Flipped
+        blueBird3Flipped = new TextureRegion(blueBird3);
+        blueBird3Flipped.flip(true, false);
 
-        birdFlipped = new TextureRegion(texture, 153, 0, 17, 12);
-        birdFlipped.flip(true, true);
+        //Normal Flipped
+        blueBird1Flipped = new TextureRegion(blueBird1);
+        blueBird1Flipped.flip(true, false);
 
-        birdUpFlipped = new TextureRegion(texture, 170, 0, 17, 12);
-        birdUpFlipped.flip(true, true);
+        //Up Flipped
+        blueBird2Flipped = new TextureRegion(blueBird2);
+        blueBird2Flipped.flip(true, false);
 
-        TextureRegion[] birds = {birdDown, bird, birdUp};
-        TextureRegion[] birdsFlipped = {birdDownFlipped, birdFlipped, birdUpFlipped};
+        TextureRegion[] birds = {blueBird3, blueBird1, blueBird2};
+        TextureRegion[] birdsFlipped = {blueBird3Flipped, blueBird1Flipped, blueBird2Flipped};
         birdAnimation = new Animation(0.06f, birds);
         birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         birdAnimationFlipped = new Animation(0.06f, birdsFlipped);

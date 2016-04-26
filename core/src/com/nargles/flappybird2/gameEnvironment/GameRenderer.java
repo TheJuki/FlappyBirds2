@@ -121,8 +121,8 @@ public class GameRenderer {
         grass = AssetLoader.grass;
         birdAnimation = AssetLoader.birdAnimation;
         birdAnimationFlipped = AssetLoader.birdAnimationFlipped;
-        birdMid = AssetLoader.bird;
-        birdMidFlipped = AssetLoader.birdFlipped;
+        birdMid = AssetLoader.blueBird1;
+        birdMidFlipped = AssetLoader.blueBird1Flipped;
         pipeUp = AssetLoader.pipeUp;
         pipeDown = AssetLoader.pipeDown;
         barUp = AssetLoader.barUp;
@@ -366,16 +366,6 @@ public class GameRenderer {
 
 
     }
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Draw Ready text sprite
