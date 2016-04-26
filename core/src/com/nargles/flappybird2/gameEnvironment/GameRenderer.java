@@ -61,7 +61,7 @@ public class GameRenderer {
             blueBirdMid, blueBirdMidFlipped,
             fireBirdMid, fireBirdMidFlipped,
             grenadeBirdMid, grenadeBirdMidFlipped;
-    private  Animation blueBirdAnimation, blueBirdAnimationFlipped,
+    private Animation blueBirdAnimation, blueBirdAnimationFlipped,
             fireBirdAnimation, fireBirdAnimationFlipped,
             grenadeBirdAnimation, grenadeBirdAnimationFlipped;
 
@@ -196,15 +196,13 @@ public class GameRenderer {
 
             if (pipe.isBarTopVisible()) {
 
-                if(pipe.getTopHealth() > 2) {
+                if (pipe.getTopHealth() > 2) {
                     batcher.draw(treeTop1Up, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
-                }
-                else if(pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
+                } else if (pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
                     batcher.draw(treeTop2Up, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
-                }
-                else {
+                } else {
                     batcher.draw(treeTop3Up, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() - 24, 96 / 1.5f, 54 / 1.5f);
                 }
@@ -213,12 +211,10 @@ public class GameRenderer {
                 if (pipe.getBottomHealth() > 2) {
                     batcher.draw(treeTop1Down, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
-                }
-                else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
+                } else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
                     batcher.draw(treeTop2Down, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
-                }
-                else  {
+                } else {
                     batcher.draw(treeTop3Down, pipe.getX() + 18,
                             pipe.getY() + pipe.getHeight() + 40, 96 / 1.5f, 54 / 1.5f);
                 }
@@ -260,33 +256,29 @@ public class GameRenderer {
 
             if (pipe.isBarTopVisible()) {
 
-                if(pipe.getTopHealth() > 2) {
+                if (pipe.getTopHealth() > 2) {
                     batcher.draw(bar1Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
                             pipe.getHeight());
-                }
-                else if(pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
+                } else if (pipe.getTopHealth() <= 2 && pipe.getTopHealth() > 1) {
                     batcher.draw(bar2Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
                             pipe.getHeight());
-                }
-                else {
+                } else {
                     batcher.draw(bar3Down, pipe.getX(), pipe.getY(), pipe.getWidth(),
                             pipe.getHeight());
                 }
             }
             if (pipe.isBarBottomVisible()) {
 
-                    if (pipe.getBottomHealth() > 2) {
-                        batcher.draw(bar1Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
-                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
-                    }
-                   else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
-                        batcher.draw(bar2Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
-                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
-                    }
-                    else  {
-                        batcher.draw(bar3Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
-                                pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
-                    }
+                if (pipe.getBottomHealth() > 2) {
+                    batcher.draw(bar1Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                            pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                } else if (pipe.getBottomHealth() <= 2 && pipe.getBottomHealth() > 1) {
+                    batcher.draw(bar2Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                            pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                } else {
+                    batcher.draw(bar3Up, pipe.getX(), pipe.getY() + pipe.getHeight() + 45,
+                            pipe.getWidth(), midPointY + (midPointY * 3) - (pipe.getHeight() + 45));
+                }
             }
         }
     }
@@ -311,8 +303,7 @@ public class GameRenderer {
     private void drawBird(float runTime) {
 
         if (bird.shouldNotFlap() && myWorld.getScroller().isRightGoing()) {
-            switch(bird.getTypeOfBird())
-            {
+            switch (bird.getTypeOfBird()) {
                 case 0:
                     batcher.draw(blueBirdMid, bird.getX(), bird.getY(),
                             bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
@@ -333,8 +324,7 @@ public class GameRenderer {
             }
 
         } else if (bird.shouldNotFlap() && !myWorld.getScroller().isRightGoing()) {
-            switch(bird.getTypeOfBird())
-            {
+            switch (bird.getTypeOfBird()) {
                 case 0:
                     batcher.draw(blueBirdMidFlipped, bird.getX(), bird.getY(),
                             bird.getWidth() / 2.0f, bird.getHeight() / 2.0f,
@@ -355,8 +345,7 @@ public class GameRenderer {
             }
 
         } else if (myWorld.getScroller().isRightGoing()) {
-            switch(bird.getTypeOfBird())
-            {
+            switch (bird.getTypeOfBird()) {
                 case 0:
                     batcher.draw(blueBirdAnimation.getKeyFrame(runTime), bird.getX(),
                             bird.getY(), bird.getWidth() / 2.0f,
@@ -380,8 +369,7 @@ public class GameRenderer {
             }
 
         } else if (!myWorld.getScroller().isRightGoing()) {
-            switch(bird.getTypeOfBird())
-            {
+            switch (bird.getTypeOfBird()) {
                 case 0:
                     batcher.draw(blueBirdAnimationFlipped.getKeyFrame(runTime), bird.getX(),
                             bird.getY(), bird.getWidth() / 2.0f,
@@ -437,8 +425,8 @@ public class GameRenderer {
         }
 
         for (int i : projectilesToRemove) {
-            if((i >= 0) && (i < bird.getProjectiles().size()))
-                 bird.getProjectiles().remove(i);
+            if ((i >= 0) && (i < bird.getProjectiles().size()))
+                bird.getProjectiles().remove(i);
         }
 
     }
@@ -498,13 +486,13 @@ public class GameRenderer {
 
         int size = 5;
 
-        if(highScores != null && highScores.size() > 0) {
-            if(highScores.size() < 5)
+        if (highScores != null && highScores.size() > 0) {
+            if (highScores.size() < 5)
                 size = highScores.size();
 
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 AssetLoader.whiteFont.draw(batcher, "" + highScores.get(i),
-                        (float) ((72 - (2 * ("" +  highScores.get(i)).length())) * 1.7), (midPointY - 9 + (10 * (i))));
+                        (float) ((72 - (2 * ("" + highScores.get(i)).length())) * 1.7), (midPointY - 9 + (10 * (i))));
             }
         }
 
@@ -557,11 +545,10 @@ public class GameRenderer {
     /**
      * Draw egg counts during game play
      */
-    private void drawEggCounts()
-    {
-        batcher.draw(blueEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 10, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
-        batcher.draw(fireEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 40, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
-        batcher.draw(grenadeEggNest,  (midPointX * .05f) - 5, (midPointY * .2f) + 70, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+    private void drawEggCounts() {
+        batcher.draw(blueEggNest, (midPointX * .05f) - 5, (midPointY * .2f) + 10, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+        batcher.draw(fireEggNest, (midPointX * .05f) - 5, (midPointY * .2f) + 40, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
+        batcher.draw(grenadeEggNest, (midPointX * .05f) - 5, (midPointY * .2f) + 70, 96 / 4, 54 / 4, 96 / 4, 54 / 4, 1, 1, 1.0f);
 
         AssetLoader.smallWhiteFont.draw(batcher, "" + bird.getNumBlueEggs(),
                 midPointX * .05f - (3 * ("" + bird.getNumBlueEggs()).length()) + 20, (midPointY * .22f) + 12);
@@ -659,7 +646,6 @@ public class GameRenderer {
 
         }
     }
-
 
 
 }

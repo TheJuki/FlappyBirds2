@@ -47,22 +47,19 @@ public class ScrollHandler {
         this.gameWorld = gameWorld;
         this.scrollSpeed = scrollSpeed;
         this.yPos = yPos;
-        frontGrass = new Grass(0, yPos, 960 , 540 / 2.5f, scrollSpeed);
-        backGrass = new Grass(frontGrass.getTailX(), yPos, 960 , 540 / 2.5f, scrollSpeed);
+        frontGrass = new Grass(0, yPos, 960, 540 / 2.5f, scrollSpeed);
+        backGrass = new Grass(frontGrass.getTailX(), yPos, 960, 540 / 2.5f, scrollSpeed);
 
         pipes = new ArrayList<Pipe>();
         // 210 * 2, 0 , 22, 10
         pipes.add(new Pipe(PIPE_START_X, PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
 
         for (int i = 1; i < NUM_PIPES; i++) {
-            if(i == 4)
-            {
+            if (i == 4) {
                 pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP,
                         PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, 0));
                 ++currentEggNest;
-            }
-            else
-            {
+            } else {
                 pipes.add(new Pipe(pipes.get(i - 1).getTailX() + PIPE_GAP,
                         PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
             }
@@ -92,6 +89,7 @@ public class ScrollHandler {
 
     /**
      * Flip direction of ground and pipe movement
+     *
      * @return if true, the game is right going now
      */
     public boolean flip() {
@@ -149,15 +147,13 @@ public class ScrollHandler {
 
             for (int i = 0; i < pipes.size(); i++) {
                 if (pipes.get(i).isScrolledBack() && !pipes.get(i).isPipeCreatedChild()) {
-                    if (gameWorld.getDistance()%5 == 4) {
-                        if(currentEggNest == 3)
+                    if (gameWorld.getDistance() % 5 == 4) {
+                        if (currentEggNest == 3)
                             currentEggNest = 0;
                         pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP,
                                 PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, true, currentEggNest));
                         currentEggNest++;
-                    }
-                    else
-                    {
+                    } else {
                         pipes.add(new Pipe(pipes.get(pipes.size() - 1).getTailX() + PIPE_GAP,
                                 PIPE_START_Y, PIPE_WIDTH, PIPE_HEIGHT, scrollSpeed, yPos, false, 0));
                     }
@@ -260,8 +256,7 @@ public class ScrollHandler {
 
             if (isDestroyed == 1) {
                 break;
-            }
-            else if (isDestroyed == 2) {
+            } else if (isDestroyed == 2) {
                 gameWorld.addPipesDestroyed(1);
                 addScore(10);
                 break;

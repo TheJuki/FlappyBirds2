@@ -22,9 +22,10 @@ public class AssetLoader {
             flipButtonLeftTexture, flipButtonRightTexture,
             highScoreButtonUpTexture, highScoreButtonDownTexture,
             controlsButtonUpTexture, controlsButtonDownTexture,
-            playButtonUpTexture,playButtonDownTexture,
-            playAgainButtonUpTexture,playAgainButtonDownTexture,
-            returnButtonUpTexture,returnButtonDownTexture,
+            playButtonUpTexture, playButtonDownTexture,
+            playAgainButtonUpTexture, playAgainButtonDownTexture,
+            returnButtonUpTexture, returnButtonDownTexture,
+            nextButtonUpTexture, nextButtonDownTexture,
             quitButtonUpTexture, quitButtonDownTexture,
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
@@ -32,7 +33,7 @@ public class AssetLoader {
             blueBird1Texture, blueBird2Texture, blueBird3Texture,
             fireBird1Texture, fireBird2Texture, fireBird3Texture,
             grenadeBird1Texture, grenadeBird2Texture, grenadeBird3Texture,
-            highScoreScreenTexture,
+            highScoreScreenTexture, controls1ScreenTexture, controls2ScreenTexture,
             treeTop1Texture, treeTop2Texture, treeTop3Texture,
             treeTrunk1Texture, treeTrunk2Texture, treeTrunk3Texture;
     public static TextureRegion logo, fbLogo, bg, grass,
@@ -52,18 +53,20 @@ public class AssetLoader {
             highScoreButtonUp, highScoreButtonDown,
             playAgainButtonUp, playAgainButtonDown,
             returnButtonUp, returnButtonDown,
+            nextButtonUp, nextButtonDown,
             flipButtonLeft, flipButtonRight, deathScreen,
-            highScoreScreen,
+            highScoreScreen, controls1Screen, controls2Screen,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
             ready;
     public static Animation blueBirdAnimation, blueBirdAnimationFlipped,
-           fireBirdAnimation, fireBirdAnimationFlipped,
-    grenadeBirdAnimation, grenadeBirdAnimationFlipped;
+            fireBirdAnimation, fireBirdAnimationFlipped,
+            grenadeBirdAnimation, grenadeBirdAnimationFlipped;
     public static Sound dead, flap, coin, fall, shoot;
     public static BitmapFont font, shadow, whiteFont, smallShadow, smallWhiteFont;
 
     /**
      * Load each asset
+     *
      * @return if true, each file was found
      */
     public static boolean load() {
@@ -132,6 +135,14 @@ public class AssetLoader {
         highScoreScreenTexture = new Texture(Gdx.files.internal("data/HighScoreScreen.png"));
         highScoreScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Controls Page 1 screen
+        controls1ScreenTexture = new Texture(Gdx.files.internal("data/HowToPlay1.png"));
+        controls1ScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //Controls Page 2 screen
+        controls2ScreenTexture = new Texture(Gdx.files.internal("data/HowToPlay2.png"));
+        controls2ScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
         blueEggTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -198,6 +209,12 @@ public class AssetLoader {
         returnButtonDownTexture = new Texture(Gdx.files.internal("data/ReturnClick.png"));
         returnButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+        //Next Button
+        nextButtonUpTexture = new Texture(Gdx.files.internal("data/Next.png"));
+        nextButtonUpTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        nextButtonDownTexture = new Texture(Gdx.files.internal("data/NextClick.png"));
+        nextButtonDownTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
         // Nargles Logo
         logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
 
@@ -253,6 +270,12 @@ public class AssetLoader {
         playAgainButtonDown = new TextureRegion(playAgainButtonDownTexture, 0, 0, 960, 540);
         playAgainButtonDown.flip(false, true);
 
+        //Next button
+        nextButtonUp = new TextureRegion(nextButtonUpTexture, 0, 0, 960, 540);
+        nextButtonUp.flip(false, true);
+        nextButtonDown = new TextureRegion(nextButtonDownTexture, 0, 0, 960, 540);
+        nextButtonDown.flip(false, true);
+
         //Return button
         returnButtonUp = new TextureRegion(returnButtonUpTexture, 0, 0, 960, 540);
         returnButtonUp.flip(false, true);
@@ -281,6 +304,14 @@ public class AssetLoader {
         //Highscore screen
         highScoreScreen = new TextureRegion(highScoreScreenTexture, 0, 0, 960, 540);
         highScoreScreen.flip(false, true);
+
+        //Controls 1 screen
+        controls1Screen = new TextureRegion(controls1ScreenTexture, 0, 0, 960, 540);
+        controls1Screen.flip(false, true);
+
+        //Controls 2 screen
+        controls2Screen = new TextureRegion(controls2ScreenTexture, 0, 0, 960, 540);
+        controls2Screen.flip(false, true);
 
         //Flappybird 2 logo
         fbLogo = new TextureRegion(gameLogoTexture, 0, 0, 960, 540);
@@ -413,14 +444,14 @@ public class AssetLoader {
         shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
 
         font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
-		font.getData().setScale(.25f, -.25f);
+        font.getData().setScale(.25f, -.25f);
 
-		whiteFont = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
-		whiteFont.getData().setScale(.1f, -.1f);
+        whiteFont = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
+        whiteFont.getData().setScale(.1f, -.1f);
 
-		shadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
+        shadow = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
         shadow.setColor(Color.BLACK);
-		shadow.getData().setScale(.28f, -.28f);
+        shadow.getData().setScale(.28f, -.28f);
 
 /*
         font = new BitmapFont(Gdx.files.internal("data/whitetext.fnt"));

@@ -53,7 +53,7 @@ public class GameWorld {
         currentState = GameState.MENU;
         this.midPointY = midPointY;
         this.midPointX = midPointX;
-        bird = new Bird(33 * 2, midPointY - 5, 96/3.5f, 54/3.5f);
+        bird = new Bird(33 * 2, midPointY - 5, 96 / 3.5f, 54 / 3.5f);
 
         scroller = new ScrollHandler(this, (midPointY) * 3, midPointX, -59);
         ground = new Rectangle(0, (float) ((midPointY) * 3), midPointX * 2, 11);

@@ -86,15 +86,11 @@ public class InputHandler implements InputProcessor {
             for (GameButton btn : menuButtons) {
                 btn.isTouchDown(screenX, screenY);
             }
-        }
-
-        else if (myWorld.isGameOver() || myWorld.isHighScore()) {
+        } else if (myWorld.isGameOver() || myWorld.isHighScore()) {
             for (GameButton btn : gameOverButtons) {
                 btn.isTouchDown(screenX, screenY);
             }
-        }
-
-        else if (myWorld.isReady()) {
+        } else if (myWorld.isReady()) {
             myWorld.start();
             myBird.onClick();
         } else if (myWorld.isRunning()) {
@@ -139,9 +135,7 @@ public class InputHandler implements InputProcessor {
                 }
             }
             return true;
-        }
-
-        else if ( myWorld.isGameOver() || myWorld.isHighScore()) {
+        } else if (myWorld.isGameOver() || myWorld.isHighScore()) {
             for (GameButton btn : gameOverButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("playagain")) {
@@ -152,9 +146,7 @@ public class InputHandler implements InputProcessor {
                 }
             }
             return true;
-        }
-
-        else if (myWorld.isRunning()) {
+        } else if (myWorld.isRunning()) {
             for (GameButton btn : inGameButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("fire") && !myBird.isOutOfAmmo()) {

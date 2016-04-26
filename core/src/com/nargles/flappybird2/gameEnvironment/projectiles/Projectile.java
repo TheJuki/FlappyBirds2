@@ -25,12 +25,12 @@ public class Projectile {
     /**
      * Constructor
      *
-     * @param x        Projectile X position
-     * @param y        Projectile Y position
-     * @param width    Projectile sprite width
-     * @param height   Projectile sprite height
-     * @param rotation Projectile rotation
-     * @param type     Projectile type
+     * @param x            Projectile X position
+     * @param y            Projectile Y position
+     * @param width        Projectile sprite width
+     * @param height       Projectile sprite height
+     * @param rotation     Projectile rotation
+     * @param type         Projectile type
      * @param isRightGoing if true, the projectile should go right
      */
     public Projectile(float x, float y, float width, float height, float rotation, boolean isRightGoing, int type) {

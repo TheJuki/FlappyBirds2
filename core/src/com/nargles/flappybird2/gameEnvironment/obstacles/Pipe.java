@@ -145,7 +145,7 @@ public class Pipe extends Scrollable {
      */
     public boolean collides(Bird bird) {
 //TODO remove easy mode
-        return (position.x < (bird.getX() + bird.getWidth())) &&
+        return ((1 == 2) && position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), pipeTopUp) && barTopVisible) ||
@@ -220,6 +220,7 @@ public class Pipe extends Scrollable {
 
     /**
      * Add nest to pipe
+     *
      * @param ammoType The type of ammo nest
      */
     private void addNest(int ammoType) {

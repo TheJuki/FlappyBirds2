@@ -224,6 +224,7 @@ public class Bird {
 
     /**
      * Shoot a projectile from Bird
+     *
      * @return The type as an int: Blue (0), Red (1), Green (2)
      */
     public int getTypeOfBird() {

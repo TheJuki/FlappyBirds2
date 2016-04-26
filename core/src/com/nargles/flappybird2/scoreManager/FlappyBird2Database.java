@@ -38,7 +38,7 @@ public class FlappyBird2Database {
      */
     public FlappyBird2Database() {
 
-         dbHandler = DatabaseFactory.getNewDatabase(DATABASE_NAME,
+        dbHandler = DatabaseFactory.getNewDatabase(DATABASE_NAME,
                 DATABASE_VERSION, DATABASE_CREATE, null);
 
         dbHandler.setupDatabase();

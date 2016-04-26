@@ -27,7 +27,7 @@ public class Nest extends Scrollable {
      * @param width       Nest sprite width
      * @param height      Nest sprite height
      * @param scrollSpeed Speed of the Nest
-     * @param ammoType The type of ammo nest
+     * @param ammoType    The type of ammo nest
      */
     public Nest(float x, float y, float width, float height, float scrollSpeed, int ammoType) {
         super(x, y, width, height, scrollSpeed);
