@@ -144,7 +144,7 @@ public class Pipe extends Scrollable {
      * @return if a bird and the pipe met
      */
     public boolean collides(Bird bird) {
-//TODO remove easy mode
+    //TODO remove easy mode -> (1 == 2) &&
         return ((1 == 2) && position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), barUp) && barTopVisible) ||
                         (Intersector.overlaps(bird.getBoundingCircle(), barDown) && barBottomVisible) ||
