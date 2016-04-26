@@ -61,7 +61,7 @@ public class AssetLoader {
     public static Animation blueBirdAnimation, blueBirdAnimationFlipped,
             fireBirdAnimation, fireBirdAnimationFlipped,
             grenadeBirdAnimation, grenadeBirdAnimationFlipped;
-    public static Sound dead, flap, coin, fall, shoot;
+    public static Sound dead, flap, coin, fall, shoot, eggGet;
     public static BitmapFont font, shadow, whiteFont, smallShadow, smallWhiteFont;
 
     /**
@@ -444,6 +444,7 @@ public class AssetLoader {
         coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
         shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
+        eggGet = Gdx.audio.newSound(Gdx.files.internal("data/eggGet.wav"));
 
         //Fonts
         font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));

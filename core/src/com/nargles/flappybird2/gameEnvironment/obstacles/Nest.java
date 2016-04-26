@@ -2,6 +2,7 @@ package com.nargles.flappybird2.gameEnvironment.obstacles;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.nargles.flappybird2.assetManager.AssetLoader;
 import com.nargles.flappybird2.gameEnvironment.Scrollable;
 import com.nargles.flappybird2.gameEnvironment.player.Bird;
 
@@ -75,6 +76,7 @@ public class Nest extends Scrollable {
 
         if ((position.x < (bird.getX() + bird.getWidth())) &&
                 ((Intersector.overlaps(bird.getBoundingCircle(), nestRectangle) && nestVisible))) {
+            AssetLoader.eggGet.play();
             collided = true;
             nestVisible = false;
             switch (ammoType) {
