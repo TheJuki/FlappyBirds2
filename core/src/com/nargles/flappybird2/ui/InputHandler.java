@@ -25,6 +25,7 @@ public class InputHandler implements InputProcessor {
     private List<GameButton> menuButtons;
     private List<GameButton> gameOverButtons;
     private List<GameButton> inGameButtons;
+    private List<GameButton> controlsScreenButtons;
 
     private float scaleFactorX;
     private float scaleFactorY;
@@ -42,6 +43,16 @@ public class InputHandler implements InputProcessor {
         menuButtons = new ArrayList<GameButton>();
         inGameButtons = new ArrayList<GameButton>();
         gameOverButtons = new ArrayList<GameButton>();
+        controlsScreenButtons = new ArrayList<GameButton>();
+
+
+        // Add Next button
+        controlsScreenButtons.add(new GameButton("next", (midPointX + 5), (midPointY * 2.1f) + 5,
+                96 / 1.3f, 54 / 1.3f, AssetLoader.nextButtonUp, AssetLoader.nextButtonDown, false));
+
+        // Add Return button
+        controlsScreenButtons.add(new GameButton("return", (midPointX - 55), (midPointY * 2.1f) + 5,
+                96 / 1.3f, 54 / 1.3f, AssetLoader.returnButtonUp, AssetLoader.returnButtonDown, false));
 
         // Add Play Again button
         gameOverButtons.add(new GameButton("playagain", (midPointX + 5), (midPointY * 2.1f) + 5,
@@ -90,6 +101,10 @@ public class InputHandler implements InputProcessor {
             for (GameButton btn : gameOverButtons) {
                 btn.isTouchDown(screenX, screenY);
             }
+        } else if (myWorld.isControls()) {
+            for (GameButton btn : controlsScreenButtons) {
+                btn.isTouchDown(screenX, screenY);
+            }
         } else if (myWorld.isReady()) {
             myWorld.start();
             myBird.onClick();
@@ -132,6 +147,8 @@ public class InputHandler implements InputProcessor {
                     Gdx.app.exit();
                 } else if (btnTapped && btn.getName().equals("highscore")) {
                     myWorld.highScore();
+                } else if (btnTapped && btn.getName().equals("controls")) {
+                    myWorld.controls();
                 }
             }
             return true;
@@ -140,6 +157,18 @@ public class InputHandler implements InputProcessor {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("playagain")) {
                     myWorld.restart();
+                } else if (btnTapped && btn.getName().equals("return")) {
+                    myWorld.restart();
+                    myWorld.menu();
+                }
+            }
+            return true;
+        }
+        else if (myWorld.isControls()) {
+            for (GameButton btn : controlsScreenButtons) {
+                boolean btnTapped = btn.isTouchUp(screenX, screenY);
+                if (btnTapped && btn.getName().equals("next")) {
+                //TODO
                 } else if (btnTapped && btn.getName().equals("return")) {
                     myWorld.restart();
                     myWorld.menu();
@@ -255,5 +284,9 @@ public class InputHandler implements InputProcessor {
 
     public List<GameButton> getGameOverButtons() {
         return gameOverButtons;
+    }
+
+    public List<GameButton> getControlsScreenButtons() {
+        return controlsScreenButtons;
     }
 }

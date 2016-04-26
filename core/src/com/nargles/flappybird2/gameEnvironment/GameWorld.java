@@ -38,7 +38,7 @@ public class GameWorld {
      * The current game state
      */
     private enum GameState {
-        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED, CONTROLS
     }
 
     /**
@@ -210,6 +210,10 @@ public class GameWorld {
         currentState = GameState.HIGHSCORE;
     }
 
+    public void controls() {
+        currentState = GameState.CONTROLS;
+    }
+
     public void gameOver() {
         currentState = GameState.GAMEOVER;
     }
@@ -233,6 +237,10 @@ public class GameWorld {
 
     public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
+    }
+
+    public boolean isControls() {
+        return currentState == GameState.CONTROLS;
     }
 
     public boolean isHighScore() {

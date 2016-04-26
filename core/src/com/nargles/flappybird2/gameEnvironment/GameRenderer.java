@@ -56,7 +56,7 @@ public class GameRenderer {
     private TextureRegion bg, grass,
             bar1Up, bar1Down, bar2Up, bar2Down, bar3Up, bar3Down,
             treeTop1Up, treeTop1Down, treeTop2Up, treeTop2Down, treeTop3Up, treeTop3Down,
-            ready,
+            ready, controls1Screen, controls2Screen,
             fbLogo, deathScreen, highScoreScreen,
             blueBirdMid, blueBirdMidFlipped,
             fireBirdMid, fireBirdMidFlipped,
@@ -73,6 +73,7 @@ public class GameRenderer {
     private List<GameButton> menuButtons;
     private List<GameButton> inGameButtons;
     private List<GameButton> gameOverButtons;
+    private List<GameButton> controlsScreenButtons;
     private Color transitionColor;
 
     /**
@@ -94,6 +95,8 @@ public class GameRenderer {
                 .getInGameButtons();
         this.gameOverButtons = ((InputHandler) Gdx.input.getInputProcessor())
                 .getGameOverButtons();
+        this.controlsScreenButtons = ((InputHandler) Gdx.input.getInputProcessor())
+                .getControlsScreenButtons();
 
         cam = new OrthographicCamera();
         cam.setToOrtho(true, 136 * 2, gameHeight * 2);
@@ -156,6 +159,8 @@ public class GameRenderer {
         fbLogo = AssetLoader.fbLogo;
         highScoreScreen = AssetLoader.highScoreScreen;
         deathScreen = AssetLoader.deathScreen;
+        controls1Screen = AssetLoader.controls1Screen;
+        controls2Screen = AssetLoader.controls2Screen;
         blueEgg = AssetLoader.blueEgg;
         fireEgg = AssetLoader.fireEgg;
         grenadeEgg = AssetLoader.grenadeEgg;
@@ -495,8 +500,17 @@ public class GameRenderer {
                         (float) ((72 - (2 * ("" + highScores.get(i)).length())) * 1.7), (midPointY - 9 + (10 * (i))));
             }
         }
+    }
 
+    /**
+     * Draw high scores
+     */
+    private void drawControlScreen() {
+        batcher.draw(controls1Screen, 22 * 3.8f, midPointY - 45, 960 / 6, 540 / 6);
 
+        for (GameButton button : controlsScreenButtons) {
+            button.draw(batcher);
+        }
     }
 
     /**
@@ -604,6 +618,8 @@ public class GameRenderer {
             drawHighScores();
             drawBird(runTime);
             drawGameOverButtons();
+        } else if (myWorld.isControls()) {
+            drawControlScreen();
         }
 
         batcher.end();

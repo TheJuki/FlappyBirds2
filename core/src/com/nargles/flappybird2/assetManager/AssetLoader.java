@@ -271,9 +271,9 @@ public class AssetLoader {
         playAgainButtonDown.flip(false, true);
 
         //Next button
-        nextButtonUp = new TextureRegion(nextButtonUpTexture, 0, 0, 960, 540);
+        nextButtonUp = new TextureRegion(nextButtonUpTexture, 0, 0, 661, 284);
         nextButtonUp.flip(false, true);
-        nextButtonDown = new TextureRegion(nextButtonDownTexture, 0, 0, 960, 540);
+        nextButtonDown = new TextureRegion(nextButtonDownTexture, 0, 0, 661, 284);
         nextButtonDown.flip(false, true);
 
         //Return button
@@ -306,11 +306,11 @@ public class AssetLoader {
         highScoreScreen.flip(false, true);
 
         //Controls 1 screen
-        controls1Screen = new TextureRegion(controls1ScreenTexture, 0, 0, 960, 540);
+        controls1Screen = new TextureRegion(controls1ScreenTexture, 0, 0, 712, 620);
         controls1Screen.flip(false, true);
 
         //Controls 2 screen
-        controls2Screen = new TextureRegion(controls2ScreenTexture, 0, 0, 960, 540);
+        controls2Screen = new TextureRegion(controls2ScreenTexture, 0, 0, 712, 620);
         controls2Screen.flip(false, true);
 
         //Flappybird 2 logo
