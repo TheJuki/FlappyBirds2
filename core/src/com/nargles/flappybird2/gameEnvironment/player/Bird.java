@@ -58,7 +58,7 @@ public class Bird {
         projectiles = new ArrayList<Projectile>();
         isRightGoing = true;
 
-        numBlueEggs = 100000;
+        numBlueEggs = 0;
         numFireEggs = 0;
         numGrenadeEggs = 0;
     }
@@ -196,7 +196,7 @@ public class Bird {
         acceleration.x = 0;
         acceleration.y = 460;
         isAlive = true;
-        numBlueEggs = 10000;
+        numBlueEggs = 0;
         numFireEggs = 0;
         numGrenadeEggs = 0;
     }

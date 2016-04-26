@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.nargles.flappybird2.assetManager.AssetLoader.bird;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -66,7 +65,7 @@ public class GameTests {
                 // Verify that each asset can be loaded
                 assertTrue (AssetLoader.load());
                 // Verify that a texture is not null
-                assertTrue (bird != null);
+                assertTrue (AssetLoader.blueBird1 != null);
                 waitForThread = false;
             }
         });
