@@ -17,7 +17,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.height = 1080 / 3;
         config.width = 1920 / 3;
-        //config.fullscreen = true;
+        config.fullscreen = true;
         config.title = "Flappy Bird II";
         config.addIcon("data/icon_128.png", Files.FileType.Internal);
         config.addIcon("data/icon_64.png", Files.FileType.Internal);
