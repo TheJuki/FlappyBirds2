@@ -406,6 +406,7 @@ public class AssetLoader {
         grenadeBirdAnimationFlipped = new Animation(0.06f, grenadeBirdsFlipped);
         grenadeBirdAnimationFlipped.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
+        //Tree tops
         treeTop1Up = new TextureRegion(treeTop1Texture, 0, 0, 960, 540);
         treeTop1Up.flip(false, true);
         treeTop1Down = new TextureRegion(treeTop1Up);
@@ -421,7 +422,7 @@ public class AssetLoader {
         treeTop3Down = new TextureRegion(treeTop3Up);
         treeTop3Down.flip(false, true);
 
-
+        //Tree trunks
         bar1Up = new TextureRegion(treeTrunk1Texture, 0, 0, 960, 540);
         bar1Up.flip(false, true);
         bar1Down = new TextureRegion(bar1Up);
@@ -437,12 +438,14 @@ public class AssetLoader {
         bar3Down = new TextureRegion(bar3Up);
         bar3Down.flip(false, true);
 
+        //Sounds
         dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
         flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("data/fall.wav"));
         shoot = Gdx.audio.newSound(Gdx.files.internal("data/shoot.wav"));
 
+        //Fonts
         font = new BitmapFont(Gdx.files.internal("data/fb2.fnt"));
         font.getData().setScale(.25f, -.25f);
 

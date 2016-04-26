@@ -28,6 +28,7 @@ public class GameWorld {
     private int distance = 0;
     private int pipesDestroyed = 0;
     private float runTime = 0;
+    private int controlsScreenPage;
     private int midPointY;
     private int midPointX;
     private GameRenderer renderer;
@@ -211,7 +212,12 @@ public class GameWorld {
     }
 
     public void controls() {
+        controlsScreenPage = 0;
         currentState = GameState.CONTROLS;
+    }
+
+    public void nextPage() {
+        controlsScreenPage = 1;
     }
 
     public void gameOver() {
@@ -265,6 +271,14 @@ public class GameWorld {
 
     public FlappyBird2Database getDb() {
         return db;
+    }
+
+    public int getControlsScreenPage() {
+        return controlsScreenPage;
+    }
+
+    public void setControlsScreenPage(int controlsScreenPage) {
+        this.controlsScreenPage = controlsScreenPage;
     }
 
 }

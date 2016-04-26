@@ -506,10 +506,23 @@ public class GameRenderer {
      * Draw high scores
      */
     private void drawControlScreen() {
-        batcher.draw(controls1Screen, 22 * 3.8f, midPointY - 45, 960 / 6, 540 / 6);
 
-        for (GameButton button : controlsScreenButtons) {
-            button.draw(batcher);
+        if(myWorld.getControlsScreenPage() == 0) {
+            batcher.draw(controls1Screen, 22 * 3.6f, midPointY - 25, 712 / 6, 620 / 6);
+
+            for (GameButton button : controlsScreenButtons) {
+                button.draw(batcher);
+            }
+        }
+        else
+        {
+            batcher.draw(controls2Screen, 22 * 3.6f, midPointY - 25, 712 / 6, 620 / 6);
+
+            for (GameButton button : controlsScreenButtons) {
+                if(button.getName().equals("return")) {
+                    button.draw(batcher);
+                }
+            }
         }
     }
 

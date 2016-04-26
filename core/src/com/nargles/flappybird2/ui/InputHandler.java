@@ -47,11 +47,11 @@ public class InputHandler implements InputProcessor {
 
 
         // Add Next button
-        controlsScreenButtons.add(new GameButton("next", (midPointX + 5), (midPointY * 2.1f) + 5,
-                96 / 1.3f, 54 / 1.3f, AssetLoader.nextButtonUp, AssetLoader.nextButtonDown, false));
+        controlsScreenButtons.add(new GameButton("next", (midPointX + 5), (midPointY * 2.9f) + 5,
+                96 / 1.3f, 54 / 1.5f, AssetLoader.nextButtonUp, AssetLoader.nextButtonDown, false));
 
         // Add Return button
-        controlsScreenButtons.add(new GameButton("return", (midPointX - 55), (midPointY * 2.1f) + 5,
+        controlsScreenButtons.add(new GameButton("return", (midPointX - 55), (midPointY * 2.9f) + 5,
                 96 / 1.3f, 54 / 1.3f, AssetLoader.returnButtonUp, AssetLoader.returnButtonDown, false));
 
         // Add Play Again button
@@ -168,7 +168,7 @@ public class InputHandler implements InputProcessor {
             for (GameButton btn : controlsScreenButtons) {
                 boolean btnTapped = btn.isTouchUp(screenX, screenY);
                 if (btnTapped && btn.getName().equals("next")) {
-                //TODO
+                    myWorld.nextPage();
                 } else if (btnTapped && btn.getName().equals("return")) {
                     myWorld.restart();
                     myWorld.menu();
