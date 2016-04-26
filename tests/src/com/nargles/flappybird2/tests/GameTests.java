@@ -75,6 +75,7 @@ public class GameTests {
             try {
                 Thread.sleep(10);
             } catch(Exception e ) {
+                e.printStackTrace();
             }
         }
 
@@ -123,6 +124,7 @@ public class GameTests {
             try {
                 Thread.sleep(10);
             } catch(Exception e ) {
+                e.printStackTrace();
             }
         }
 
@@ -246,6 +248,7 @@ public class GameTests {
             try {
                 Thread.sleep(10);
             } catch(Exception e ) {
+                e.printStackTrace();
             }
         }
 
@@ -286,6 +289,7 @@ public class GameTests {
             try {
                 Thread.sleep(10);
             } catch(Exception e ) {
+                e.printStackTrace();
             }
         }
 
@@ -342,6 +346,7 @@ public class GameTests {
             try {
                 Thread.sleep(10);
             } catch(Exception e ) {
+                e.printStackTrace();
             }
         }
 

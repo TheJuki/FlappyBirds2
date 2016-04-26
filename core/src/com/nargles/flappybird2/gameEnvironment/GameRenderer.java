@@ -54,7 +54,7 @@ public class GameRenderer {
 
 
     private TextureRegion bg, grass, birdMid, birdMidFlipped, pipeUp, pipeDown, barUp, barDown, ready,
-            fbLogo, gameOver, highScore, deathScreen, retry;
+            fbLogo, deathScreen, highScoreScreen;
     private Animation birdAnimation, birdAnimationFlipped;
 
     // Tween
@@ -129,10 +129,8 @@ public class GameRenderer {
         barDown = AssetLoader.barDown;
         ready = AssetLoader.ready;
         fbLogo = AssetLoader.fbLogo;
-        gameOver = AssetLoader.gameOver;
-        highScore = AssetLoader.highScore;
+        highScoreScreen = AssetLoader.highScoreScreen;
         deathScreen = AssetLoader.deathScreen;
-        retry = AssetLoader.retry;
         blueEgg = AssetLoader.blueEgg;
         fireEgg = AssetLoader.fireEgg;
         grenadeEgg = AssetLoader.grenadeEgg;
@@ -330,7 +328,7 @@ public class GameRenderer {
     }
 
     /**
-     * Draw HighScore and final score on board
+     * Draw score and counts
      */
     private void drawScoreboard() {
         batcher.draw(deathScreen, 22 * 4, midPointY - 20, 595 / 6, 382 / 6);
@@ -345,6 +343,39 @@ public class GameRenderer {
                 (float) ((104 - (2 * ("" + myWorld.getDistance()).length())) * 1.7), midPointY + 11);
 
     }
+
+    /**
+     * Draw high scores
+     */
+    private void drawHighScores() {
+        batcher.draw(highScoreScreen, 22 * 3.8f, midPointY - 45, 960 / 6, 540 / 6);
+
+        List<Integer> highScores = myWorld.getDb().getAllHighScores();
+
+        int size = 5;
+
+        if(highScores != null && highScores.size() > 0) {
+            if(highScores.size() < 5)
+                size = highScores.size();
+
+            for(int i = 0; i < size; i++) {
+                AssetLoader.whiteFont.draw(batcher, "" + highScores.get(i),
+                        (float) ((72 - (2 * ("" +  highScores.get(i)).length())) * 1.7), (midPointY - 9 + (10 * (i))));
+            }
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Draw Ready text sprite
@@ -449,7 +480,7 @@ public class GameRenderer {
             drawBird(runTime);
             drawGameOverButtons();
         } else if (myWorld.isHighScore()) {
-            drawScoreboard();
+            drawHighScores();
             drawBird(runTime);
             drawGameOverButtons();
         }

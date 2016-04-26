@@ -29,6 +29,7 @@ public class AssetLoader {
             fireButtonUpTexture, fireButtonDownTexture, fireButtonDisabledTexture,
             blueEggNestTexture, fireEggNestTexture, grenadeEggNestTexture,
             backdropTexture, groundTexture, deathScreenTexture,
+            highScoreScreenTexture,
             treeTopTexture, treeTrunkTexture;
     public static TextureRegion logo, fbLogo, bg, grass,
             bird, birdDown, birdUp,
@@ -43,6 +44,7 @@ public class AssetLoader {
             playAgainButtonUp, playAgainButtonDown,
             returnButtonUp, returnButtonDown,
             flipButtonLeft, flipButtonRight, deathScreen,
+            highScoreScreen,
             fireButtonUp, fireButtonDown, fireButtonDisabled,
             ready, gameOver, highScore, retry;
     public static Animation birdAnimation, birdAnimationFlipped;
@@ -81,6 +83,10 @@ public class AssetLoader {
         //Game over/death screen
         deathScreenTexture = new Texture(Gdx.files.internal("data/DeathScreen.png"));
         deathScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+        //High score screen
+        highScoreScreenTexture = new Texture(Gdx.files.internal("data/HighScoreScreen.png"));
+        highScoreScreenTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         //Eggs
         blueEggTexture = new Texture(Gdx.files.internal("data/blue_egg.png"));
@@ -230,6 +236,9 @@ public class AssetLoader {
 
         deathScreen = new TextureRegion(deathScreenTexture, 0, 0, 595, 382);
         deathScreen.flip(false, true);
+
+        highScoreScreen = new TextureRegion(highScoreScreenTexture, 0, 0, 960, 540);
+        highScoreScreen.flip(false, true);
 
         highScore = new TextureRegion(texture, 59, 101, 48, 7);
         highScore.flip(false, true);
