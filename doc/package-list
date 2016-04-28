@@ -1,0 +1,11 @@
+com.nargles.flappybird2
+com.nargles.flappybird2.assetManager
+com.nargles.flappybird2.gameEnvironment
+com.nargles.flappybird2.gameEnvironment.obstacles
+com.nargles.flappybird2.gameEnvironment.player
+com.nargles.flappybird2.gameEnvironment.projectiles
+com.nargles.flappybird2.scoreManager
+com.nargles.flappybird2.ui
+com.nargles.flappybird2.ui.Buttons
+com.nargles.flappybird2.ui.Screens
+com.nargles.flappybird2.ui.TweenAccessors
